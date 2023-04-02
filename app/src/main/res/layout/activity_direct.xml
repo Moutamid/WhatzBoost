@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    tools:context=".ui.DirectActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/backbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15sp"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="6dp"
+            android:layout_centerVertical="true"
+            app:cardBackgroundColor="@color/card"
+            android:outlineAmbientShadowColor="@color/card"
+            android:outlineSpotShadowColor="@color/card">
+
+            <ImageView
+                android:layout_width="28sp"
+                android:layout_height="28sp"
+                android:layout_margin="8sp"
+                android:src="@drawable/round_arrow_back_24"
+                app:tint="@color/icon" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Direct Chat"
+            android:layout_toRightOf="@id/backbtn"
+            android:textSize="22sp"
+            android:fontFamily="@font/montserrat_alternates"
+            android:textColor="@color/white"
+            android:layout_marginEnd="12sp" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.hbb20.CountryCodePicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:ccp_autoDetectCountry="true"
+                    app:ccp_showNameCode="false"
+                    app:ccp_contentColor="@color/white"
+                    android:layout_margin="12sp"
+                    app:ccpDialog_background="@drawable/text_bg"
+                    app:ccpDialog_textColor="@color/white"
+                    app:ccpDialog_showCloseIcon="true"
+                    android:background="@drawable/text_bg"
+                    android:gravity="center"/>
+
+                <EditText
+                    android:id="@+id/number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12sp"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_bg"
+                    android:layout_marginTop="12sp"
+                    android:layout_marginEnd="12sp"
+                    android:layout_marginBottom="12sp"
+                    android:fontFamily="@font/poppins"
+                    android:hint="Phone Number"
+                    android:inputType="number"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/off_white" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/message"
+                android:layout_width="match_parent"
+                android:layout_height="150sp"
+                android:padding="12sp"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:background="@drawable/text_bg"
+                android:layout_marginStart="12sp"
+                android:layout_marginEnd="12sp"
+                android:fontFamily="@font/poppins"
+                android:hint="Your Message"
+                android:textColor="@color/white"
+                android:textColorHint="@color/off_white" />
+
+            <Button
+                style="@style/Widget.Material3.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12sp"
+                android:layout_margin="12sp"
+                android:text="Send Message"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:fontFamily="@font/poppins"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
