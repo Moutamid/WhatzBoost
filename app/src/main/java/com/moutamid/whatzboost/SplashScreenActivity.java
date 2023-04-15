@@ -17,7 +17,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
             startActivity(new Intent(this, MainActivity.class));
             finish();
-        }, 5000);
+        }, 2000);
 
     }
 }

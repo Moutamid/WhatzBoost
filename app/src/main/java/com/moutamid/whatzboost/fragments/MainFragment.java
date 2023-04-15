@@ -35,16 +35,20 @@ public class MainFragment extends Fragment {
         });
         binding.whatsWeb.setOnClickListener(v -> {
             startActivity(new Intent(requireContext(), WhatsWebActivity.class));
+            requireActivity().finish();
         });
         binding.directChat.setOnClickListener(v -> {
             startActivity(new Intent(requireContext(), DirectActivity.class));
+            requireActivity().finish();
         });
         binding.statusSaver.setOnClickListener(v -> {
             startActivity(new Intent(requireContext(), StatusSaverActivity.class));
+            requireActivity().finish();
         });
 
         binding.repeater.setOnClickListener(v -> {
             startActivity(new Intent(requireContext(), RepeaterActivity.class));
+            requireActivity().finish();
         });
 
         return binding.getRoot();

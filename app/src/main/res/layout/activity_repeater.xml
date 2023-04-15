@@ -78,46 +78,6 @@
                 android:layout_above="@id/nuttons"
                 android:orientation="vertical">
 
-                <!--            <androidx.cardview.widget.CardView-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_margin="10sp"-->
-                <!--                app:cardCornerRadius="0dp"-->
-                <!--                app:cardElevation="0dp"-->
-                <!--                app:cardBackgroundColor="@color/background">-->
-
-                <!--                <RelativeLayout-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="match_parent">-->
-                <!--                    -->
-
-                <!--&lt;!&ndash;                    <me.angrybyte.circularslider.CircularSlider&ndash;&gt;-->
-                <!--&lt;!&ndash;                        android:id="@+id/circular"&ndash;&gt;-->
-                <!--&lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
-                <!--&lt;!&ndash;                        android:layout_height="300dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;                        android:padding="30dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;                        app:angle="0"&ndash;&gt;-->
-                <!--&lt;!&ndash;                        android:rotation="270"&ndash;&gt;-->
-                <!--&lt;!&ndash;                        app:border_color="@color/card"&ndash;&gt;-->
-                <!--&lt;!&ndash;                        app:border_thickness="14dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;                        app:thumb_color="@color/icon"&ndash;&gt;-->
-                <!--&lt;!&ndash;                        app:thumb_size="10dp" />&ndash;&gt;-->
-
-                <!--                    <TextView-->
-                <!--                        android:id="@+id/rangeUnit"-->
-                <!--                        android:layout_width="wrap_content"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:layout_centerInParent="true"-->
-                <!--                        android:text="0"-->
-                <!--                        android:gravity="center"-->
-                <!--                        android:textSize="28sp"-->
-                <!--                        android:textColor="@color/white"-->
-                <!--                        android:fontFamily="@font/poller_one" />-->
-
-                <!--                </RelativeLayout>-->
-
-                <!--            </androidx.cardview.widget.CardView>-->
-
                 <EditText
                     android:id="@+id/repeat"
                     android:layout_width="match_parent"

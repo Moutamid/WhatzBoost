@@ -18,24 +18,26 @@
             android:layout_height="wrap_content"
             android:padding="12sp"
             android:text="WhatzBoost"
-            android:textSize="26sp"
+            android:textSize="28sp"
             android:gravity="end"
             android:layout_marginTop="15sp"
             android:textColor="@color/off_white"
             android:fontFamily="@font/poller_one" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="13sp"
+            android:layout_marginEnd="12sp"
+            android:layout_marginStart="12sp"
             android:gravity="end"
-            android:textSize="24sp"
-            android:visibility="invisible"
+            android:textSize="18sp"
             android:textColor="@color/off_white"
             android:fontFamily="@font/montserrat_alternates"
-            android:text="Play With Some\nAwesome Tools" />
+            android:text="Do some magic with Text 😉" />
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_marginTop="15sp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -47,6 +49,7 @@
                 android:layout_weight="1">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/textMagic"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     app:cardCornerRadius="12sp"
@@ -80,50 +83,6 @@
                     android:textColor="@color/off_white"
                     android:fontFamily="@font/poppins"
                     android:text="Text to Emoji" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1">
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    app:cardCornerRadius="12sp"
-                    android:layout_margin="12sp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/card"
-                    app:cardElevation="0dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="14sp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/barcode_scanner"
-                            app:tint="@color/icon" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="13sp"
-                    android:textSize="16sp"
-                    android:textColor="@color/off_white"
-                    android:fontFamily="@font/poppins"
-                    android:text="Qr Scanner" />
 
             </LinearLayout>
 

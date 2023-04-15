@@ -22,12 +22,15 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/happy"
         android:hardwareAccelerated="true"
+        android:icon="@drawable/happy"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.WhatzBoost"
         tools:targetApi="31">
+        <activity
+            android:name=".TextToEmojiActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.StatusSaverActivity"
             android:exported="false" />
@@ -75,7 +78,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_paths" />
         </provider>
-
     </application>
 
 </manifest>

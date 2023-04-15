@@ -28,10 +28,12 @@ public class OtherFragment extends Fragment {
 
         binding.qrGen.setOnClickListener(v -> {
             startActivity(new Intent(requireContext(), QrGeneratorActivity.class));
+            requireActivity().finish();
         });
 
         binding.qrScan.setOnClickListener(v -> {
             startActivity(new Intent(requireContext(), QrScannerActivity.class));
+            requireActivity().finish();
         });
 
         return binding.getRoot();
