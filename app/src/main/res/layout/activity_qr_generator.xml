@@ -38,13 +38,31 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="Qr Generator"
-            android:layout_toRightOf="@id/backbtn"
-            android:textSize="22sp"
+            android:layout_alignParentRight="true"
+            android:textSize="28sp"
+            android:padding="12sp"
+            android:layout_gravity="end"
+            android:drawableTint="@color/icon"
             android:fontFamily="@font/montserrat_alternates"
             android:textColor="@color/white"
-            android:layout_marginEnd="12sp" />
+            android:layout_marginEnd="12sp"
+            android:drawablePadding="12sp"
+            android:gravity="center"
+            app:drawableLeftCompat="@drawable/round_qr_code_2_24" />
+
 
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate your secret message"
+        android:textColor="@color/text_color"
+        android:layout_gravity="end"
+        android:gravity="end"
+        android:layout_marginEnd="12sp"
+        android:layout_marginStart="12sp"
+        android:textSize="18sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -64,7 +82,7 @@
                 android:layout_margin="12sp"
                 android:background="@drawable/text_bg"
                 android:padding="15dp"
-                android:src="@drawable/qr_code" />
+                android:src="@drawable/round_qr_code_2_24" />
 
             <EditText
                 android:id="@+id/message"

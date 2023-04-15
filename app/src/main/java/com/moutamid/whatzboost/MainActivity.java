@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        //Constants.checkApp(this);
+        Constants.checkApp(this);
+
         try {
             getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, new MainFragment()).commit();
         } catch (Exception e) {

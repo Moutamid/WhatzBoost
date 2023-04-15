@@ -38,13 +38,29 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="Repeat Text"
-            android:layout_toRightOf="@id/backbtn"
-            android:textSize="22sp"
+            android:layout_alignParentRight="true"
+            android:textSize="28sp"
+            android:padding="12sp"
+            android:layout_gravity="end"
+            android:drawableTint="@color/icon"
             android:fontFamily="@font/montserrat_alternates"
             android:textColor="@color/white"
-            android:layout_marginEnd="12sp" />
+            android:layout_marginEnd="12sp"
+            android:drawablePadding="12sp"
+            android:gravity="center"
+            app:drawableLeftCompat="@drawable/round_repeat_24" />
 
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Repeat your message and shock your friends"
+        android:textColor="@color/text_color"
+        android:layout_gravity="end"
+        android:layout_marginEnd="12sp"
+        android:layout_marginStart="12sp"
+        android:textSize="18sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -144,6 +160,7 @@
                         android:padding="12sp" />
 
                     <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/newLineSwitch"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="12sp" />
@@ -152,6 +169,7 @@
                 </LinearLayout>
 
                 <Button
+                    android:id="@+id/repeatBtn"
                     style="@style/Widget.Material3.Button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -164,17 +182,24 @@
                     android:fontFamily="@font/poppins"
                     android:textColor="@color/white" />
 
-                <TextView
-                    android:id="@+id/result"
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="12sp"
-                    android:fontFamily="@font/poppins"
-                    android:padding="12sp"
-                    android:text="Your Result..."
                     android:background="@drawable/text_bg"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:fillViewport="true">
+
+                    <TextView
+                        android:id="@+id/result"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:padding="12sp"
+                        android:text="Your Result..."
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                </androidx.core.widget.NestedScrollView>
 
             </LinearLayout>
 
@@ -186,6 +211,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/share"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:cardCornerRadius="8dp"
@@ -205,6 +231,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/copy"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:cardCornerRadius="8dp"
@@ -224,6 +251,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/delete"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:cardCornerRadius="8dp"

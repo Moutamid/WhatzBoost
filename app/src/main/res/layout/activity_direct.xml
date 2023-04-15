@@ -38,13 +38,31 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="Direct Chat"
-            android:layout_toRightOf="@id/backbtn"
-            android:textSize="22sp"
+            android:layout_alignParentRight="true"
+            android:textSize="28sp"
+            android:padding="12sp"
+            android:layout_gravity="end"
+            android:drawableTint="@color/icon"
             android:fontFamily="@font/montserrat_alternates"
             android:textColor="@color/white"
-            android:layout_marginEnd="12sp" />
+            android:layout_marginEnd="12sp"
+            android:drawablePadding="12sp"
+            android:gravity="center"
+            app:drawableLeftCompat="@drawable/round_mark_unread_chat_alt_24" />
+
 
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Directly send message on whatsapp"
+        android:textColor="@color/text_color"
+        android:layout_gravity="end"
+        android:gravity="end"
+        android:layout_marginEnd="12sp"
+        android:layout_marginStart="12sp"
+        android:textSize="18sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -63,6 +81,7 @@
                 android:orientation="horizontal">
 
                 <com.hbb20.CountryCodePicker
+                    android:id="@+id/countryPick"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:ccp_autoDetectCountry="true"
@@ -109,6 +128,7 @@
                 android:textColorHint="@color/off_white" />
 
             <Button
+                android:id="@+id/send"
                 style="@style/Widget.Material3.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
