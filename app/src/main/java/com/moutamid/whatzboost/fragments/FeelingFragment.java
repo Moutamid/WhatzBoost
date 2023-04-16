@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.databinding.FragmentFeelingBinding;
 import com.moutamid.whatzboost.ui.CaptionListActivity;
+import com.moutamid.whatzboost.ui.EmotionsActivity;
 import com.moutamid.whatzboost.ui.TextToEmojiActivity;
 
 public class FeelingFragment extends Fragment {
@@ -25,8 +26,7 @@ public class FeelingFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentFeelingBinding.inflate(getLayoutInflater(), container, false);
 
@@ -63,6 +63,45 @@ public class FeelingFragment extends Fragment {
 
                         scaleDown2.start();
                         startActivity(new Intent(requireContext(), CaptionListActivity.class));
+                        requireActivity().finish();
+                        break;
+                }
+                return true;
+            }
+        });
+        binding.emotions.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int duration = 300;
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
+                                "scaleX", 0.8f);
+                        ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
+                                "scaleY", 0.8f);
+                        scaleDownX.setDuration(duration);
+                        scaleDownY.setDuration(duration);
+
+                        AnimatorSet scaleDown = new AnimatorSet();
+                        scaleDown.play(scaleDownX).with(scaleDownY);
+
+                        scaleDown.start();
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        ObjectAnimator scaleDownX2 = ObjectAnimator.ofFloat(
+                                v, "scaleX", 1f);
+                        ObjectAnimator scaleDownY2 = ObjectAnimator.ofFloat(
+                                v, "scaleY", 1f);
+                        scaleDownX2.setDuration(duration);
+                        scaleDownY2.setDuration(duration);
+
+                        AnimatorSet scaleDown2 = new AnimatorSet();
+                        scaleDown2.play(scaleDownX2).with(scaleDownY2);
+
+                        scaleDown2.start();
+                        startActivity(new Intent(requireContext(), EmotionsActivity.class));
                         requireActivity().finish();
                         break;
                 }

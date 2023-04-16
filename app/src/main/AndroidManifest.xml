@@ -29,6 +29,9 @@
         android:theme="@style/Theme.WhatzBoost"
         tools:targetApi="31">
         <activity
+            android:name=".ui.EmotionsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.CaptionListActivity"
             android:exported="false" />
         <activity

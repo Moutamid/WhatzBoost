@@ -190,6 +190,7 @@
                 android:layout_weight="1">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/emotions"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     app:cardCornerRadius="12sp"
