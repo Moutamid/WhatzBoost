@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.databinding.FragmentFeelingBinding;
 import com.moutamid.whatzboost.ui.CaptionListActivity;
+import com.moutamid.whatzboost.ui.TextToEmojiActivity;
 
 public class FeelingFragment extends Fragment {
     FragmentFeelingBinding binding;
@@ -62,7 +63,7 @@ public class FeelingFragment extends Fragment {
 
                         scaleDown2.start();
                         startActivity(new Intent(requireContext(), CaptionListActivity.class));
-
+                        requireActivity().finish();
                         break;
                 }
                 return true;
