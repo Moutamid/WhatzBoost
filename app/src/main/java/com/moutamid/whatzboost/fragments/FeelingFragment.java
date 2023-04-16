@@ -1,66 +1,74 @@
 package com.moutamid.whatzboost.fragments;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.moutamid.whatzboost.R;
+import com.moutamid.whatzboost.databinding.FragmentFeelingBinding;
+import com.moutamid.whatzboost.ui.CaptionListActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FeelingFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FeelingFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    FragmentFeelingBinding binding;
     public FeelingFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FeelingFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FeelingFragment newInstance(String param1, String param2) {
-        FeelingFragment fragment = new FeelingFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_feeling, container, false);
+        binding = FragmentFeelingBinding.inflate(getLayoutInflater(), container, false);
+
+        binding.captions.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int duration = 300;
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
+                                "scaleX", 0.8f);
+                        ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
+                                "scaleY", 0.8f);
+                        scaleDownX.setDuration(duration);
+                        scaleDownY.setDuration(duration);
+
+                        AnimatorSet scaleDown = new AnimatorSet();
+                        scaleDown.play(scaleDownX).with(scaleDownY);
+
+                        scaleDown.start();
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        ObjectAnimator scaleDownX2 = ObjectAnimator.ofFloat(
+                                v, "scaleX", 1f);
+                        ObjectAnimator scaleDownY2 = ObjectAnimator.ofFloat(
+                                v, "scaleY", 1f);
+                        scaleDownX2.setDuration(duration);
+                        scaleDownY2.setDuration(duration);
+
+                        AnimatorSet scaleDown2 = new AnimatorSet();
+                        scaleDown2.play(scaleDownX2).with(scaleDownY2);
+
+                        scaleDown2.start();
+                        startActivity(new Intent(requireContext(), CaptionListActivity.class));
+
+                        break;
+                }
+                return true;
+            }
+        });
+
+        return binding.getRoot();
     }
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="12sp"
+    android:layout_margin="5sp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/card">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12sp">
+
+        <TextView
+            android:id="@+id/caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12sp"
+            android:gravity="center"
+            android:text="Caption"
+            android:textSize="18sp"
+            android:textColor="@color/text_color"
+            android:fontFamily="@font/poppins" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12sp"
+            app:cardElevation="0dp"
+            android:layout_marginTop="6sp"
+            app:cardBackgroundColor="@color/greyTran">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/copyBtn"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/round_content_copy_24"
+                    android:drawableTint="@color/white"
+                    android:text="Copy"
+                    android:backgroundTint="@color/search"
+                    android:layout_margin="6sp"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/shareBtn"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="6sp"
+                    android:backgroundTint="@color/search"
+                    android:drawableLeft="@drawable/round_share_24"
+                    android:drawableTint="@color/white"
+                    android:text="Share"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -29,7 +29,13 @@
         android:theme="@style/Theme.WhatzBoost"
         tools:targetApi="31">
         <activity
-            android:name=".TextToEmojiActivity"
+            android:name=".ui.CaptionListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.CaptionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.TextToEmojiActivity"
             android:exported="false" />
         <activity
             android:name=".ui.StatusSaverActivity"

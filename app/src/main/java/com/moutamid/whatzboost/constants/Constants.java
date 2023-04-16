@@ -39,6 +39,8 @@ public class Constants {
     public static List<StatusItem> allWAVideoItems = new ArrayList<>();
     public static List<StatusItem> allSavedItems = new ArrayList<>();
     public static final String WaSavedRoute = "WaSavedRoute";
+    public static final String NAME = "name";
+    public static final String POS = "pos";
     public static final int PERMISSION_CODE = 1;
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     public static final String[] permissions13 = {

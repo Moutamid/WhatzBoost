@@ -3,16 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical"
     android:background="@color/background"
     tools:context=".fragments.PhotoFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
+    <com.ldt.springback.view.SpringBackLayout
+        android:id="@+id/root"
+        app:scrollOrientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/status_item"/>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/status_item" />
+
+    </com.ldt.springback.view.SpringBackLayout>
 
     <LinearLayout
         android:id="@+id/no_status_layout"

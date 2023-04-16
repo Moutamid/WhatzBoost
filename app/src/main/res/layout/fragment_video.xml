@@ -3,32 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:orientation="vertical"
     tools:context=".fragments.VideoFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
+    <com.ldt.springback.view.SpringBackLayout
+        android:id="@+id/root"
+        app:scrollOrientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/status_item"/>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/status_item" />
+
+    </com.ldt.springback.view.SpringBackLayout>
 
     <LinearLayout
         android:id="@+id/no_status_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No Status Found"
-            android:textSize="24sp"
+            android:fontFamily="@font/poller_one"
             android:gravity="center"
             android:padding="13sp"
+            android:text="No Status Found"
             android:textColor="@color/off_white"
-            android:fontFamily="@font/poller_one" />
+            android:textSize="24sp" />
 
     </LinearLayout>
 
