@@ -19,4 +19,9 @@
     <color name="card">#20202A</color>
     <color name="background">#16171C</color>
 
+<!--    <color name="red">#F82010</color>-->
+    <color name="colorPrimary">#0fd28e</color>
+    <color name="infoPageBackgroundColor">#ebebeb</color>
+    <color name="colorAccent">#0fd28e</color>
+
 </resources>

@@ -2137,4 +2137,21 @@
         <item>“I’ma keep running because a winner don’t quit on themselves.” - Beyonce, Freedom</item>
     </string-array>
 
+    <string name="dot">•</string>
+    <string name="add_button_content_description">Add sticker pack to WhatsApp</string>
+    <string name="add_to_whatsapp">Add to WhatsApp</string>
+    <string name="details_pack_already_added">Sticker pack added to WhatsApp</string>
+    <string name="tray_image_content_description">Sticker Pack Tray Image</string>
+    <string name="info_screen_tray_icon">Tray icon</string>
+    <string name="view_webpage">View webpage</string>
+    <string name="send_email">Send email</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="more_info_button">More Info</string>
+
+    <string name="title_activity_sticker_pack_details_multiple_pack">Sticker Details</string>
+    <string name="title_activity_sticker_pack_details_single_pack">Sticker Pack</string>
+    <string name="title_activity_sticker_packs_list">My WhatsApp Sticker App</string>
+    <string name="title_activity_sticker_pack_info">Info</string>
+    <string name="info_send_email_to_prompt">Send email with</string>
+
 </resources>

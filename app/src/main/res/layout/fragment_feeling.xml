@@ -49,6 +49,7 @@
                 android:layout_weight="1">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/stickers"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     app:cardCornerRadius="12sp"

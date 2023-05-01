@@ -51,6 +51,13 @@ dependencies {
 //    implementation 'me.angrybyte.slider:slider:1.4.2'
 //    implementation 'com.github.Triggertrap:SeekArc:v1.1'
 
+    implementation 'com.facebook.fresco:fresco:2.2.0'
+    implementation 'com.facebook.fresco:webpsupport:2.2.0'
+    implementation 'com.facebook.fresco:animated-webp:2.2.0'
+    implementation 'com.facebook.fresco:animated-base:2.2.0'
+
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

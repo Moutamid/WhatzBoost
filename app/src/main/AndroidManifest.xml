@@ -87,6 +87,33 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_paths" />
         </provider>
+
+        <activity
+            android:name=".whatsappsticker.StickerPackListActivity"
+            android:label="@string/title_activity_sticker_packs_list" /> <!-- android:theme="@style/AppTheme" /> -->
+        <activity
+            android:name=".whatsappsticker.StickerPackDetailsActivity"
+            android:parentActivityName=".whatsappsticker.StickerPackListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".whatsappsticker.StickerPackListActivity" />
+        </activity>
+        <activity
+            android:name=".whatsappsticker.StickerPackInfoActivity"
+            android:label="@string/title_activity_sticker_pack_info"
+            android:parentActivityName=".whatsappsticker.StickerPackDetailsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".whatsappsticker.StickerPackDetailsActivity" />
+        </activity>
+
+        <provider
+            android:name=".whatsappsticker.StickerContentProvider"
+            android:authorities="com.moutamid.whatzboost.stickercontentprovider"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.moutamid.whatzboost.sticker.READ" />
+
     </application>
 
 </manifest>
