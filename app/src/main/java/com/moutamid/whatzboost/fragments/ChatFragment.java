@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.moutamid.whatzboost.BuildConfig;
 import com.moutamid.whatzboost.R;
 
 public class ChatFragment extends Fragment {

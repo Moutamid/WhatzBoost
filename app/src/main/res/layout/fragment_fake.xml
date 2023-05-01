@@ -49,6 +49,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/profile"
                     app:cardBackgroundColor="@color/card"
                     app:cardCornerRadius="12sp"
                     app:cardElevation="0dp"
@@ -93,6 +94,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/story"
                     app:cardBackgroundColor="@color/card"
                     app:cardCornerRadius="12sp"
                     app:cardElevation="0dp"
