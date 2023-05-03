@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_audio_constraint"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@drawable/bg_card"
+    android:visibility="gone">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topconstriant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txt_audio_file_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/file_name_"
+            android:textColor="#028AC8"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/text_audio_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/audio_play_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#EBF4EC"
+            android:padding="8dp"
+
+            android:src="@drawable/ic_baseline_play_arrow_24"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <SeekBar
+            android:id="@+id/seek_bar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/audio_play_btn"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--   <com.rygelouv.audiosensei.player.AudioSenseiPlayerView
+            android:id="@+id/audio_player"
+            android:layout_width="0dp"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/linear_play"
+            app:layout_constraintStart_toEndOf="@id/audio_play_btn"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <com.tatwadeep.phonicplayer.views.PhonicPlayerView
+            android:id="@+id/a_main_audio_player1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/linear_play"
+            app:layout_constraintStart_toEndOf="@id/audio_play_btn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:custom_layout="@layout/view_audio_player_1" />-->
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/playerview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@color/icon"
+            android:visibility="visible"
+            app:auto_show="true"
+            app:controller_layout_id="@layout/item_custome_exoplayer"
+            app:hide_on_touch="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/audio_play_btn"
+            app:layout_constraintTop_toBottomOf="@+id/txt_audio_file_name"
+            app:played_color="@color/icon"
+            app:show_timeout="0"
+            app:unplayed_color="@color/black" />
+
+        <!--<com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/player_view"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_marginEnd="4dp"
+            android:layout_height="wrap_content"
+            app:played_ad_marker_color="@color/purple_200"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/linear_play"
+            app:layout_constraintStart_toEndOf="@id/audio_play_btn"
+            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <TextView
+            android:id="@+id/text_audio_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+
+            android:text="@string/dummy_time"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

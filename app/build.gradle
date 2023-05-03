@@ -27,8 +27,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 }
 
@@ -36,10 +36,21 @@ dependencies {
 
     implementation 'com.github.ldt-libs:SpringBackLayout:1.0'
 
+    implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+
     implementation 'rongi.rotate-layout:rotate-layout:3.0.0'
 
     implementation 'com.github.bumptech.glide:glide:4.15.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
+
+    implementation "com.google.android.exoplayer:exoplayer:2.18.2"
+
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    def room_version = "2.5.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation 'androidx.room:room-common:2.5.1'
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 
     implementation 'com.hbb20:ccp:2.7.0'
 

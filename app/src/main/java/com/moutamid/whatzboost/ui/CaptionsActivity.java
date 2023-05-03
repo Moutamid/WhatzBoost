@@ -65,4 +65,10 @@ public class CaptionsActivity extends AppCompatActivity {
         binding.captionRC.setAdapter(new CaptionAdapter(this, captions));
 
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
 }

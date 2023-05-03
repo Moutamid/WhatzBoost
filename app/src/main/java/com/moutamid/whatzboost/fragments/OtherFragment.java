@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.databinding.FragmentOtherBinding;
 import com.moutamid.whatzboost.ui.QrGeneratorActivity;
 import com.moutamid.whatzboost.ui.QrScannerActivity;
+import com.moutamid.whatzboost.ui.WhatsWebActivity;
 
 
 public class OtherFragment extends Fragment {
@@ -36,9 +38,9 @@ public class OtherFragment extends Fragment {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
-                                "scaleX", 0.8f);
+                                "scaleX", 0.6f);
                         ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
-                                "scaleY", 0.8f);
+                                "scaleY", 0.6f);
                         scaleDownX.setDuration(duration);
                         scaleDownY.setDuration(duration);
 
@@ -60,8 +62,11 @@ public class OtherFragment extends Fragment {
                         scaleDown2.play(scaleDownX2).with(scaleDownY2);
 
                         scaleDown2.start();
-                        startActivity(new Intent(requireContext(), QrGeneratorActivity.class));
-                        requireActivity().finish();
+                        new Handler().postDelayed(() -> {
+                            startActivity(new Intent(requireContext(), QrGeneratorActivity.class));
+                            requireActivity().finish();
+                        }, 300);
+
                         break;
                 }
                 return true;
@@ -75,9 +80,9 @@ public class OtherFragment extends Fragment {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
-                                "scaleX", 0.8f);
+                                "scaleX", 0.6f);
                         ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
-                                "scaleY", 0.8f);
+                                "scaleY", 0.6f);
                         scaleDownX.setDuration(duration);
                         scaleDownY.setDuration(duration);
 
@@ -99,8 +104,11 @@ public class OtherFragment extends Fragment {
                         scaleDown2.play(scaleDownX2).with(scaleDownY2);
 
                         scaleDown2.start();
-                        startActivity(new Intent(requireContext(), QrScannerActivity.class));
-                        requireActivity().finish();
+                        new Handler().postDelayed(() -> {
+                            startActivity(new Intent(requireContext(), QrScannerActivity.class));
+                            requireActivity().finish();
+                        }, 300);
+
                         break;
                 }
                 return true;

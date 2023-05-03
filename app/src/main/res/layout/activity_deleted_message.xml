@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    tools:context=".ui.DeletedMessageActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/backbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15sp"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="6dp"
+            android:layout_centerVertical="true"
+            app:cardBackgroundColor="@color/card"
+            android:outlineAmbientShadowColor="@color/card"
+            android:outlineSpotShadowColor="@color/card">
+
+            <ImageView
+                android:layout_width="28sp"
+                android:layout_height="28sp"
+                android:layout_margin="8sp"
+                android:src="@drawable/round_arrow_back_24"
+                app:tint="@color/icon" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Deleted Messages"
+            android:layout_alignParentRight="true"
+            android:textSize="28sp"
+            android:padding="12sp"
+            android:layout_gravity="end"
+            android:drawableTint="@color/icon"
+            android:fontFamily="@font/montserrat_alternates"
+            android:textColor="@color/white"
+            android:layout_marginEnd="12sp"
+            android:drawablePadding="12sp"
+            android:gravity="center"
+            app:drawableLeftCompat="@drawable/round_delete_outline_24" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All deleted messages are here"
+        android:textColor="@color/text_color"
+        android:layout_gravity="end"
+        android:layout_marginEnd="12sp"
+        android:layout_marginStart="12sp"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.github.rongi.rotate_layout.layout.RotateLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="15sp"
+            app:angle="270">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbarSize="0dp"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:rotation="180"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/error"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="50dp"
+                        app:cardElevation="6dp"
+                        android:layout_centerVertical="true"
+                        app:cardBackgroundColor="@color/card"
+                        android:outlineAmbientShadowColor="@color/card"
+                        android:outlineSpotShadowColor="@color/card">
+
+                        <ImageView
+                            android:layout_width="28sp"
+                            android:layout_height="28sp"
+                            android:layout_margin="8sp"
+                            android:layout_gravity="center"
+                            android:rotation="90"
+                            android:src="@drawable/round_error_24"
+                            app:tint="@color/icon_2" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/videoCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="3sp"
+                        app:cardCornerRadius="26sp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/background">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Media"
+                            android:paddingStart="20sp"
+                            android:paddingEnd="20sp"
+                            android:paddingBottom="12sp"
+                            android:paddingTop="12sp"
+                            android:textSize="18sp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/poppins" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/photoCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="3sp"
+                        app:cardCornerRadius="26sp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/card">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Messages"
+                            android:paddingStart="20sp"
+                            android:paddingEnd="20sp"
+                            android:paddingBottom="12sp"
+                            android:paddingTop="12sp"
+                            android:textSize="18sp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/poppins" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+
+        </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+        <FrameLayout
+            android:id="@+id/framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</LinearLayout>

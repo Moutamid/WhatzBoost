@@ -48,4 +48,10 @@ public class DirectActivity extends AppCompatActivity {
                         smsNumber, text))));
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
 }

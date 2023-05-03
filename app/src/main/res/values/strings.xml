@@ -3,6 +3,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="this_message_was_deleted">This message was deleted</string>
+
+    <string name="dummy_time">4:32 MP</string>
+    <string name="file_name_">File883843847671563.mp3</string>
+    <string name="doc_time">12:34 MP</string>
+    <string name="open_">OPEN</string>
+
     <!--  Captions  -->
 
     <string-array name="s_best">

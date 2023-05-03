@@ -65,5 +65,11 @@ public class QrScannerActivity extends AppCompatActivity {
         mCodeScanner.stopPreview();
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
 
 }

@@ -31,4 +31,10 @@ public class CaptionListActivity extends AppCompatActivity {
         binding.captionRC.setAdapter(new CaptionsListAdapter(this, logos));
 
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
 }

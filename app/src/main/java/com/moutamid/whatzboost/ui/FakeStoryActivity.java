@@ -2,11 +2,13 @@ package com.moutamid.whatzboost.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
 
 public class FakeStoryActivity extends AppCompatActivity {
@@ -40,5 +42,11 @@ public class FakeStoryActivity extends AppCompatActivity {
         imageView.setImageURI(story);
         personImag.setImageURI(profile);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }

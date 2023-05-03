@@ -55,4 +55,10 @@ public class WhatsWebActivity extends AppCompatActivity {
         webview.getSettings().setLoadWithOverviewMode(enabled);
         webview.reload();
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
 }

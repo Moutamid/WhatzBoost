@@ -1,14 +1,21 @@
 package com.moutamid.whatzboost.constants;
 
+import static android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION;
+
 import android.Manifest;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.UriPermission;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.Settings;
+import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -28,8 +35,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Constants {
     public static final String SAVED_FOLDER = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/WhatzBoost/Saved Status/";
@@ -110,19 +120,94 @@ public class Constants {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (
                     (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_MEDIA_VIDEO) == PackageManager.PERMISSION_GRANTED) &&
-                            (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED)
+                    (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED)
+
             ) {
                 return true;
             } else return false;
         } else {
             if (
                     (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
-                            (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                    (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
             ) {
                 return true;
             } else return false;
         }
     }
+
+    private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
+    public static boolean isNotificationServiceEnabled(Context context){
+        String pkgName = context.getPackageName();
+        final String flat = Settings.Secure.getString(context.getContentResolver(),
+                ENABLED_NOTIFICATION_LISTENERS);
+        if (!TextUtils.isEmpty(flat)) {
+            final String[] names = flat.split(":");
+            for (int i = 0; i < names.length; i++) {
+                final ComponentName cn = ComponentName.unflattenFromString(names[i]);
+                if (cn != null) {
+                    if (TextUtils.equals(pkgName, cn.getPackageName())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    public static boolean  isAllFilePermissionEnable(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if(Environment.isExternalStorageManager()){
+                return true;
+            }else
+                return false;
+        }else{
+            return true;
+        }
+    }
+    public static void requestAllFilePermission(Context context){
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.create();
+        builder.setTitle("Storage Permission!");
+        builder.setMessage("App needs all file access storage permission to work its all features. Without this permission app may not work properly.");
+        builder.setPositiveButton("Allow", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                triggerIntent(context);
+                dialogInterface.dismiss();
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+            }
+        }).show();
+    }
+
+    public static Date date;
+    public static Date dateCompareOne;
+
+    public static boolean compareDates(String startDate, String fileDate){
+        try {
+            SimpleDateFormat inputParser = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+            date = inputParser.parse(startDate);
+            dateCompareOne = inputParser.parse(fileDate);
+            return dateCompareOne.after(date);
+        }catch (Exception e){
+            Log.d("TAG", "compareDates: "+e.getMessage());
+            return true;
+        }
+
+    }
+
+    private static void triggerIntent(Context context) {
+        Intent intent  = new Intent(Intent.ACTION_VIEW);
+        intent.setAction(ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+        context.startActivity(intent);
+    }
+    public static void requestAllFilePermsiionIntent(Context context){
+        triggerIntent(context);
+    }
+
     public static void checkApp(Activity activity) {
         String appName = "WhatzBooster";
 
