@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/tool"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:cardCornerRadius="12sp"
+        android:layout_margin="12sp"
+        android:layout_weight="1"
+        app:cardBackgroundColor="@color/card"
+        app:cardElevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="14sp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/tool_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/qr_code"
+                app:tint="@color/icon" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/tool_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6sp"
+        android:layout_marginBottom="6sp"
+        android:textSize="16sp"
+        android:textColor="@color/off_white"
+        android:fontFamily="@font/poppins"
+        android:text="Qr Generator" />
+
+</LinearLayout>
