@@ -14,8 +14,7 @@ public interface MainDao {
 
     @Insert(onConflict = REPLACE)
     void insert(WhatsappData whatsappData);
-
-
+    
     @Insert(onConflict = REPLACE)
     void insert(TelegramData telegramData);
 

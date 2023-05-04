@@ -21,6 +21,7 @@ import com.moutamid.whatzboost.listners.OnChatClickListener;
 import com.moutamid.whatzboost.room.Medias;
 import com.moutamid.whatzboost.room.RoomDB;
 import com.moutamid.whatzboost.room.WhatsappData;
+import com.moutamid.whatzboost.ui.ChatDetailActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -33,7 +34,6 @@ public class MessagesFragment extends Fragment {
     WhatsappData whatsappData;
     List<WhatsappData> listOfData = new ArrayList<>();
     WamrChatAdapter chatAdapter;
-    List<Medias> mediasList = new ArrayList<>();
     public MessagesFragment() {
         // Required empty public constructor
     }
@@ -47,13 +47,15 @@ public class MessagesFragment extends Fragment {
 
         roomDB = RoomDB.getInstance(requireContext());
 
+        getChat();
+
         return binding.getRoot();
     }
 
     private void getChat() {
         whatsappData = new WhatsappData();
 
-        roomDB.mainDao().getAll().observe(this, new Observer<List<WhatsappData>>() {
+        roomDB.mainDao().getAll().observe(requireActivity(), new Observer<List<WhatsappData>>() {
             @Override
             public void onChanged(List<WhatsappData> whatsappData) {
                 Log.d("de_d", "onChanged: " + whatsappData.size());
@@ -76,12 +78,12 @@ public class MessagesFragment extends Fragment {
     OnChatClickListener onChatClickListener = new OnChatClickListener() {
         @Override
         public void onChatItemClick(WhatsappData whatsappData) {
-//            WhatsappData data = whatsappData;
-//            Intent intent = new Intent(requireContext(), ChatDetailActivity.class);
-//            intent.putExtra("name", data.getName());
-//            intent.putExtra("messages", data.getMessages());
-//            intent.putExtra("images", data.getImage());
-//            startActivity(intent);
+            WhatsappData data = whatsappData;
+            Intent intent = new Intent(requireContext(), ChatDetailActivity.class);
+            intent.putExtra("name", data.getName());
+            intent.putExtra("messages", data.getMessages());
+            intent.putExtra("images", data.getImage());
+            startActivity(intent);
         }
 
         @Override
@@ -90,26 +92,5 @@ public class MessagesFragment extends Fragment {
         }
 
     };
-
-    private List<Medias> filterList(List<Medias> list) {
-        List<Medias> updateList = new ArrayList<>();
-        for (Medias item : list) {
-
-            File f = new File(item.getFile_path());
-            if (f.exists()) {
-                updateList.add(item);
-            } else {
-                //delete from db
-                try {
-                    roomDB.mainDao().deleteChat(item.getFile_path());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }
-        this.mediasList.clear();
-        return updateList;
-    }
 
 }

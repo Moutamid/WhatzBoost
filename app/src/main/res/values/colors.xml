@@ -21,6 +21,7 @@
     <color name="yellow">#C8E88C03</color>
     <color name="card">#20202A</color>
     <color name="background">#16171C</color>
+    <color name="delete_color">#ECABA6</color>
 
 <!--    <color name="red">#F82010</color>-->
     <color name="colorPrimary">#0fd28e</color>

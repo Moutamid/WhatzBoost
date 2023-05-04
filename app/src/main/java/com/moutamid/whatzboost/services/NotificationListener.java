@@ -644,7 +644,7 @@ public class NotificationListener extends NotificationListenerService {
         return directory.getAbsolutePath() + "/" + name + ".jpg";
     }
     // TODO
-    /*
+/*
     private static String copyFileToInternalStorage(File tempFile, RoomDB database) {
         String newDirName = "tempRecover";
         String[] extractNamme = tempFile.getAbsolutePath().split("/");
@@ -735,11 +735,11 @@ public class NotificationListener extends NotificationListenerService {
         File whatsappMediaDirectoryName = new File(path);
         String pathToWatch = whatsappMediaDirectoryName.toString();
         String TAG = "img_no";
-        Log.d(TAG, "observeImage: " + path);
+        Log.d("checkNOTIF", "observeImage: " + path);
         imgObserver = new FileObserver(pathToWatch, FileObserver.ALL_EVENTS) { // set up a file observer to watch this directory on sd card
             @Override
             public void onEvent(int event, String file) {
-                Log.d(TAG, "onEvent: " + event);
+                Log.d("checkNOTIF", "onEvent: " + event);
 
                 if (event == DELETE) {
 
@@ -755,14 +755,14 @@ public class NotificationListener extends NotificationListenerService {
                     if (!myDir.exists()) {
                         myDir.mkdirs();
                     }
-                    Log.d(TAG, "onEventImage:deleteSELF " + event);
+                    Log.d("checkNOTIF", "onEventImage:deleteSELF " + event);
                     copyFileOrDirectory(pathToWatch + "/" + file, myDir.toString(), database);
                 } else if (event == MOVED_TO) {
                     File myDir = new File(savingPath);
                     if (!myDir.exists()) {
                         myDir.mkdirs();
                     }
-                    Log.d(TAG, "onEventImage: Moved" + event);
+                    Log.d("checkNOTIF", "onEventImage: Moved" + event);
                     copyFileOrDirectory(pathToWatch + "/" + file, myDir.toString(), database);
                 }
             }
@@ -777,7 +777,7 @@ public class NotificationListener extends NotificationListenerService {
         vidObserver = new FileObserver(pathToWatch, ALL_EVENTS) { // set up a file observer to watch this directory on sd card
             @Override
             public void onEvent(int event, String file) {
-                Log.d(TAG, "onEvent: " + event);
+                Log.d("checkNOTIF", "onEvent: " + event);
                 if (event == DELETE_SELF) {
                     File myDir = new File(savingPath);
                     if (!myDir.exists()) {
@@ -818,7 +818,7 @@ public class NotificationListener extends NotificationListenerService {
         FileObserver observer = new FileObserver(pathToWatch, ALL_EVENTS) { // set up a file observer to watch this directory on sd card
             @Override
             public void onEvent(int event, String file) {
-                Log.d(TAG, "onEvent: " + event);
+                Log.d("checkNOTIF", "onEvent: " + event);
                 if (event == DELETE_SELF) {
                     File myDir = new File(savingPath);
                     if (!myDir.exists()) {
@@ -855,20 +855,20 @@ public class NotificationListener extends NotificationListenerService {
     public void observVoiceNotes(String path, String savingPath, RoomDB database) {
         File whatsappMediaDirectoryName = new File(path);
         String pathToWatch = whatsappMediaDirectoryName.toString();
-        /*File f = new File("/storage/emulated/0/DMR/Whatsapp/WhatsApp Voice Notes/tst.opus");
+        File f = new File("/storage/emulated/0/DMR/Whatsapp/WhatsApp Voice Notes/tst.opus");
         database.mainDao().insert(new Medias("tst", "/storage/emulated/0/DMR/Whatsapp/WhatsApp Voice Notes/tst.opus",filetype(f),new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime())));
-        Log.d(TAG, "observVoiceNotes: run");*/
+        Log.d("checkNOTIF", "observVoiceNotes: run");
 
         FileObserver observer = new FileObserver(pathToWatch, ALL_EVENTS) { // set up a file observer to watch this directory on sd card
             @Override
             public void onEvent(int event, String file) {
-                Log.d(TAG, "onEvent: voice" + event);
+                Log.d("checkNOTIF", "onEvent: voice" + event);
                 if (event == DELETE_SELF) {
                     File myDir = new File(savingPath);
                     if (!myDir.exists()) {
                         myDir.mkdirs();
                     }
-                    Log.d(TAG, "onEvent:vocie " + "Movedt");
+                    Log.d("checkNOTIF", "onEvent:vocie " + "Movedt");
                     copyFileOrDirectory(pathToWatch + "/" + file, myDir.toString(), database);
                /*   } else if (event == 32768) {
                     File myDir = new File(savingPath);
@@ -889,7 +889,7 @@ public class NotificationListener extends NotificationListenerService {
                     if (!myDir.exists()) {
                         myDir.mkdirs();
                     }
-                    Log.d(TAG, "onEvent: delete" + DELETE);
+                    Log.d("checkNOTIF", "onEvent: delete" + DELETE);
                     copyFileOrDirectory(pathToWatch + "/" + file, myDir.toString(), database);
                 }
             }
@@ -964,7 +964,7 @@ public class NotificationListener extends NotificationListenerService {
         return result;
     }
     private void toggleNotificationListenerService() {
-        Log.d(TAG, "toggleNotificationListenerService() called");
+        Log.d("checkNOTIF", "toggleNotificationListenerService() called");
         ComponentName thisComponent = new ComponentName(this, /*getClass()*/ NotificationListener.class);
         PackageManager pm = getPackageManager();
         pm.setComponentEnabledSetting(thisComponent, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
@@ -995,7 +995,7 @@ public class NotificationListener extends NotificationListenerService {
 
         @Override
         public void onChange(boolean selfChange, @Nullable Uri uri) {
-            Log.d(TAG, "onChange: " + uri.toString());
+            Log.d("checkNOTIF", "onChange: " + uri.toString());
             super.onChange(selfChange, uri);
         }
 
@@ -1004,7 +1004,7 @@ public class NotificationListener extends NotificationListenerService {
         @Override
         public void onChange(boolean selfChange, @Nullable Uri uri, int flags) {
             //Toast.makeText(NotificationListener.this, "Insert Flag: " + flags, Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "onChange:flags " + flags);
+            Log.d("checkNOTIF", "onChange:flags " + flags);
             //   if (flags == 8 || flags == 4 || flags == 32776 || flags==32777 || flags==9 ) {
             String val = "onChange:{flags: "+flags + ",uri: "+uri.toString()+"}";
             try {
@@ -1015,7 +1015,7 @@ public class NotificationListener extends NotificationListenerService {
                             assert uri != null;
                             String pathName = getRealPathFromURI(uri);
                             TempFiles checkExist =null;
-                            Log.d(TAG, "run: -----4---: " + pathName);
+                            Log.d("checkNOTIF", "run: -----4---: " + pathName);
                             assert pathName != null;
                             if (pathName.startsWith("/storage/emulated/0/Android/media/com.whatsapp/WhatsApp/Media/") || pathName.startsWith("/storage/emulated/0/Android/media/com.whatsapp.w4b/WhatsApp Business/Media/")) {
                                 checkExist = database.mainDao().getFileDbByUri(uri.toString());
@@ -1039,7 +1039,7 @@ public class NotificationListener extends NotificationListenerService {
 
         @Override
         public void onChange(boolean selfChange, @NonNull Collection<Uri> uris, int flags) {
-            Log.d(TAG, "onChangecollections: " + flags);
+            Log.d("checkNOTIF", "onChangecollections: " + flags);
             //  Toast.makeText(NotificationListener.this, "Change Flag: " + flags, Toast.LENGTH_SHORT).show();
             String val = "onChange:{flags: "+flags + ",uri: "+uris.size()+"}";
             try {
@@ -1057,7 +1057,7 @@ public class NotificationListener extends NotificationListenerService {
                                 return;
                             if (fileDb.getFile_path().equals(uri.toString())) {
 
-                                Log.d(TAG, "run: saving" + savingPath);
+                                Log.d("checkNOTIF", "run: saving" + savingPath);
                                 String[] scheme = fileDb.getName().split("/");
                                 String name = scheme[scheme.length - 1];
                                 File destFile = new File(savingPath.toString(), name);
