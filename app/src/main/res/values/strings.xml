@@ -10,6 +10,10 @@
     <string name="doc_time">12:34 MP</string>
     <string name="open_">OPEN</string>
 
+    <string name="VideoSplitter">VideoSplitter</string>
+
+    <string name="split_msg"><b>Have longer video and unable to upload the whole video to Whatsapp status?</b><br /> <br /> No Issues!!!!! Use our <b>video splitter</b> to split and upload the whole video in one go.</string>
+
     <!--  Captions  -->
 
     <string-array name="s_best">

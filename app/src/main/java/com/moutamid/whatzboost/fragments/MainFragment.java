@@ -25,6 +25,7 @@ import com.moutamid.whatzboost.ui.DeletedMessageActivity;
 import com.moutamid.whatzboost.ui.DirectActivity;
 import com.moutamid.whatzboost.ui.RepeaterActivity;
 import com.moutamid.whatzboost.ui.StatusSaverActivity;
+import com.moutamid.whatzboost.ui.VideoSplitterActivity;
 import com.moutamid.whatzboost.ui.WhatsWebActivity;
 
 public class MainFragment extends Fragment {
@@ -99,8 +100,43 @@ public class MainFragment extends Fragment {
 
             return true;
         });
-        binding.videoSplitter.setOnClickListener(v -> {
+        binding.videoSplitter.setOnTouchListener((v, event) -> {
+            int duration = 300;
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
+                            "scaleX", 0.6f);
+                    ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
+                            "scaleY", 0.6f);
+                    scaleDownX.setDuration(duration);
+                    scaleDownY.setDuration(duration);
 
+                    AnimatorSet scaleDown = new AnimatorSet();
+                    scaleDown.play(scaleDownX).with(scaleDownY);
+
+                    scaleDown.start();
+                    break;
+
+                case MotionEvent.ACTION_UP:
+                    ObjectAnimator scaleDownX2 = ObjectAnimator.ofFloat(
+                            v, "scaleX", 1f);
+                    ObjectAnimator scaleDownY2 = ObjectAnimator.ofFloat(
+                            v, "scaleY", 1f);
+                    scaleDownX2.setDuration(duration);
+                    scaleDownY2.setDuration(duration);
+
+                    AnimatorSet scaleDown2 = new AnimatorSet();
+                    scaleDown2.play(scaleDownX2).with(scaleDownY2);
+
+                    scaleDown2.start();
+                    new Handler().postDelayed(() -> {
+                        startActivity(new Intent(requireContext(), VideoSplitterActivity.class));
+                        requireActivity().finish();
+                    }, 300);
+
+                    break;
+            }
+            return true;
         });
         binding.whatsWeb.setOnTouchListener(new View.OnTouchListener() {
             @Override

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    tools:context=".ui.SearchActivity">
+    tools:context=".ui.ShowSplitVideoActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="Search Tool"
+            android:text="Saved Videos"
             android:layout_alignParentRight="true"
             android:textSize="28sp"
             android:padding="12sp"
@@ -49,7 +49,7 @@
             android:layout_marginEnd="12sp"
             android:drawablePadding="12sp"
             android:gravity="center"
-            app:drawableLeftCompat="@drawable/round_search_24" />
+            app:drawableLeftCompat="@drawable/round_video_library_24" />
 
 
     </RelativeLayout>
@@ -57,13 +57,20 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Deleted Messages For This Person"
+        android:text="All your split videos"
         android:textColor="@color/text_color"
         android:layout_gravity="end"
-        android:visibility="invisible"
         android:gravity="end"
         android:layout_marginEnd="12sp"
         android:layout_marginStart="12sp"
         android:textSize="18sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="12sp"
+        android:layout_weight="1" />
+
 
 </LinearLayout>
