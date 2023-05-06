@@ -43,6 +43,21 @@ public class CaptionsListAdapter extends RecyclerView.Adapter<CaptionsListAdapte
             public boolean onTouch(View v, MotionEvent event) {
                 int duration = 300;
                 switch (event.getAction()) {
+
+                    case MotionEvent.ACTION_MOVE:
+                        ObjectAnimator scaleDownXX = ObjectAnimator.ofFloat(v,
+                                "scaleX", 1f);
+                        ObjectAnimator scaleDownYY = ObjectAnimator.ofFloat(v,
+                                "scaleY", 1f);
+                        scaleDownXX.setDuration(duration);
+                        scaleDownYY.setDuration(duration);
+
+                        AnimatorSet scaleDownn = new AnimatorSet();
+                        scaleDownn.play(scaleDownXX).with(scaleDownYY);
+
+                        scaleDownn.start();
+                        break;
+
                     case MotionEvent.ACTION_DOWN:
                         ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
                                 "scaleX", 0.8f);

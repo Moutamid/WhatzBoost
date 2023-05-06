@@ -3,6 +3,7 @@ package com.moutamid.whatzboost.fragments;
 import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -30,6 +31,7 @@ import com.moutamid.whatzboost.ui.WhatsWebActivity;
 
 public class MainFragment extends Fragment {
     FragmentMainBinding binding;
+
     public MainFragment() {
         // Required empty public constructor
     }
@@ -42,6 +44,21 @@ public class MainFragment extends Fragment {
         binding.deleteMessage.setOnTouchListener((v, event) -> {
             int duration = 300;
             switch (event.getAction()) {
+
+                case MotionEvent.ACTION_MOVE:
+                    ObjectAnimator scaleDownXX = ObjectAnimator.ofFloat(v,
+                            "scaleX", 1f);
+                    ObjectAnimator scaleDownYY = ObjectAnimator.ofFloat(v,
+                            "scaleY", 1f);
+                    scaleDownXX.setDuration(duration);
+                    scaleDownYY.setDuration(duration);
+
+                    AnimatorSet scaleDownn = new AnimatorSet();
+                    scaleDownn.play(scaleDownXX).with(scaleDownYY);
+
+                    scaleDownn.start();
+                    break;
+
                 case MotionEvent.ACTION_DOWN:
                     ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
                             "scaleX", 0.6f);
@@ -83,7 +100,7 @@ public class MainFragment extends Fragment {
                                 ActivityCompat.requestPermissions(requireActivity(), Constants.permissions, 1);
                             }
                         } else {
-                            if (!Constants.isNotificationServiceEnabled(requireContext())){
+                            if (!Constants.isNotificationServiceEnabled(requireContext())) {
                                 Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
                                 startActivity(intent);
                             } else {
@@ -100,212 +117,18 @@ public class MainFragment extends Fragment {
 
             return true;
         });
-        binding.videoSplitter.setOnTouchListener((v, event) -> {
-            int duration = 300;
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
-                            "scaleX", 0.6f);
-                    ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
-                            "scaleY", 0.6f);
-                    scaleDownX.setDuration(duration);
-                    scaleDownY.setDuration(duration);
 
-                    AnimatorSet scaleDown = new AnimatorSet();
-                    scaleDown.play(scaleDownX).with(scaleDownY);
 
-                    scaleDown.start();
-                    break;
-
-                case MotionEvent.ACTION_UP:
-                    ObjectAnimator scaleDownX2 = ObjectAnimator.ofFloat(
-                            v, "scaleX", 1f);
-                    ObjectAnimator scaleDownY2 = ObjectAnimator.ofFloat(
-                            v, "scaleY", 1f);
-                    scaleDownX2.setDuration(duration);
-                    scaleDownY2.setDuration(duration);
-
-                    AnimatorSet scaleDown2 = new AnimatorSet();
-                    scaleDown2.play(scaleDownX2).with(scaleDownY2);
-
-                    scaleDown2.start();
-                    new Handler().postDelayed(() -> {
-                        startActivity(new Intent(requireContext(), VideoSplitterActivity.class));
-                        requireActivity().finish();
-                    }, 300);
-
-                    break;
-            }
-            return true;
-        });
-        binding.whatsWeb.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int duration = 300;
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
-                                "scaleX", 0.6f);
-                        ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
-                                "scaleY", 0.6f);
-                        scaleDownX.setDuration(duration);
-                        scaleDownY.setDuration(duration);
-
-                        AnimatorSet scaleDown = new AnimatorSet();
-                        scaleDown.play(scaleDownX).with(scaleDownY);
-
-                        scaleDown.start();
-                        break;
-
-                    case MotionEvent.ACTION_UP:
-                        ObjectAnimator scaleDownX2 = ObjectAnimator.ofFloat(
-                                v, "scaleX", 1f);
-                        ObjectAnimator scaleDownY2 = ObjectAnimator.ofFloat(
-                                v, "scaleY", 1f);
-                        scaleDownX2.setDuration(duration);
-                        scaleDownY2.setDuration(duration);
-
-                        AnimatorSet scaleDown2 = new AnimatorSet();
-                        scaleDown2.play(scaleDownX2).with(scaleDownY2);
-
-                        scaleDown2.start();
-                        new Handler().postDelayed(() -> {
-                            startActivity(new Intent(requireContext(), WhatsWebActivity.class));
-                            requireActivity().finish();
-                        }, 300);
-
-                        break;
-                }
-                return true;
-            }
-        });
-
-        binding.directChat.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int duration = 300;
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
-                                "scaleX", 0.6f);
-                        ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
-                                "scaleY", 0.6f);
-                        scaleDownX.setDuration(duration);
-                        scaleDownY.setDuration(duration);
-
-                        AnimatorSet scaleDown = new AnimatorSet();
-                        scaleDown.play(scaleDownX).with(scaleDownY);
-
-                        scaleDown.start();
-                        break;
-
-                    case MotionEvent.ACTION_UP:
-                        ObjectAnimator scaleDownX2 = ObjectAnimator.ofFloat(
-                                v, "scaleX", 1f);
-                        ObjectAnimator scaleDownY2 = ObjectAnimator.ofFloat(
-                                v, "scaleY", 1f);
-                        scaleDownX2.setDuration(duration);
-                        scaleDownY2.setDuration(duration);
-
-                        AnimatorSet scaleDown2 = new AnimatorSet();
-                        scaleDown2.play(scaleDownX2).with(scaleDownY2);
-
-                        scaleDown2.start();
-                        new Handler().postDelayed(() -> {
-                            startActivity(new Intent(requireContext(), DirectActivity.class));
-                            requireActivity().finish();
-                        }, 300);
-
-                        break;
-                }
-                return true;
-            }
-        });
-
-        binding.statusSaver.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int duration = 300;
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
-                                "scaleX", 0.6f);
-                        ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
-                                "scaleY", 0.6f);
-                        scaleDownX.setDuration(duration);
-                        scaleDownY.setDuration(duration);
-
-                        AnimatorSet scaleDown = new AnimatorSet();
-                        scaleDown.play(scaleDownX).with(scaleDownY);
-
-                        scaleDown.start();
-                        break;
-
-                    case MotionEvent.ACTION_UP:
-                        ObjectAnimator scaleDownX2 = ObjectAnimator.ofFloat(
-                                v, "scaleX", 1f);
-                        ObjectAnimator scaleDownY2 = ObjectAnimator.ofFloat(
-                                v, "scaleY", 1f);
-                        scaleDownX2.setDuration(duration);
-                        scaleDownY2.setDuration(duration);
-
-                        AnimatorSet scaleDown2 = new AnimatorSet();
-                        scaleDown2.play(scaleDownX2).with(scaleDownY2);
-
-                        scaleDown2.start();
-                        new Handler().postDelayed(() -> {
-                            startActivity(new Intent(requireContext(), StatusSaverActivity.class));
-                            requireActivity().finish();
-                        }, 300);
-
-                        break;
-                }
-                return true;
-            }
-        });
-
-        binding.repeater.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int duration = 300;
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
-                                "scaleX", 0.6f);
-                        ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
-                                "scaleY", 0.6f);
-                        scaleDownX.setDuration(duration);
-                        scaleDownY.setDuration(duration);
-
-                        AnimatorSet scaleDown = new AnimatorSet();
-                        scaleDown.play(scaleDownX).with(scaleDownY);
-
-                        scaleDown.start();
-                        break;
-
-                    case MotionEvent.ACTION_UP:
-                        ObjectAnimator scaleDownX2 = ObjectAnimator.ofFloat(
-                                v, "scaleX", 1f);
-                        ObjectAnimator scaleDownY2 = ObjectAnimator.ofFloat(
-                                v, "scaleY", 1f);
-                        scaleDownX2.setDuration(duration);
-                        scaleDownY2.setDuration(duration);
-
-                        AnimatorSet scaleDown2 = new AnimatorSet();
-                        scaleDown2.play(scaleDownX2).with(scaleDownY2);
-
-                        scaleDown2.start();
-                        new Handler().postDelayed(() -> {
-                            startActivity(new Intent(requireContext(), RepeaterActivity.class));
-                            requireActivity().finish();
-                        }, 300);
-
-                        break;
-                }
-                return true;
-            }
-        });
+        binding.videoSplitter.setOnTouchListener(Constants.customOnTouchListner(VideoSplitterActivity.class, requireContext(), requireActivity()));
+        binding.whatsWeb.setOnTouchListener(Constants.customOnTouchListner(WhatsWebActivity.class, requireContext(), requireActivity()));
+        binding.directChat.setOnTouchListener(Constants.customOnTouchListner(DirectActivity.class, requireContext(), requireActivity()));
+        binding.statusSaver.setOnTouchListener(Constants.customOnTouchListner(StatusSaverActivity.class, requireContext(), requireActivity()));
+        binding.repeater.setOnTouchListener(Constants.customOnTouchListner(RepeaterActivity.class, requireContext(), requireActivity()));
 
         return binding.getRoot();
     }
+
+
+
+
 }

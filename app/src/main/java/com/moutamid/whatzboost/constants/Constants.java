@@ -3,6 +3,8 @@ package com.moutamid.whatzboost.constants;
 import static android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION;
 
 import android.Manifest;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -13,9 +15,12 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -206,6 +211,63 @@ public class Constants {
     }
     public static void requestAllFilePermsiionIntent(Context context){
         triggerIntent(context);
+    }
+
+    public static View.OnTouchListener customOnTouchListner(Class<?> classs, Context context, Activity activity) {
+        return (v, event) -> {
+            int duration = 300;
+            Log.d("OnTouchLog", event.getAction() + " " + event.toString());
+            switch (event.getAction()) {
+
+                case MotionEvent.ACTION_MOVE:
+                    ObjectAnimator scaleDownXX = ObjectAnimator.ofFloat(v,
+                            "scaleX", 1f);
+                    ObjectAnimator scaleDownYY = ObjectAnimator.ofFloat(v,
+                            "scaleY", 1f);
+                    scaleDownXX.setDuration(duration);
+                    scaleDownYY.setDuration(duration);
+
+                    AnimatorSet scaleDownn = new AnimatorSet();
+                    scaleDownn.play(scaleDownXX).with(scaleDownYY);
+
+                    scaleDownn.start();
+                    break;
+
+                case MotionEvent.ACTION_DOWN:
+                    ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
+                            "scaleX", 0.6f);
+                    ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
+                            "scaleY", 0.6f);
+                    scaleDownX.setDuration(duration);
+                    scaleDownY.setDuration(duration);
+
+                    AnimatorSet scaleDown = new AnimatorSet();
+                    scaleDown.play(scaleDownX).with(scaleDownY);
+
+                    scaleDown.start();
+                    break;
+
+                case MotionEvent.ACTION_UP:
+                    ObjectAnimator scaleDownX2 = ObjectAnimator.ofFloat(
+                            v, "scaleX", 1f);
+                    ObjectAnimator scaleDownY2 = ObjectAnimator.ofFloat(
+                            v, "scaleY", 1f);
+                    scaleDownX2.setDuration(duration);
+                    scaleDownY2.setDuration(duration);
+
+                    AnimatorSet scaleDown2 = new AnimatorSet();
+                    scaleDown2.play(scaleDownX2).with(scaleDownY2);
+
+                    scaleDown2.start();
+                    new Handler().postDelayed(() -> {
+                        context.startActivity(new Intent(context, classs));
+                        activity.finish();
+                    }, 300);
+
+                    break;
+            }
+            return true;
+        };
     }
 
     public static void checkApp(Activity activity) {

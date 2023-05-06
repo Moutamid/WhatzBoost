@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.moutamid.whatzboost.R;
+import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.FragmentMagicBinding;
 import com.moutamid.whatzboost.ui.CaptionListActivity;
 import com.moutamid.whatzboost.ui.QrScannerActivity;
@@ -32,48 +33,7 @@ public class MagicFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentMagicBinding.inflate(getLayoutInflater(), container, false);
 
-        binding.textMagic.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int duration = 300;
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
-                                "scaleX", 0.6f);
-                        ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
-                                "scaleY", 0.6f);
-                        scaleDownX.setDuration(duration);
-                        scaleDownY.setDuration(duration);
-
-                        AnimatorSet scaleDown = new AnimatorSet();
-                        scaleDown.play(scaleDownX).with(scaleDownY);
-
-                        scaleDown.start();
-                        break;
-
-                    case MotionEvent.ACTION_UP:
-                        ObjectAnimator scaleDownX2 = ObjectAnimator.ofFloat(
-                                v, "scaleX", 1f);
-                        ObjectAnimator scaleDownY2 = ObjectAnimator.ofFloat(
-                                v, "scaleY", 1f);
-                        scaleDownX2.setDuration(duration);
-                        scaleDownY2.setDuration(duration);
-
-                        AnimatorSet scaleDown2 = new AnimatorSet();
-                        scaleDown2.play(scaleDownX2).with(scaleDownY2);
-
-                        scaleDown2.start();
-                        new Handler().postDelayed(() -> {
-                            startActivity(new Intent(requireContext(), TextToEmojiActivity.class));
-                            requireActivity().finish();
-                        }, 300);
-
-
-                        break;
-                }
-                return true;
-            }
-        });
+        binding.textMagic.setOnTouchListener(Constants.customOnTouchListner(TextToEmojiActivity.class, requireContext(), requireActivity()));
 
 
         return binding.getRoot();

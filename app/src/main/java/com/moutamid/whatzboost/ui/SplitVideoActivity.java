@@ -1,7 +1,5 @@
 package com.moutamid.whatzboost.ui;
 
-import static com.arthenica.mobileffmpeg.Config.RETURN_CODE_CANCEL;
-import static com.arthenica.mobileffmpeg.Config.RETURN_CODE_SUCCESS;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -38,9 +36,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.arthenica.mobileffmpeg.Config;
-import com.arthenica.mobileffmpeg.ExecuteCallback;
-import com.arthenica.mobileffmpeg.FFmpeg;
 import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.constants.Constants;
@@ -349,69 +344,69 @@ public class SplitVideoActivity extends AppCompatActivity {
         progressDialog.setMessage("Please Wait");
         progressDialog.show();
         String ffmpegCommand = UtilCommand.main(strArr);
-        FFmpeg.executeAsync(ffmpegCommand, new ExecuteCallback() {
-
-            @Override
-            public void apply(final long executionId, final int returnCode) {
-                Log.d("TAG", String.format("FFmpeg process exited with rc %d.", returnCode));
-
-                Log.d("TAG", "FFmpeg process output:");
-
-                Config.printLastCommandOutput(Log.INFO);
-
-                progressDialog.dismiss();
-                if (returnCode == RETURN_CODE_SUCCESS) {
-                    progressDialog.dismiss();
-                    Toasty.success(SplitVideoActivity.this,"Video Splitted Successfully!",Toasty.LENGTH_SHORT).show();
-                    StringBuilder sb = new StringBuilder();
-                   /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-                        sb.append(CreateFolder(getBaseContext()));
-                     else*/
-                    sb.append(Environment.getExternalStorageDirectory().getAbsoluteFile());
-                    sb.append("/");
-                    sb.append(SplitVideoActivity.this.getResources().getString(R.string.VideoSplitter));
-                    sb.append("/");
-                    File[] listFiles = new File(sb.toString()).listFiles();
-                    ArrayList<String> listofpath = new ArrayList();
-                    for (File file : listFiles) {
-                        if (file.isFile()) {
-                            listofpath.add(file.getPath());
-                            Intent intent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
-                            intent.setData(Uri.fromFile(file));
-                            SplitVideoActivity.this.getApplicationContext().sendBroadcast(intent);
-                        }
-                    }
-                    Intent intent = new Intent(SplitVideoActivity.this,ShowSplitVideoActivity.class);
-                    intent.putStringArrayListExtra("split",listofpath);
-                    intent.putExtra("all",false);
-                    Log.d("de_path", "apply: "+ new File(videoPath).getName());
-                    intent.putExtra("name",(new File(videoPath).getName()));
-                    SplitVideoActivity.this.refreshGallery(str);
-                    startActivity(intent);
-                    finish();
-                } else if (returnCode == RETURN_CODE_CANCEL) {
-                    Log.d("ffmpegfailure", str);
-                    try {
-                        new File(str).delete();
-                        SplitVideoActivity.this.deleteFromGallery(str);
-                        Toasty.error(SplitVideoActivity.this, "Error Creating Video", 0).show();
-                    } catch (Throwable th) {
-                        th.printStackTrace();
-                    }
-                } else {
-                    Log.d("ffmpegfailure", str);
-                    try {
-                        new File(str).delete();
-                        SplitVideoActivity.this.deleteFromGallery(str);
-                        Toasty.error(SplitVideoActivity.this, "Error Creating Video", 0).show();
-                    } catch (Throwable th) {
-                        th.printStackTrace();
-                    }
-                }
-
-
-            }
-        });
+//        FFmpeg.executeAsync(ffmpegCommand, new ExecuteCallback() {
+//
+//            @Override
+//            public void apply(final long executionId, final int returnCode) {
+//                Log.d("TAG", String.format("FFmpeg process exited with rc %d.", returnCode));
+//
+//                Log.d("TAG", "FFmpeg process output:");
+//
+//                Config.printLastCommandOutput(Log.INFO);
+//
+//                progressDialog.dismiss();
+//                if (returnCode == RETURN_CODE_SUCCESS) {
+//                    progressDialog.dismiss();
+//                    Toasty.success(SplitVideoActivity.this,"Video Splitted Successfully!",Toasty.LENGTH_SHORT).show();
+//                    StringBuilder sb = new StringBuilder();
+//                   /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+//                        sb.append(CreateFolder(getBaseContext()));
+//                     else*/
+//                    sb.append(Environment.getExternalStorageDirectory().getAbsoluteFile());
+//                    sb.append("/");
+//                    sb.append(SplitVideoActivity.this.getResources().getString(R.string.VideoSplitter));
+//                    sb.append("/");
+//                    File[] listFiles = new File(sb.toString()).listFiles();
+//                    ArrayList<String> listofpath = new ArrayList();
+//                    for (File file : listFiles) {
+//                        if (file.isFile()) {
+//                            listofpath.add(file.getPath());
+//                            Intent intent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
+//                            intent.setData(Uri.fromFile(file));
+//                            SplitVideoActivity.this.getApplicationContext().sendBroadcast(intent);
+//                        }
+//                    }
+//                    Intent intent = new Intent(SplitVideoActivity.this,ShowSplitVideoActivity.class);
+//                    intent.putStringArrayListExtra("split",listofpath);
+//                    intent.putExtra("all",false);
+//                    Log.d("de_path", "apply: "+ new File(videoPath).getName());
+//                    intent.putExtra("name",(new File(videoPath).getName()));
+//                    SplitVideoActivity.this.refreshGallery(str);
+//                    startActivity(intent);
+//                    finish();
+//                } else if (returnCode == RETURN_CODE_CANCEL) {
+//                    Log.d("ffmpegfailure", str);
+//                    try {
+//                        new File(str).delete();
+//                        SplitVideoActivity.this.deleteFromGallery(str);
+//                        Toasty.error(SplitVideoActivity.this, "Error Creating Video", 0).show();
+//                    } catch (Throwable th) {
+//                        th.printStackTrace();
+//                    }
+//                } else {
+//                    Log.d("ffmpegfailure", str);
+//                    try {
+//                        new File(str).delete();
+//                        SplitVideoActivity.this.deleteFromGallery(str);
+//                        Toasty.error(SplitVideoActivity.this, "Error Creating Video", 0).show();
+//                    } catch (Throwable th) {
+//                        th.printStackTrace();
+//                    }
+//                }
+//
+//
+//            }
+//        });
         getWindow().clearFlags(16);
     }
 

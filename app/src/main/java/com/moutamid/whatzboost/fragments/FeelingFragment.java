@@ -21,9 +21,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.FragmentFeelingBinding;
 import com.moutamid.whatzboost.ui.CaptionListActivity;
 import com.moutamid.whatzboost.ui.EmotionsActivity;
+import com.moutamid.whatzboost.ui.QrScannerActivity;
 import com.moutamid.whatzboost.whatsappsticker.StickerPack;
 import com.moutamid.whatzboost.whatsappsticker.StickerPackDetailsActivity;
 import com.moutamid.whatzboost.whatsappsticker.StickerPackListActivity;
@@ -50,90 +52,30 @@ public class FeelingFragment extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading...");
 
-        binding.captions.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int duration = 300;
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
-                                "scaleX", 0.8f);
-                        ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
-                                "scaleY", 0.8f);
-                        scaleDownX.setDuration(duration);
-                        scaleDownY.setDuration(duration);
+        binding.captions.setOnTouchListener(Constants.customOnTouchListner(CaptionListActivity.class, requireContext(), requireActivity()));
 
-                        AnimatorSet scaleDown = new AnimatorSet();
-                        scaleDown.play(scaleDownX).with(scaleDownY);
-
-                        scaleDown.start();
-                        break;
-
-                    case MotionEvent.ACTION_UP:
-                        ObjectAnimator scaleDownX2 = ObjectAnimator.ofFloat(
-                                v, "scaleX", 1f);
-                        ObjectAnimator scaleDownY2 = ObjectAnimator.ofFloat(
-                                v, "scaleY", 1f);
-                        scaleDownX2.setDuration(duration);
-                        scaleDownY2.setDuration(duration);
-
-                        AnimatorSet scaleDown2 = new AnimatorSet();
-                        scaleDown2.play(scaleDownX2).with(scaleDownY2);
-
-                        scaleDown2.start();
-                        startActivity(new Intent(requireContext(), CaptionListActivity.class));
-                        requireActivity().finish();
-                        break;
-                }
-                return true;
-            }
-        });
-        binding.emotions.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int duration = 300;
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
-                                "scaleX", 0.8f);
-                        ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
-                                "scaleY", 0.8f);
-                        scaleDownX.setDuration(duration);
-                        scaleDownY.setDuration(duration);
-
-                        AnimatorSet scaleDown = new AnimatorSet();
-                        scaleDown.play(scaleDownX).with(scaleDownY);
-
-                        scaleDown.start();
-                        break;
-
-                    case MotionEvent.ACTION_UP:
-                        ObjectAnimator scaleDownX2 = ObjectAnimator.ofFloat(
-                                v, "scaleX", 1f);
-                        ObjectAnimator scaleDownY2 = ObjectAnimator.ofFloat(
-                                v, "scaleY", 1f);
-                        scaleDownX2.setDuration(duration);
-                        scaleDownY2.setDuration(duration);
-
-                        AnimatorSet scaleDown2 = new AnimatorSet();
-                        scaleDown2.play(scaleDownX2).with(scaleDownY2);
-
-                        scaleDown2.start();
-                        startActivity(new Intent(requireContext(), EmotionsActivity.class));
-                        requireActivity().finish();
-                        break;
-                }
-                return true;
-            }
-        });
+        binding.emotions.setOnTouchListener(Constants.customOnTouchListner(EmotionsActivity.class, requireContext(), requireActivity()));
         binding.stickers.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int duration = 300;
                 switch (event.getAction()) {
+
+                    case MotionEvent.ACTION_MOVE:
+                        ObjectAnimator scaleDownXX = ObjectAnimator.ofFloat(v,
+                                "scaleX", 1f);
+                        ObjectAnimator scaleDownYY = ObjectAnimator.ofFloat(v,
+                                "scaleY", 1f);
+                        scaleDownXX.setDuration(duration);
+                        scaleDownYY.setDuration(duration);
+
+                        AnimatorSet scaleDownn = new AnimatorSet();
+                        scaleDownn.play(scaleDownXX).with(scaleDownYY);
+
+                        scaleDownn.start();
+                        break;
+
                     case MotionEvent.ACTION_DOWN:
                         ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
                                 "scaleX", 0.8f);
