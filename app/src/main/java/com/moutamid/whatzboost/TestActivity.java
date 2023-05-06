@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.moutamid.whatzboost.databinding.ActivityTestBinding;
-import com.moutamid.whatzboost.views.VerticalTabLayout;
+import com.moutamid.whatzboost.testing.views.VerticalTabLayout;
 
 public class TestActivity extends AppCompatActivity {
     ActivityTestBinding binding;

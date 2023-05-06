@@ -1,8 +1,11 @@
 package com.moutamid.whatzboost.ui;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -13,6 +16,8 @@ import android.util.Log;
 import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.databinding.ActivityVideoSplitterBinding;
+import com.videotrimmer.library.utils.LogMessage;
+import com.videotrimmer.library.utils.TrimVideo;
 
 public class VideoSplitterActivity extends AppCompatActivity {
     ActivityVideoSplitterBinding binding;
@@ -36,6 +41,11 @@ public class VideoSplitterActivity extends AppCompatActivity {
         });
 
         binding.add.setOnClickListener(v -> {
+
+            //Java
+
+
+
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, REQUEST_SELECT_VIDEO);
         });
@@ -53,13 +63,18 @@ public class VideoSplitterActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_SELECT_VIDEO && resultCode == RESULT_OK && data != null) {
             Uri selectedVideoUri = data.getData();
+            TrimVideo.activity(String.valueOf(selectedVideoUri))
+//        .setCompressOption(new CompressOption()) //empty constructor for default compress option
+                    .setHideSeekBar(false)
+                    .setDestination("/storage/emulated/0/DCIM/WhatzBoost/")  //default output path /storage/emulated/0/DOWNLOADS
+                    .start(this);
 
-            String selectedVideoPath = getRealPathFromURI(selectedVideoUri);
-            // Use selectedVideoPath as needed
-            Intent intent = new Intent(VideoSplitterActivity.this, SplitVideoActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("Video_Uri", selectedVideoPath);
-            startActivity(intent);
+//            String selectedVideoPath = getRealPathFromURI(selectedVideoUri);
+//            // Use selectedVideoPath as needed
+//            Intent intent = new Intent(VideoSplitterActivity.this, SplitVideoActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            intent.putExtra("Video_Uri", selectedVideoPath);
+//            startActivity(intent);
         }
     }
 

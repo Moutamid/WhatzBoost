@@ -1,9 +1,7 @@
-package com.moutamid.whatzboost.views;
+package com.moutamid.whatzboost.testing.views;
 
 import android.view.LayoutInflater;
 import android.view.View;
-
-import androidx.annotation.LayoutRes;
 
 import com.google.android.material.tabs.TabLayout;
 import com.moutamid.whatzboost.R;

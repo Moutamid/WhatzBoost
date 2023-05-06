@@ -1,4 +1,4 @@
-package com.moutamid.whatzboost.views;
+package com.moutamid.whatzboost.testing.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
