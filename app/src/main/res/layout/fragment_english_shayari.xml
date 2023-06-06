@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/background"
+    tools:context=".fragments.EnglishShayariFragment">
+
+    <LinearLayout
+        android:id="@+id/authorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Author's"
+            android:textSize="28sp"
+            android:padding="12sp"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/white"
+            android:layout_margin="12sp"
+            android:gravity="center" />
+
+        <com.ldt.springback.view.SpringBackLayout
+            android:id="@+id/root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:scrollOrientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/authorRC"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/captions_item_list"
+                app:spanCount="2"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                android:layout_marginTop="10sp" />
+
+        </com.ldt.springback.view.SpringBackLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Titles"
+            android:textSize="28sp"
+            android:padding="12sp"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/white"
+            android:layout_margin="12sp"
+            android:gravity="center" />
+
+        <com.ldt.springback.view.SpringBackLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:scrollOrientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/titleRC"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/captions_item_list"
+                app:spanCount="2"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                android:layout_marginTop="10sp" />
+
+        </com.ldt.springback.view.SpringBackLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/poetLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Poetry you love"
+            android:textSize="28sp"
+            android:padding="12sp"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/white"
+            android:layout_margin="12sp"
+            android:gravity="center" />
+
+        <com.ldt.springback.view.SpringBackLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:scrollOrientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/poetRC"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/caption_item_card"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_marginTop="10sp" />
+
+        </com.ldt.springback.view.SpringBackLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

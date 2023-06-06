@@ -16,8 +16,8 @@ import android.util.Log;
 import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.databinding.ActivityVideoSplitterBinding;
-import com.videotrimmer.library.utils.LogMessage;
-import com.videotrimmer.library.utils.TrimVideo;
+//import com.videotrimmer.library.utils.LogMessage;
+//import com.videotrimmer.library.utils.TrimVideo;
 
 public class VideoSplitterActivity extends AppCompatActivity {
     ActivityVideoSplitterBinding binding;
@@ -63,11 +63,11 @@ public class VideoSplitterActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_SELECT_VIDEO && resultCode == RESULT_OK && data != null) {
             Uri selectedVideoUri = data.getData();
-            TrimVideo.activity(String.valueOf(selectedVideoUri))
-//        .setCompressOption(new CompressOption()) //empty constructor for default compress option
-                    .setHideSeekBar(false)
-                    .setDestination("/storage/emulated/0/DCIM/WhatzBoost/")  //default output path /storage/emulated/0/DOWNLOADS
-                    .start(this);
+           // TrimVideo.activity(String.valueOf(selectedVideoUri))
+////        .setCompressOption(new CompressOption()) //empty constructor for default compress option
+//                    .setHideSeekBar(false)
+//                    .setDestination("/storage/emulated/0/DCIM/WhatzBoost/")  //default output path /storage/emulated/0/DOWNLOADS
+//                    .start(this);
 
 //            String selectedVideoPath = getRealPathFromURI(selectedVideoUri);
 //            // Use selectedVideoPath as needed

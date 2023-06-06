@@ -6,12 +6,14 @@ import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.UriPermission;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -21,11 +23,14 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
+import com.fxn.stash.Stash;
+import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.models.StatusItem;
 
 import org.json.JSONException;
@@ -54,6 +59,7 @@ public class Constants {
     public static List<StatusItem> allWAVideoItems = new ArrayList<>();
     public static List<StatusItem> allSavedItems = new ArrayList<>();
     public static final String WaSavedRoute = "WaSavedRoute";
+    public static final String API_LINK = "https://poetrydb.org/author";
     public static final String NAME = "name";
     public static final String POS = "pos";
     public static final int PERMISSION_CODE = 1;
@@ -70,6 +76,44 @@ public class Constants {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE
     };
+
+    public static Dialog dialog;
+
+    public static String titleLink(String name){
+        if (name.contains(" ")){
+            name = name.replace(" ", "%20");
+        }
+        return API_LINK + "/" + name + "/title";
+    }
+
+    public static String poetryLink(String name) {
+//        https://poetrydb.org/author,title/Shakespeare;Sonnet
+        String auth = Stash.getString("AUTH");
+        if (auth.contains(" ")){
+            auth = auth.replace(" ", "%20");
+        }
+        if (name.contains(" ")){
+            name = name.replace(" ", "%20");
+        }
+        return API_LINK + ",title/" + auth + ";" + name;
+    }
+
+    public static void initDialog(Context context){
+        dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.loading_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCancelable(false);
+    }
+
+    public static void showDialog(){
+        dialog.show();
+    }
+
+    public static void dismissDialog(){
+        dialog.dismiss();
+    }
+
     public static boolean checkFolder() {
         File dirs = new File(SAVED_FOLDER);
         if (dirs.exists()) return true;

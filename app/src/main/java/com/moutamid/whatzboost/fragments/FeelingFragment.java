@@ -26,6 +26,7 @@ import com.moutamid.whatzboost.databinding.FragmentFeelingBinding;
 import com.moutamid.whatzboost.ui.CaptionListActivity;
 import com.moutamid.whatzboost.ui.EmotionsActivity;
 import com.moutamid.whatzboost.ui.QrScannerActivity;
+import com.moutamid.whatzboost.ui.ShayariActivity;
 import com.moutamid.whatzboost.whatsappsticker.StickerPack;
 import com.moutamid.whatzboost.whatsappsticker.StickerPackDetailsActivity;
 import com.moutamid.whatzboost.whatsappsticker.StickerPackListActivity;
@@ -55,6 +56,7 @@ public class FeelingFragment extends Fragment {
         binding.captions.setOnTouchListener(Constants.customOnTouchListner(CaptionListActivity.class, requireContext(), requireActivity()));
 
         binding.emotions.setOnTouchListener(Constants.customOnTouchListner(EmotionsActivity.class, requireContext(), requireActivity()));
+        binding.shayari.setOnTouchListener(Constants.customOnTouchListner(ShayariActivity.class, requireContext(), requireActivity()));
         binding.stickers.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
             @Override
