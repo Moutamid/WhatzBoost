@@ -4,63 +4,72 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.moutamid.whatzboost.R;
+import com.moutamid.whatzboost.adapters.CaptionAdapter;
+import com.moutamid.whatzboost.constants.Constants;
+import com.moutamid.whatzboost.databinding.FragmentHindiShayariBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HindiShayariFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+
 public class HindiShayariFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    FragmentHindiShayariBinding binding;
     public HindiShayariFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HindiShayariFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HindiShayariFragment newInstance(String param1, String param2) {
-        HindiShayariFragment fragment = new HindiShayariFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hindi_shayari, container, false);
+        binding = FragmentHindiShayariBinding.inflate(getLayoutInflater(), container, false);
+
+        try {
+//                        Toast.makeText(context, htmlData, Toast.LENGTH_SHORT).show();
+            JSONObject jsonObject = new JSONObject(loadJSONFromAsset());
+            Log.d("HTMLDATA", "Size: " + jsonObject.length());
+            JSONArray array = jsonObject.getJSONArray("shayris");
+            String[] poetry = new String[array.length()];
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject shayriText = array.getJSONObject(i);
+                poetry[i] = shayriText.getString("shayriText");
+            }
+            CaptionAdapter adapter = new CaptionAdapter(requireContext(), poetry);
+            Constants.dismissDialog();
+            binding.poetRC.setHasFixedSize(false);
+            binding.poetRC.setAdapter(adapter);
+        } catch (JSONException error) {
+            Constants.dismissDialog();
+            Toast.makeText(requireActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        return binding.getRoot();
     }
+
+    public String loadJSONFromAsset() {
+        String json = null;
+        try {
+            InputStream is = requireActivity().getAssets().open("shayri.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
 }
