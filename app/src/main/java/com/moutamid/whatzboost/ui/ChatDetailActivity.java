@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,7 +34,21 @@ public class ChatDetailActivity extends AppCompatActivity {
     String time;
     String TAG = "le_chdetail";
 
+    public static final String EXTRA_MESSAGE_TITLE = "EXTRA_MESSAGE_TITLE";
+    public static final String EXTRA_MESSAGE_PACK = "EXTRA_MESSAGE_PACK";
+    public static final String EXTRA_MESSAGE_SHOW = "EXTRA_MESSAGE_SHOW";
+    public static final String CHAT_NONE = "";
+    public static String title = CHAT_NONE;
+
     ExecutorService executor = Executors.newSingleThreadExecutor();
+
+    public static Intent getStartIntent(Context context, String msgTitle, String pack, boolean isFromService) {
+        Intent intent = new Intent(context, ChatDetailActivity.class);
+        intent.putExtra(EXTRA_MESSAGE_TITLE, msgTitle);
+        intent.putExtra(EXTRA_MESSAGE_PACK, pack);
+        intent.putExtra(EXTRA_MESSAGE_SHOW, isFromService);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

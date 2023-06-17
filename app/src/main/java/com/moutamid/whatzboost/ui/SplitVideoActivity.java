@@ -18,6 +18,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaCodec;
+import android.media.MediaExtractor;
+import android.media.MediaFormat;
+import android.media.MediaMetadataRetriever;
+import android.media.MediaMuxer;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -53,12 +58,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener {
     ActivitySplitVideoBinding binding;
     String path;
+    Context context;
     private int splitFileCount = 0;
     private int stopPosition = 0;
     int start = -1;
@@ -70,6 +78,8 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
         super.onCreate(savedInstanceState);
         binding = ActivitySplitVideoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        context = this;
 
         binding.backbtn.setOnClickListener(v -> {
             onBackPressed();
@@ -141,34 +151,151 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
         binding.videoView.start();
     }
 
-    public final File folder = new File(
-            Environment.getExternalStorageDirectory(), Environment.DIRECTORY_DOWNLOADS
-    );
-    private final String SPLIT_VIDEO = "WhatzBoost Videos";
-    public final File splitVideoFolder = new File(folder, SPLIT_VIDEO);
-
     private void splitVideo() {
+
+        final File folder = new File(
+                context.getExternalFilesDir(""), "SuperTech Uploader"
+        );
+        final String SPLIT_VIDEO = "Split Video";
+        final File splitVideoFolder = new File(folder, SPLIT_VIDEO);
+
         ArrayList<String> videoFiles = new ArrayList<>();
         for (int i = 0; i < splitFileCount; i++) {
-            String outputPath = splitVideoFolder.getPath() + SEPARATOR +
-                    "video" + i + ".mp4";
-            videoFiles.add(splitVideoFolder.getPath() + SEPARATOR +
-                    "video" + i + ".mp4");
+            String outputPath = splitVideoFolder.getPath() + SEPARATOR + "video" + i + ".mp4";
+            videoFiles.add(splitVideoFolder.getPath() + SEPARATOR + "video" + i + ".mp4");
+
+            File pa = new File(outputPath);
+            pa.mkdir();
+
+           Log.i("TAg1111", "outputPath : " + outputPath);
+           Log.i("TAg1111", "root : " + pa.mkdir());
+           Log.i("TAg1111", "root : " + pa.getPath());
 
             try {
-                Log.i("TAG", "start : " + start);
-                Log.i("TAG", "end : " + end);
-                com.moutamid.whatzboost.videosplitter.SplitVideo.genVideoUsingMuxer(path, outputPath, start, end, true, true);
-                Log.i("TAG", "video saved : " + i);
+                Log.i("TAg1111", "start : " + start);
+                Log.i("TAg1111", "end : " + end);
+                Log.i("TAg1111", "path : " + path);
+                genVideoUsingMuxer(path, outputPath, start, end, true, true);
+                Log.i("TAg1111", "video saved : " + i);
                 start = end;
                 end = end + 29000;
-
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.d("TAg1111", "Catch : " + e.getMessage());
             }
         }
         saveVideos(videoFiles);
     }
+
+    private static final int DEFAULT_BUFFER_SIZE = 1024 * 1024;
+
+    @SuppressLint("WrongConstant")
+    public void genVideoUsingMuxer(String srcPath, String dstPath, int startMs, int endMs, boolean useAudio, boolean useVideo) throws IOException {
+        // Set up MediaExtractor to read from the source.
+        MediaExtractor extractor = new MediaExtractor();
+        Log.d("BUGCHECK123", "1");
+        extractor.setDataSource(srcPath);
+        Log.d("BUGCHECK123", "2");
+        int trackCount = extractor.getTrackCount();
+        Log.d("BUGCHECK123", "3");
+        // Set up MediaMuxer for the destination.
+        MediaMuxer muxer = null;
+        try {
+            muxer = new MediaMuxer(dstPath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
+        } catch (Exception e){
+            Log.d("BUGCHECK123", e.getMessage());
+        }
+        Log.d("BUGCHECK123", "4");
+        // Set up the tracks and retrieve the max buffer size for selected
+        // tracks.
+        HashMap<Integer, Integer> indexMap = new HashMap<>(trackCount);
+        Log.d("BUGCHECK123", "5");
+        int bufferSize = -1;
+        for (int i = 0; i < trackCount; i++) {
+            MediaFormat format = extractor.getTrackFormat(i);
+            Log.d("BUGCHECK123", "6");
+            String mime = format.getString(MediaFormat.KEY_MIME);
+            Log.d("BUGCHECK123", "7");
+            boolean selectCurrentTrack = false;
+            if (mime.startsWith("audio/") && useAudio) {
+                selectCurrentTrack = true;
+            } else if (mime.startsWith("video/") && useVideo) {
+                selectCurrentTrack = true;
+            }
+            if (selectCurrentTrack) {
+                Log.d("BUGCHECK123", "8 IFFF");
+                extractor.selectTrack(i);
+                int dstIndex = muxer.addTrack(format);
+                Log.d("BUGCHECK123", "8.444 mux");
+                indexMap.put(i, dstIndex);
+                if (format.containsKey(MediaFormat.KEY_MAX_INPUT_SIZE)) {
+                    Log.d("BUGCHECK123", "8 8 IFFF");
+                    int newSize = format.getInteger(MediaFormat.KEY_MAX_INPUT_SIZE);
+                    bufferSize = Math.max(newSize, bufferSize);
+                } else {
+                    Log.d("BUGCHECK123", "8 Elseee");
+                }
+            } else {
+                Log.d("BUGCHECK123", "9 Elseee");
+            }
+        }
+        if (bufferSize < 0) {
+            bufferSize = DEFAULT_BUFFER_SIZE;
+        }
+        Log.d("BUGCHECK123", "10");
+        // Set up the orientation and starting time for extractor.
+        MediaMetadataRetriever retrieverSrc = new MediaMetadataRetriever();
+        Log.d("BUGCHECK123", "11");
+        retrieverSrc.setDataSource(srcPath);
+        Log.d("BUGCHECK123", "12");
+        String degreesString = retrieverSrc.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
+        Log.d("BUGCHECK123", "13");
+        if (degreesString != null) {
+            int degrees = Integer.parseInt(degreesString);
+            if (degrees >= 0) {
+                muxer.setOrientationHint(degrees);
+            }
+        }
+        if (startMs > 0) {
+            extractor.seekTo(startMs * 1000L, MediaExtractor.SEEK_TO_CLOSEST_SYNC);
+        }
+        // Copy the samples from MediaExtractor to MediaMuxer. We will loop
+        // for copying each sample and stop when we get to the end of the source
+        // file or exceed the end time of the trimming.
+        int offset = 0;
+        int trackIndex = -1;
+        ByteBuffer dstBuf = ByteBuffer.allocate(bufferSize);
+        MediaCodec.BufferInfo bufferInfo = new MediaCodec.BufferInfo();
+        muxer.start();
+        while (true) {
+            bufferInfo.offset = offset;
+            bufferInfo.size = extractor.readSampleData(dstBuf, offset);
+            if (bufferInfo.size < 0) {
+                bufferInfo.size = 0;
+                break;
+            } else {
+                bufferInfo.presentationTimeUs = extractor.getSampleTime();
+                if (endMs > 0 && bufferInfo.presentationTimeUs > (endMs * 1000L)) {
+                    break;
+                } else {
+                    bufferInfo.flags = extractor.getSampleFlags(); //
+                    trackIndex = extractor.getSampleTrackIndex();
+                    muxer.writeSampleData(indexMap.get(trackIndex), dstBuf, bufferInfo);
+                    extractor.advance();
+                }
+            }
+        }
+
+        try {
+            muxer.stop();
+        } catch (Throwable e) {
+            Log.d("TAg1111", "Muxer : " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        muxer.release();
+    }
+
 
     private void saveVideos(ArrayList<String> videoFiles) {
 

@@ -217,7 +217,7 @@
                             <ImageView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
-                                android:src="@drawable/chat"
+                                android:src="@drawable/whatsapp"
                                 app:tint="@color/icon" />
 
                         </LinearLayout>
@@ -229,9 +229,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="13sp"
                         android:textSize="16sp"
+                        android:gravity="center"
                         android:textColor="@color/off_white"
                         android:fontFamily="@font/poppins"
-                        android:text="Direct Chat" />
+                        android:text="Open WA Profile" />
 
                 </LinearLayout>
 

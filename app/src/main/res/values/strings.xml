@@ -11,6 +11,11 @@
 
     <string name="VideoSplitter">VideoSplitter</string>
 
+    <string name="media_msg_deleted">Media message deleted</string>
+    <string name="recovered_deleted">I recovered a deleted media!</string>
+    <string name="reply">REPLY</string>
+    <string name="mark_as_read">Mark as Read</string>
+
     <string name="split_msg"><b>Have longer video and unable to upload the whole video to Whatsapp status?</b><br /> <br /> No Issues!!!!! Use our <b>video splitter</b> to split and upload the whole video in one go.</string>
 
     <!--  Captions  -->

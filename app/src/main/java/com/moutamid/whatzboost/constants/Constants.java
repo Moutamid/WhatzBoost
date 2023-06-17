@@ -1,6 +1,9 @@
 package com.moutamid.whatzboost.constants;
 
+import static android.os.Environment.DIRECTORY_DCIM;
 import static android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION;
+
+import static com.moutamid.whatzboost.constants.DirUtils.TAG;
 
 import android.Manifest;
 import android.animation.AnimatorSet;
@@ -38,13 +41,17 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,6 +70,88 @@ public class Constants {
     public static final String NAME = "name";
     public static final String POS = "pos";
     public static final int PERMISSION_CODE = 1;
+    public static File profilePath = new File(MyApplication.context.getFilesDir().getPath() + "/Profile Pics");
+
+    public static File VideoBackupfolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Whats Recovery/Media/WhatsRecovery Video");
+    public static File ImageBackupfolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Whats Recovery/Media/WhatsRecovery Images");
+    public static File Voicebackupfolder = new File(Environment.getExternalStorageDirectory().getPath() + "/Whats Delete/Media/WhatsDelete Voice Notes");
+    public static File Statusbackupfolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Whats Delete/Media/Status Saver");
+    public static File ImageRecovery = new File(Environment.getExternalStoragePublicDirectory(DIRECTORY_DCIM) + "/Recovery/Media/Recovery");
+    public static File whatsAppFolderStatus = new File(Environment.getExternalStorageDirectory().getPath() +
+            "/WhatsApp/Media/.Statuses");
+    public static File Imagefolder = new File(Environment.getExternalStorageDirectory().getPath() + "/WhatsApp/Media/WhatsApp Images");
+    public static File Imagefolder_private = new File(Environment.getExternalStorageDirectory().getPath() + "/WhatsApp/Media/WhatsApp Images/private");
+    public static File Videofolder = new File(Environment.getExternalStorageDirectory().getPath() + "/WhatsApp/Media/WhatsApp Video");
+    public static File Videofolder_private = new File(Environment.getExternalStorageDirectory().getPath() + "/WhatsApp/Media/WhatsApp Video/private");
+    public static File Audiofolder = new File(Environment.getExternalStorageDirectory().getPath() + "/WhatsApp/Media/WhatsApp Audio");
+    public static File Audiofolder_private = new File(Environment.getExternalStorageDirectory().getPath() + "/WhatsApp/Media/WhatsApp Audio/private");
+    public static File Voicefolder = new File(Environment.getExternalStorageDirectory().getPath() + "/WhatsApp/Media/WhatsApp Voice Notes");
+    public static File Docfolder = new File(Environment.getExternalStorageDirectory().getPath() + "/WhatsApp/Media/WhatsApp Documents");
+    public static File Statusfolder = new File(Environment.getExternalStorageDirectory().getPath() + "/WhatsApp/Media/.Statuses");
+
+    public static final int FILE_COPIED = 1;
+    public static final int FILE_EXISTS = 2;
+
+    //android 11
+    public static File whatsAppFolderStatus11 = new File(Environment.getExternalStorageDirectory().getPath() +
+            "/Android/media/com.whatsapp/WhatsApp/Media/.Statuses");
+    public static File Imagefolder11 = new File(Environment.getExternalStorageDirectory().getPath() + "/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Images");
+    public static File Videofolder11 = new File(Environment.getExternalStorageDirectory().getPath() + "/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Video");
+    public static File Audiofolder11 = new File(Environment.getExternalStorageDirectory().getPath() + "/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Audio");
+    public static File Voicefolder11 = new File(Environment.getExternalStorageDirectory().getPath() + "/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Voice Notes");
+
+    public static int copyImage(File file, File dest) {
+        mkDirs(dest);
+        return copyFile(file, new File(dest, file.getName()));
+    }
+
+    private static int copyFile(File sourceFile, File destFile) {
+        if (!destFile.getParentFile().exists())
+            destFile.getParentFile().mkdirs();
+
+        if (!destFile.exists()) {
+            try {
+                destFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else return FILE_EXISTS;
+
+        FileChannel source = null;
+        FileChannel destination = null;
+
+        try {
+            source = new FileInputStream(sourceFile).getChannel();
+            destination = new FileOutputStream(destFile).getChannel();
+            destination.transferFrom(source, 0, source.size());
+        } catch (Exception ignored) {
+
+        } finally {
+            if (source != null) {
+                try {
+                    source.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (destination != null) {
+                try {
+                    destination.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return FILE_COPIED;
+    }
+
+    public static void mkDirs(File file) {
+        if (file.mkdirs())
+            Log.i(TAG, "Folder created");
+    }
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     public static final String[] permissions13 = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -78,6 +167,20 @@ public class Constants {
     };
 
     public static Dialog dialog;
+
+    public static boolean isVideoFile(String path) {
+        String mimeType = URLConnection.guessContentTypeFromName(path);
+        return mimeType != null && mimeType.startsWith("video");
+    }
+
+    public static void createFolders() {
+        Constants.ImageBackupfolder.mkdirs();
+        Constants.Voicebackupfolder.mkdirs();
+        Constants.VideoBackupfolder.mkdirs();
+        Constants.ImageRecovery.mkdirs();
+        Constants.Statusbackupfolder.mkdirs();
+    }
+
 
     public static String titleLink(String name){
         if (name.contains(" ")){
