@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -19,6 +21,7 @@ import com.moutamid.whatzboost.fragments.FeelingFragment;
 import com.moutamid.whatzboost.fragments.MagicFragment;
 import com.moutamid.whatzboost.fragments.MainFragment;
 import com.moutamid.whatzboost.fragments.OtherFragment;
+import com.moutamid.whatzboost.services.NLService;
 import com.moutamid.whatzboost.ui.MakeProfileActivity;
 import com.moutamid.whatzboost.ui.SearchActivity;
 
@@ -32,6 +35,13 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Constants.checkApp(this);
+
+//        PackageManager pm = getPackageManager();
+//        pm.setComponentEnabledSetting(new ComponentName(this, NLService.class),
+//                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+//
+//        pm.setComponentEnabledSetting(new ComponentName(this, NLService.class),
+//                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
 
         try {
             getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, new MainFragment()).commit();

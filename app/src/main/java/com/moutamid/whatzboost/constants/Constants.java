@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.content.UriPermission;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -69,6 +70,7 @@ public class Constants {
     public static final String API_LINK = "https://poetrydb.org/author";
     public static final String NAME = "name";
     public static final String POS = "pos";
+    public static final String TAG = "CHECKING_NOTI";
     public static final int PERMISSION_CODE = 1;
     public static File profilePath = new File(MyApplication.context.getFilesDir().getPath() + "/Profile Pics");
 
@@ -103,6 +105,39 @@ public class Constants {
     public static int copyImage(File file, File dest) {
         mkDirs(dest);
         return copyFile(file, new File(dest, file.getName()));
+    }
+
+    public static String getDuration(File file) {
+        MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+        mediaMetadataRetriever.setDataSource(file.getAbsolutePath());
+        String durationStr = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+        return formateMilliSeccond(Long.parseLong(durationStr));
+    }
+
+    public static String formateMilliSeccond(long milliseconds) {
+        String finalTimerString = "";
+        String secondsString = "";
+
+        // Convert total duration into time
+        int hours = (int) (milliseconds / (1000 * 60 * 60));
+        int minutes = (int) (milliseconds % (1000 * 60 * 60)) / (1000 * 60);
+        int seconds = (int) ((milliseconds % (1000 * 60 * 60)) % (1000 * 60) / 1000);
+
+        // Add hours if there
+        if (hours > 0) {
+            finalTimerString = hours + ":";
+        }
+
+        // Prepending 0 to seconds if it is one digit
+        if (seconds < 10) {
+            secondsString = "0" + seconds;
+        } else {
+            secondsString = "" + seconds;
+        }
+
+        finalTimerString = finalTimerString + minutes + ":" + secondsString;
+
+        return finalTimerString;
     }
 
     private static int copyFile(File sourceFile, File destFile) {
@@ -367,6 +402,7 @@ public class Constants {
             switch (event.getAction()) {
 
                 case MotionEvent.ACTION_MOVE:
+                case MotionEvent.ACTION_HOVER_EXIT:
                     ObjectAnimator scaleDownXX = ObjectAnimator.ofFloat(v,
                             "scaleX", 1f);
                     ObjectAnimator scaleDownYY = ObjectAnimator.ofFloat(v,

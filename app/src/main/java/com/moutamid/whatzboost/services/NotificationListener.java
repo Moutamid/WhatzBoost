@@ -2,7 +2,12 @@ package com.moutamid.whatzboost.services;
 
 import static android.os.FileObserver.ALL_EVENTS;
 
+import static com.moutamid.whatzboost.BuildConfig.APPLICATION_ID;
+import static com.moutamid.whatzboost.constants.Constants.FILE_COPIED;
+import static com.moutamid.whatzboost.constants.Constants.FILE_EXISTS;
+
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -21,10 +26,13 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.FileObserver;
 import android.os.Handler;
@@ -40,6 +48,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
@@ -47,10 +56,16 @@ import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.constants.DirUtils;
 import com.moutamid.whatzboost.constants.FilePathUtils;
 import com.moutamid.whatzboost.constants.FilseEnum;
+import com.moutamid.whatzboost.constants.SharedPref;
+import com.moutamid.whatzboost.room.HiddenMessage;
 import com.moutamid.whatzboost.room.Medias;
 import com.moutamid.whatzboost.room.RoomDB;
 import com.moutamid.whatzboost.room.TempFiles;
 import com.moutamid.whatzboost.room.WhatsappData;
+import com.moutamid.whatzboost.ui.ChatDetailActivity;
+
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -63,13 +78,19 @@ import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.regex.Pattern;
+
+import timber.log.Timber;
 
 public class NotificationListener extends NotificationListenerService {
     public static final String TAG = "de_notify";
@@ -83,6 +104,27 @@ public class NotificationListener extends NotificationListenerService {
     public static final String EXTRA_TITLE_BIG = "android.title.big";
     public static final String EXTRA_VERIFICATION_ICON = "android.verificationIcon";
     public static final String EXTRA_VERIFICATION_TEXT = "android.verificationText";
+    public static final String ACTION_STORAGE_PERMISSION = "ACTION_STORAGE_PERMISSION";
+    public static final String ACTION_MEDIA_DELETED = "ACTION_MEDIA_DELETED";
+    public static final String EXTRA_FILE_PATH = "EXTRA_FILE_PATH";
+    public static final String WHATS_APP = "com.whatsapp";
+    public static final String BUSINESS_WHATSAPP = "com.whatsapp.w4b";
+    public static final String EVENT_NOTIFICATION = "EVENT_NOTIFICATION";
+    public static final String EXTRA_NEW_MESSAGE = "EXTRA_NEW_MESSAGE";
+    public static final String EXTRA_DELETED_ID = "EXTRA_DELETED_ID";
+    public static final int NONE = -1;
+    public static final String[] EMPTY = null;
+    public static final MediaScannerConnection.OnScanCompletedListener CALLBACK = null;
+    public static Map<String, Action> replyActions = new HashMap<>();
+    List<FileObserver> list;
+    SharedPref sharedPref;
+    private List<FileObserver> observers = new ArrayList<>();
+    private List<String> titleFilterList = new ArrayList<>();
+    private List<String> textFilterList = new ArrayList<>();
+    private Context context;
+    private File lastDeletedFile;
+    private long lastDeletedFileTime;
+    private List<FileObserver> voiceObserverList;
     static FileObserver imgObserver;
     static FileObserver vidObserver;
     static FileObserver docObserver;
@@ -178,9 +220,34 @@ public class NotificationListener extends NotificationListenerService {
 
     @Override
     public void onCreate() {
-        Log.d(TAG, "onCreate: ");
+        Log.d(Constants.TAG, "onCreate: ");
         super.onCreate();
         database = RoomDB.getInstance(this);
+
+        context = this;
+        sharedPref = new SharedPref(this);
+        titleFilterList.add("new messages");
+        titleFilterList.add("WhatsApp");
+        titleFilterList.add("WhatsApp Business");
+        titleFilterList.add("You");
+        titleFilterList.add("Missed voice call");
+        titleFilterList.add("Missed video call");
+        titleFilterList.add("Deleting messages");
+        titleFilterList.add("WhatsApp Business Web");
+        titleFilterList.add("WhatsApp Business Live Location");
+        titleFilterList.add("WhatsApp Business Web is");
+        textFilterList.add("calling");
+        textFilterList.add("ringing");
+        textFilterList.add("new messages");
+        textFilterList.add("Incoming voice call");
+        textFilterList.add("Incoming video call");
+        textFilterList.add("Incoming group video call ");
+        textFilterList.add("ongoing voice call");
+        textFilterList.add("ongoing video call");
+
+        duplicateMedia();
+        Log.d(Constants.TAG, "Started");
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             iObserver = new WAMRObserver(handler);
             observeUri(MediaStore.Images.Media.INTERNAL_CONTENT_URI, DirUtils.create_folder_in_app_package_media_dir_new2(this, "/WhatsWebWAMR/Whatsapp/Whatsapp Images"));
@@ -262,33 +329,33 @@ public class NotificationListener extends NotificationListenerService {
 
     @Override
     public void onDestroy() {
-        Log.d(TAG, "onDestroy: ");
+        Log.d(Constants.TAG, "onDestroy: ");
         resolver.unregisterContentObserver(iObserver);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onStartCommand: ");
+        Log.d(Constants.TAG, "onStartCommand: ");
         return super.onStartCommand(intent, flags, startId);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
-        Log.d(TAG, "onNotificationPosted: ");
+        Log.d(Constants.TAG, "onNotificationPosted: ");
         if (!Constants.isNotificationServiceEnabled(this)) {
             Toast.makeText(this, "Allow permission of notification listener", Toast.LENGTH_SHORT).show();
             return;
         }
         //startService(new Intent(this,FileService.class));
-        Log.d(TAG, "onNotificationPosted: ");
+        Log.d(Constants.TAG, "onNotificationPosted: ");
         RoomDB database = RoomDB.getInstance(this);
         System.out.println("package " + sbn.getPackageName());
         if (sbn.getPackageName().equals(WHATSAPP_PKG) || sbn.getPackageName().equals(WHATSAPP_BUSINESS_PKG)) {
             WhatsappData data = new WhatsappData();
             String title = sbn.getNotification().extras.getString("android.title");
             String text = sbn.getNotification().extras.getString("android.text");
-            Log.d(TAG, "onNotificationPosted: "+ title + " ---:---- "+ text);
+            Log.d(Constants.TAG, "onNotificationPosted: "+ title + " ---:---- "+ text);
             if(text.matches(".*\\d.*")&& text.contains("new messages")){
                 return;
             }
@@ -317,7 +384,7 @@ public class NotificationListener extends NotificationListenerService {
                         if (text.equals(getString(R.string.this_message_was_deleted))) {
                             /*showNotification(getApplicationContext(), title + getString(R.string.deleted_a_message),
                                     "WhatsDelete");*/
-                            Log.d(TAG, "onNotificationPosted: " + title + text);
+                            Log.d(Constants.TAG, "onNotificationPosted: " + title + text);
                             if (title.contains(":")) {
                                 String[] stringTitle = title.split(":");
                                 title = stringTitle[0].trim();
@@ -327,7 +394,7 @@ public class NotificationListener extends NotificationListenerService {
                                 }
 
                                 text = stringTitle[1] + " : " + text;
-                                Log.d(TAG, "onNotificationPosted: recovery message" + text);
+                                Log.d(Constants.TAG, "onNotificationPosted: recovery message" + text);
 
 
                             }
@@ -364,7 +431,7 @@ public class NotificationListener extends NotificationListenerService {
                                 List<String> temp = Arrays.asList(msgArray);
                                 if (temp.size() > 0) {
                                     if (temp.get(temp.size() - 1).equals(text + "##false")) {
-                                        Log.d(TAG, "onNotificationPosted: conteiant babo " + text);
+                                        Log.d(Constants.TAG, "onNotificationPosted: conteiant babo " + text);
                                         return;
                                     }
                                 }
@@ -380,7 +447,7 @@ public class NotificationListener extends NotificationListenerService {
                                         Environment.getExternalStorageDirectory() + "/DMR/WhatsApp/.Profile Images"));
                             }
                             database.mainDao().insert(data);
-                            Log.d(TAG, "onNotificationPosted: ");
+                            Log.d(Constants.TAG, "onNotificationPosted: ");
                         }
                     }
                 } catch (Exception e) {
@@ -392,6 +459,320 @@ public class NotificationListener extends NotificationListenerService {
 
         }
 
+        String pack = sbn.getPackageName();
+        Log.d(Constants.TAG, "pack Sbn " + pack);
+        if (pack.equals(WHATS_APP) || pack.equals(BUSINESS_WHATSAPP)) {
+            Notification notification = sbn.getNotification();
+            String key = getStatusKey(sbn);
+            Log.d(Constants.TAG, "Notification : " + key);
+            Timber.i("Notification %s", key);
+            if (key.startsWith("0|com.whatsapp|1|null"))
+                return;
+
+            if (key.startsWith("0|com.whatsapp.w4b|1|null"))
+                return;
+
+            Bundle extras = notification.extras;
+
+            String title = null;
+            String text = null;
+            try {
+                title = extras.getString("android.title");
+                text = extras.getString("android.text");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (title == null || text == null)
+                return;
+
+            if (filterTitle(title)) return;
+
+            // TODO checking group started
+            // TODO find senderName & group
+            boolean isGroup = false;
+            String senderName = null;
+            if (title.contains("messages):")) {
+                isGroup = true;
+                int index = title.indexOf('(');
+                senderName = title.substring(title.indexOf(':') + 1).trim();
+                title = title.substring(0, index).trim();
+            }
+            if (title.contains(":")) {
+                isGroup = true;
+                senderName = title.substring(title.indexOf(':') + 1).trim();
+                title = title.substring(0, title.indexOf(':')).trim();
+            }
+            if (title.contains("@")) {
+                isGroup = true;
+                senderName = title.substring(0, title.indexOf('@'));
+                title = title.substring(title.indexOf('@') + 1).trim();
+            }
+
+            if (filterText(text)) return;
+
+            Action action = NotificationUtils.getQuickReplyAction(notification, APPLICATION_ID); //Issue
+            if (action != null && replyActions != null)
+                replyActions.put(title, action);
+
+            long id = notification.when;
+            long currentTime = System.currentTimeMillis();
+            if (isDeletedMessage(text)) {
+                long deletedDiff = System.currentTimeMillis() - lastDeletedFileTime;
+                if (lastDeletedFile != null && lastDeletedFile.exists() && deletedDiff < 1000) {
+                    Repository.INSTANCE.updateMessage(id, true, lastDeletedFile.getPath());
+                } else {
+                    Repository.INSTANCE.updateMessage(id, true);
+                }
+                sendBroadcast(id);
+                lastDeletedFile = null;
+                lastDeletedFileTime = NONE;
+                return;
+            }
+
+            Bitmap bitmap = null;
+            Icon largeIcon = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                largeIcon = sbn.getNotification().getLargeIcon();
+                if (largeIcon != null)
+                    bitmap = ((BitmapDrawable) largeIcon.loadDrawable(context)).getBitmap();
+            }
+
+            StorageUtils.saveImage(bitmap, title, null);
+            HiddenMessage newMessage = new HiddenMessage(id, title, text, currentTime);
+            newMessage.setPack(pack);
+
+            // TODO mark as read when app is open
+            if (ChatDetailActivity.title.equals(title))
+                newMessage.setRead(true);
+
+            if (isGroup) {
+                newMessage.setGroup(true);
+                newMessage.setSenderName(senderName);
+            }
+
+            if (text.contains("Voice message") && pack.equals(WHATS_APP)) {
+                setVoiceObservers();
+            }
+            Repository.INSTANCE.saveNewMessage(newMessage);
+            sendBroadcast(newMessage);
+
+            int badgeCount = BadgeHelper.updateBadgeCount(context);
+            if (text.contains("\uD83D\uDCF7 Photo"))
+                Timber.i("onNewFile : %s", "notification time");
+
+            if (sharedPref.getNotification())
+                NotificationHelper.showMessageNotification(context, title, text, (int) id, notification.largeIcon, badgeCount, pack);
+        }
+
+    }
+
+    private static boolean validateEmpty(Context context, String reply) {
+        if (reply.isEmpty()) {
+            Toast.makeText(context, "Type a message..", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean reply(Context context, String title, String message, String pack) {
+        if (replyActions == null && validateEmpty(context, message)){
+            return false;
+        }
+        Action action = replyActions.get(title);
+        if (action != null) {
+            action.sendReply(context, message);
+            long id = System.currentTimeMillis();
+            HiddenMessage newMessage = new HiddenMessage(id, title, message, id, true);
+            newMessage.setRead(true);
+            newMessage.setPack(pack);
+            Repository.INSTANCE.saveNewMessage(newMessage);
+            return true;
+        }
+        return false;
+    }
+
+    @Contract(pure = true)
+    private boolean isDeletedMessage(@NotNull String text) {
+        return text.contains("was deleted");
+    }
+
+    private void setVoiceObservers() {
+        if (voiceObserverList == null) {
+            File folder;
+            if (Build.VERSION.SDK_INT < 30) {
+                folder = new File(Constants.Voicefolder.getPath());
+                if (!Constants.Voicefolder.exists())
+                    folder = new File(Constants.Voicefolder11.getPath());
+            } else {
+                //android 11
+                folder = new File(Constants.Voicefolder11.getPath());
+            }
+
+            File[] files = folder.listFiles();
+            if (files != null) {
+                voiceObserverList = new ArrayList<>();
+                for (File voiceFolder : files) {
+                    voiceObserverList.add(
+                            observe(voiceFolder.getPath(), Constants.Voicebackupfolder.getPath(), SharedPref.ISVOICEBACKUPALLOWED)
+                    );
+                }
+
+                if (voiceObserverList.size() != files.length) {
+                    for (FileObserver fileObserver : voiceObserverList) {
+                        fileObserver.stopWatching();
+                    }
+                    voiceObserverList = null;
+                    setVoiceObservers();
+                }
+            }
+        } else {
+            File folder;
+            if (Build.VERSION.SDK_INT < 30) {
+                folder = new File(Constants.Voicefolder.getPath());
+                if (!Constants.Voicefolder.exists())
+                    folder = new File(Constants.Voicefolder11.getPath());
+
+            } else {
+                //android 11
+                folder = new File(Constants.Voicefolder11.getPath());
+            }
+            File[] files = folder.listFiles();
+            if (voiceObserverList.size() != files.length) {
+                for (FileObserver fileObserver : voiceObserverList) {
+                    fileObserver.stopWatching();
+                }
+                voiceObserverList = null;
+                setVoiceObservers();
+            }
+        }
+    }
+
+    private void duplicateMedia() {
+        list = new ArrayList<>();
+        if (Build.VERSION.SDK_INT < 30) {
+            list.add(observe(Constants.Imagefolder.getPath(), Constants.ImageBackupfolder.getPath(), SharedPref.ISIMAGEBACKUPALLOWED));
+            list.add(observe(Constants.Videofolder.getPath(), Constants.VideoBackupfolder.getPath(), SharedPref.ISIMAGEBACKUPALLOWED));
+            list.add(observe(Constants.Voicefolder.getPath(), Constants.Voicebackupfolder.getPath(), SharedPref.ISVOICEBACKUPALLOWED));
+            list.add(observe(Constants.Audiofolder.getPath(), Constants.Voicebackupfolder.getPath(), SharedPref.ISVOICEBACKUPALLOWED));
+
+            if (!Constants.Imagefolder.exists()) {
+                list.add(observe(Constants.Imagefolder11.getPath(), Constants.ImageBackupfolder.getPath(), SharedPref.ISIMAGEBACKUPALLOWED));
+                list.add(observe(Constants.Videofolder11.getPath(), Constants.VideoBackupfolder.getPath(), SharedPref.ISIMAGEBACKUPALLOWED));
+                list.add(observe(Constants.Voicefolder11.getPath(), Constants.Voicebackupfolder.getPath(), SharedPref.ISVOICEBACKUPALLOWED));
+                list.add(observe(Constants.Audiofolder11.getPath(), Constants.Voicebackupfolder.getPath(), SharedPref.ISVOICEBACKUPALLOWED));
+            }
+        } else {
+            //android 11
+            list.add(observe(Constants.Imagefolder11.getPath(), Constants.ImageBackupfolder.getPath(), SharedPref.ISIMAGEBACKUPALLOWED));
+            list.add(observe(Constants.Videofolder11.getPath(), Constants.VideoBackupfolder.getPath(), SharedPref.ISIMAGEBACKUPALLOWED));
+            list.add(observe(Constants.Voicefolder11.getPath(), Constants.Voicebackupfolder.getPath(), SharedPref.ISVOICEBACKUPALLOWED));
+            list.add(observe(Constants.Audiofolder11.getPath(), Constants.Voicebackupfolder.getPath(), SharedPref.ISVOICEBACKUPALLOWED));
+        }
+
+
+    }
+
+    private FileObserver observe(String pathToObserve, String pathToCopy, String key) {
+        FileObserver observer = FileObserverHelper.createObserver(new File(pathToObserve), new FileObserverHelper.ObserverCallBack() {
+            @Override
+            public void onNewFile(@NonNull String newFilePath) {
+                try {
+                    Constants.createFolders();
+                    copyFile(newFilePath, pathToCopy);
+                    Log.i("TAG", "new file added : " + newFilePath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.i("TAG", "new add error : " + e.getLocalizedMessage());
+                }
+            }
+
+            @Override
+            public void onFileDeleted(@NonNull String deletedFilePath) {
+                refreshGallery(deletedFilePath);
+                File file = new File(deletedFilePath);
+                String observerFile = pathToCopy + "/" + file.getName();
+
+                Log.i("TAG", "file deleted : " + observerFile);
+
+                try {
+                    Constants.createFolders();
+                    copyFile(observerFile, Constants.ImageRecovery.getPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.i("TAG", "error : " + e.getLocalizedMessage());
+                }
+
+                if (sharedPref.getDeletedNotificationAlert()) {
+                    NotificationHelper.showFileDeleted(context, observerFile);
+                }
+
+                new File(observerFile).delete();
+            }
+
+        });
+        return observer;
+    }
+
+    private void copyFile(String path, String dest) throws IOException {
+
+        final File file = new File(path);
+        File dst = new File(dest, file.getName());
+//        int copy = FileHelper.copy(file, dst);
+        int copy = FileHelper.makeCopy(file, dst);
+
+        switch (copy) {
+            case FILE_COPIED:
+                refreshGallery(dst);
+                Log.i("TAG", "copy done : " + copy);
+                break;
+            case FILE_EXISTS:
+                Log.i("TAG", "File already exist :");
+                break;
+        }
+    }
+
+    private void refreshGallery(String filePath) {
+        refreshGallery(new File(filePath));
+    }
+
+    private void refreshGallery(File file) {
+        MediaScannerConnection.scanFile(context, new String[]{file.getPath()}, EMPTY, CALLBACK);
+    }
+
+    public void sendBroadcast(long id) {
+        Intent intent = new Intent(EVENT_NOTIFICATION);
+        intent.putExtra(EXTRA_DELETED_ID, id);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+    }
+
+    private String getStatusKey(StatusBarNotification sbn) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            return sbn.getKey();
+        }
+        return "";
+    }
+
+    private boolean filterTitle(String title) {
+        return filter(title, titleFilterList);
+    }
+
+    private boolean filterText(String text) {
+        return filter(text, textFilterList);
+    }
+
+    private boolean filter(String text, @NonNull List<String> filterList) {
+        for (String filter : filterList) {
+            if (Pattern.compile(Pattern.quote(filter), Pattern.CASE_INSENSITIVE).matcher(text).find())
+                return true;
+        }
+        return false;
+    }
+
+    public void sendBroadcast(HiddenMessage newMessage) {
+        Intent intent = new Intent(EVENT_NOTIFICATION);
+        intent.putExtra(EXTRA_NEW_MESSAGE, newMessage);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
     private String saveProfile(Bitmap btp, String file) {

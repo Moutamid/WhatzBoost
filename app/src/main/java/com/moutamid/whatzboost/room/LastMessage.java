@@ -30,7 +30,7 @@ public class LastMessage {
 
     private int unread;
 
-    String getPack() {
+    public String getPack() {
         return pack;
     }
 

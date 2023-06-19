@@ -5,6 +5,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.fxn.stash.Stash;
+import com.moutamid.whatzboost.services.Repository;
+import com.moutamid.whatzboost.services.StorageUtils;
 
 public class MyApplication extends Application {
     private static boolean isForeground = false;
@@ -28,5 +30,11 @@ public class MyApplication extends Application {
         super.onCreate();
         Stash.init(this);
         context = getApplicationContext();
+        Constants.ImageBackupfolder.mkdirs();
+
+        Repository.INSTANCE.init(context);
+        StorageUtils.init(
+                context
+        );
     }
 }

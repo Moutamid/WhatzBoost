@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moutamid.whatzboost.R;
+import com.moutamid.whatzboost.room.HiddenMessage;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.listview_message, parent,
                 false));
     }
+
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override

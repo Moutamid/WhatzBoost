@@ -32,7 +32,12 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,7 +71,7 @@ public class NLService extends NotificationListenerService {
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static boolean reply(Context context, String title, String message, String pack) {
-        if (replyActions == null && validateEmpty(context, message)) return false;
+        //if (replyActions == null && validateEmpty(context, message)) return false;
         Action action = replyActions.get(title);
         if (action != null) {
             action.sendReply(context, message);
@@ -97,7 +102,7 @@ public class NLService extends NotificationListenerService {
             @Override
             public void onNewFile(@NonNull String newFilePath) {
                 Timber.i("onNewFile : %s", newFilePath);
-                CopyHelper.copyFile(new File(newFilePath), backupFolder);
+                copyFileHelper(new File(newFilePath), backupFolder);
             }
 
             @Override
@@ -113,12 +118,53 @@ public class NLService extends NotificationListenerService {
         });
     }
 
+    public void copyFileHelper(File inputFile, File outputFolder) {
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        try {
+            // Create output directory if it doesn't exist
+            if (!outputFolder.exists()) {
+                outputFolder.mkdirs();
+            }
+           // outputFolder.mkdirs();
+
+            inputStream = new FileInputStream(inputFile);
+            outputStream = new FileOutputStream(new File(outputFolder, inputFile.getName()));
+
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, read);
+            }
+
+            // Close the streams
+            inputStream.close();
+            outputStream.flush();
+            outputStream.close();
+        } catch (FileNotFoundException ex) {
+            Timber.i(ex);
+        } catch (Exception ex) {
+            Timber.i(ex);
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+            } catch (IOException e) {
+                Timber.i(e);
+            }
+        }
+    }
+
     private FileObserver getStatusObserver(File folderToObserve, File backupFolder) {
         return FileObserverHelper.createObserver(folderToObserve, new FileObserverHelper.ObserverCallBack() {
             @Override
             public void onNewFile(@NonNull String newFilePath) {
                 Timber.i("onNewFile : %s", newFilePath);
-                CopyHelper.copyFile(new File(newFilePath), backupFolder);
+                copyFileHelper(new File(newFilePath), backupFolder);
             }
 
             @Override
@@ -159,7 +205,7 @@ public class NLService extends NotificationListenerService {
         textFilterList.add("ongoing video call");
 
         duplicateMedia();
-
+        Log.d("TAG", "Started");
     }
 
     private FileObserver observe(String pathToObserve, String pathToCopy, String key) {
@@ -271,6 +317,7 @@ public class NLService extends NotificationListenerService {
         if (pack.equals(WHATS_APP) || pack.equals(BUSINESS_WHATSAPP)) {
             Notification notification = sbn.getNotification();
             String key = getStatusKey(sbn);
+            Log.d("TAG", "Notification : " + key);
             Timber.i("Notification %s", key);
             if (key.startsWith("0|com.whatsapp|1|null"))
                 return;

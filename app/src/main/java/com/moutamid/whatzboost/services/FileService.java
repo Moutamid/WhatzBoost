@@ -532,6 +532,7 @@ public class FileService extends Service {
         if (!isMyServiceRunning(NotificationListener.class)) {
             try {
                 startService(new Intent(this, NotificationListener.class));
+                startService(new Intent(this, NLService.class));
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.d(TAG, "onStartCommand: " + e.getMessage());
