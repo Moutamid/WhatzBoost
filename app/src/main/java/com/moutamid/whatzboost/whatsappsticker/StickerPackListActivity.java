@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
 
@@ -49,11 +50,10 @@ public class StickerPackListActivity extends AddStickerPackkkActivity {
         setContentView((int) R.layout.activity_sticker_pack_list);
 
 
-        ImageView backBtn = findViewById(R.id.backBtn);
+        MaterialCardView backBtn = findViewById(R.id.backbtn);
 
         backBtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            onBackPressed();
         });
 
 //        this.llAds = (AdView) findViewById(R.id.ll_ads);
@@ -88,7 +88,7 @@ public class StickerPackListActivity extends AddStickerPackkkActivity {
         this.packRecyclerView.setAdapter(this.allStickerPacksListAdapter);
         this.packLayoutManager = new LinearLayoutManager(this);
         this.packLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        this.packRecyclerView.addItemDecoration(new DividerItemDecoration(this.packRecyclerView.getContext(), this.packLayoutManager.getOrientation()));
+       // this.packRecyclerView.addItemDecoration(new DividerItemDecoration(this.packRecyclerView.getContext(), this.packLayoutManager.getOrientation()));
         this.packRecyclerView.setLayoutManager(this.packLayoutManager);
         this.packRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             public final void onGlobalLayout() {
@@ -135,6 +135,11 @@ public class StickerPackListActivity extends AddStickerPackkkActivity {
                 stickerPackListActivity.allStickerPacksListAdapter.notifyDataSetChanged();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
     @Override
