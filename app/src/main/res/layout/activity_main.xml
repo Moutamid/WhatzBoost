@@ -82,7 +82,7 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/feelingCard"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         app:cardCornerRadius="26sp"
                         app:cardElevation="0dp"
                         android:layout_margin="3sp"
@@ -105,7 +105,7 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/fakeCard"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="3sp"
                         app:cardCornerRadius="26sp"
                         app:cardElevation="0dp"
@@ -128,7 +128,7 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/mainCard"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="3sp"
                         app:cardCornerRadius="26sp"
                         app:cardElevation="0dp"
@@ -165,8 +165,8 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/search_badge"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
         app:cardBackgroundColor="@color/search"
         app:cardCornerRadius="10sp"
         android:layout_margin="12sp"
@@ -176,10 +176,12 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="8sp"
             android:src="@drawable/round_search_24"
             android:layout_gravity="center"
             app:tint="@color/white" />
 
     </com.google.android.material.card.MaterialCardView>
+
 
 </RelativeLayout>
