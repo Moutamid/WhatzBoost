@@ -57,6 +57,21 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
         holder.tool.setOnTouchListener((v, event) -> {
             int duration = 300;
             switch (event.getAction()) {
+                case MotionEvent.ACTION_MOVE:
+                case MotionEvent.ACTION_HOVER_EXIT:
+                    ObjectAnimator scaleDownXX = ObjectAnimator.ofFloat(v,
+                            "scaleX", 1f);
+                    ObjectAnimator scaleDownYY = ObjectAnimator.ofFloat(v,
+                            "scaleY", 1f);
+                    scaleDownXX.setDuration(duration);
+                    scaleDownYY.setDuration(duration);
+
+                    AnimatorSet scaleDownn = new AnimatorSet();
+                    scaleDownn.play(scaleDownXX).with(scaleDownYY);
+
+                    scaleDownn.start();
+                    break;
+
                 case MotionEvent.ACTION_DOWN:
                     ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
                             "scaleX", 0.6f);

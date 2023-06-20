@@ -23,8 +23,7 @@ public class DirectActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.backbtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            onBackPressed();
         });
 
         binding.send.setOnClickListener(v -> {
@@ -50,7 +49,7 @@ public class DirectActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
+        // startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 

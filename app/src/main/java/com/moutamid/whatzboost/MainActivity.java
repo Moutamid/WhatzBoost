@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
                     scaleDown2.start();
                     new Handler().postDelayed(() -> {
                         startActivity(new Intent(MainActivity.this, SearchActivity.class));
-                        finish();
+                        //finish();
                     }, 300);
 
 

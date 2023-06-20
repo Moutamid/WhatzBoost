@@ -24,8 +24,7 @@ public class CaptionsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.backbtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            onBackPressed();
         });
 
         name = getIntent().getStringExtra(Constants.NAME);
@@ -68,7 +67,7 @@ public class CaptionsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
+        //startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 }

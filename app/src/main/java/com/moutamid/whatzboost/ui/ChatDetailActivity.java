@@ -87,8 +87,7 @@ public class ChatDetailActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.backbtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            onBackPressed();
         });
 
         title = getExtraTitle();
@@ -108,7 +107,7 @@ public class ChatDetailActivity extends AppCompatActivity {
         name = getIntent().getStringExtra("name");
         imagePath = getIntent().getStringExtra("images");
 
-        binding.person.setText(name);
+        binding.person.setText(title);
 
         binding.recycler.setHasFixedSize(false);
         binding.recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
@@ -149,7 +148,7 @@ public class ChatDetailActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
+        //startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 

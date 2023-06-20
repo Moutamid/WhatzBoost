@@ -22,8 +22,7 @@ public class CaptionListActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.backbtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            onBackPressed();
         });
 
         binding.captionRC.setLayoutManager(new GridLayoutManager(this, 2));
@@ -34,7 +33,7 @@ public class CaptionListActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
+        //startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 }

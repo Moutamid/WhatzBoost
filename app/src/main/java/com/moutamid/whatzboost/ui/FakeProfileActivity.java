@@ -16,7 +16,6 @@ import java.util.Locale;
 public class FakeProfileActivity extends AppCompatActivity {
     TextView num1, num2, name, status, statusDate, block, create, lastSeen;
     ImageView profileImage, backbtn;
-
     String personName, mobile, personStatus, persStatusDate, lastseen;
     Uri imageUri;
     @Override
@@ -62,15 +61,14 @@ public class FakeProfileActivity extends AppCompatActivity {
         }
 
         backbtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            onBackPressed();
         });
 
     }
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
+       // startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 }

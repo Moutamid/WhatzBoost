@@ -444,7 +444,7 @@ public class Constants {
                     scaleDown2.start();
                     new Handler().postDelayed(() -> {
                         context.startActivity(new Intent(context, classs));
-                        activity.finish();
+                        // activity.finish();
                     }, 300);
 
                     break;

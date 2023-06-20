@@ -27,8 +27,7 @@ public class ShayariActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.backbtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            onBackPressed();
         });
 
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, new EnglishShayariFragment()).commit();
@@ -99,5 +98,10 @@ public class ShayariActivity extends AppCompatActivity {
             binding.hindiCard.setCardBackgroundColor(getResources().getColor(R.color.background));
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

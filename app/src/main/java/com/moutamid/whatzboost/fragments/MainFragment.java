@@ -105,7 +105,7 @@ public class MainFragment extends Fragment {
                                 startActivity(intent);
                             } else {
                                 startActivity(new Intent(requireContext(), DeletedMessageActivity.class));
-                                requireActivity().finish();
+                                // requireActivity().finish();
                             }
 
                         }

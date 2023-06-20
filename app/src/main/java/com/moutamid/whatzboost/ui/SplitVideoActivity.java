@@ -117,7 +117,7 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
+       // startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 

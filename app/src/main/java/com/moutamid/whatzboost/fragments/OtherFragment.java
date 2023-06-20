@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.FragmentOtherBinding;
+import com.moutamid.whatzboost.ui.BlankMessageActivity;
+import com.moutamid.whatzboost.ui.InstaReshareActivity;
 import com.moutamid.whatzboost.ui.QrGeneratorActivity;
 import com.moutamid.whatzboost.ui.QrScannerActivity;
 import com.moutamid.whatzboost.ui.WhatsWebActivity;
@@ -34,6 +36,8 @@ public class OtherFragment extends Fragment {
 
         binding.qrGen.setOnTouchListener(Constants.customOnTouchListner(QrGeneratorActivity.class, requireContext(), requireActivity()));
         binding.qrScan.setOnTouchListener(Constants.customOnTouchListner(QrScannerActivity.class, requireContext(), requireActivity()));
+        binding.reshare.setOnTouchListener(Constants.customOnTouchListner(InstaReshareActivity.class, requireContext(), requireActivity()));
+        binding.blank.setOnTouchListener(Constants.customOnTouchListner(BlankMessageActivity.class, requireContext(), requireActivity()));
 
         return binding.getRoot();
     }

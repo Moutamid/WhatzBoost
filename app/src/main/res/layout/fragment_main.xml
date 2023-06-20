@@ -86,6 +86,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="13sp"
                         android:textSize="16sp"
+                        android:gravity="center"
                         android:textColor="@color/off_white"
                         android:fontFamily="@font/poppins"
                         android:text="Deleted Messages" />

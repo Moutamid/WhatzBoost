@@ -2168,5 +2168,6 @@
     <string name="title_activity_sticker_packs_list">My WhatsApp Sticker App</string>
     <string name="title_activity_sticker_pack_info">Info</string>
     <string name="info_send_email_to_prompt">Send email with</string>
+    <string name="lorem15">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi magni optio ullam, veritatis!</string>
 
 </resources>

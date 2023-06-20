@@ -39,8 +39,7 @@ public class QrGeneratorActivity extends AppCompatActivity {
         savePath = file.getPath();
 
         binding.backbtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            onBackPressed();
         });
 
         binding.repeatbtn.setOnClickListener(v -> {
@@ -89,7 +88,7 @@ public class QrGeneratorActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
+        // startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 }

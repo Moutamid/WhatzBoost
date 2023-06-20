@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    tools:context=".ui.QrScannerActivity">
+    tools:context=".ui.FontFunActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="Qr Scanner"
+            android:text="Font Fun"
             android:layout_alignParentRight="true"
             android:textSize="28sp"
             android:padding="12sp"
@@ -48,14 +48,15 @@
             android:layout_marginEnd="12sp"
             android:drawablePadding="12sp"
             android:gravity="center"
-            app:drawableLeftCompat="@drawable/round_qr_code_scanner_24" />
+            app:drawableLeftCompat="@drawable/font" />
+
 
     </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scan your secret message"
+        android:text="Convert text into stylish font"
         android:textColor="@color/text_color"
         android:layout_gravity="end"
         android:gravity="end"
@@ -63,50 +64,25 @@
         android:layout_marginStart="12sp"
         android:textSize="18sp" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_marginTop="15sp"
-        android:layout_height="350dp">
-
-        <com.budiyev.android.codescanner.CodeScannerView
-            android:id="@+id/scanner_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:autoFocusButtonVisible="true"
-            app:flashButtonVisible="true"
-            app:frameColor="@color/icon"
-            app:frameCornersRadius="8dp" />
-
-    </FrameLayout>
-
-    <TextView
+    <EditText
+        android:id="@+id/number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins"
         android:padding="12sp"
-        android:text="Past Result..."
+        android:background="@drawable/text_bg"
+        android:layout_margin="12sp"
+        android:fontFamily="@font/poppins"
+        android:hint="Your Text..."
+        android:inputType="textPersonName"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textColorHint="@color/off_white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/result_items"/>
-
-    <Button
-        android:id="@+id/scan"
-        style="@style/Widget.Material3.Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12sp"
-        android:layout_margin="12sp"
-        android:visibility="gone"
-        android:text="Scan Message"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:fontFamily="@font/poppins"
-        android:textColor="@color/white" />
+        android:layout_marginStart="12sp"
+        android:layout_marginEnd="12sp"
+        tools:listitem="@layout/caption_item_card" />
 
 </LinearLayout>

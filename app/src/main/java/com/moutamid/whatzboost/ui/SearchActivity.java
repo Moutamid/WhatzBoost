@@ -24,12 +24,12 @@ public class SearchActivity extends AppCompatActivity {
 
     String[] name = { "Deleted Messages", "Video Splitter", "Whatsapp Web", "Direct Chat", "Status Saver", "Text Repeater",
             "Make Profile", "Make Stories", "Stickers", "Caption", "Shayari", "Emotions", "Text to Emoji",
-            "Qr Generator", "Qr Scanner", "Message Reply", "Search Profile"
+            "Qr Generator", "Qr Scanner", "Blank Message", "Font Fun", "Insta ReShare"
     };
     int[] icons = {
-        R.drawable.bin, R.drawable.split, R.drawable.whatsweb, R.drawable.chat, R.drawable.download, R.drawable.repeat,
-        R.drawable.user, R.drawable.stories, R.drawable.sticker, R.drawable.closed_caption, R.drawable.happy, R.drawable.emotions,
-        R.drawable.magic_hat, R.drawable.qr_code, R.drawable.barcode_scanner, R.drawable.send, R.drawable.round_search_24
+            R.drawable.bin, R.drawable.split, R.drawable.whatsweb, R.drawable.chat, R.drawable.download, R.drawable.repeat,
+            R.drawable.user, R.drawable.stories, R.drawable.sticker, R.drawable.closed_caption, R.drawable.happy, R.drawable.emotions,
+            R.drawable.magic_hat, R.drawable.qr_code, R.drawable.barcode_scanner, R.drawable.comment, R.drawable.fonticons, R.drawable.retweet,
     };
 
     @Override
@@ -39,8 +39,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.backbtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            onBackPressed();
         });
 
         list = new ArrayList<>();
@@ -81,58 +80,70 @@ public class SearchActivity extends AppCompatActivity {
             switch (Name) {
                 case "Deleted Messages":
                     startActivity(new Intent(SearchActivity.this, DeletedMessageActivity.class));
-                    finish();
+                    //finish();
                     break;
                 case "Video Splitter":
                     startActivity(new Intent(SearchActivity.this, VideoSplitterActivity.class));
-                    finish();
+                   // finish();
                     break;
                 case "Whatsapp Web":
                     startActivity(new Intent(SearchActivity.this, WhatsWebActivity.class));
-                    finish();
+                  //  finish();
                     break;
                 case "Direct Chat":
                     startActivity(new Intent(SearchActivity.this, DirectActivity.class));
-                    finish();
+                   // finish();
                     break;
                 case "Status Saver":
                     startActivity(new Intent(SearchActivity.this, StatusSaverActivity.class));
-                    finish();
+                   // finish();
                     break;
                 case "Text Repeater":
                     startActivity(new Intent(SearchActivity.this, RepeaterActivity.class));
-                    finish();
+                  //  finish();
                     break;
                 case "Make Profile":
                     startActivity(new Intent(SearchActivity.this, MakeProfileActivity.class));
-                    finish();
+                    //finish();
                     break;
                 case "Make Stories":
                     startActivity(new Intent(SearchActivity.this, MakeStoryActivity.class));
-                    finish();
+                   // finish();
                     break;
                 case "Stickers":
                     Toast.makeText(SearchActivity.this, "Stickers", Toast.LENGTH_SHORT).show();
                     break;
                 case "Caption":
                     startActivity(new Intent(SearchActivity.this, CaptionListActivity.class));
-                    finish();
+                    //finish();
                     break;
                 case "Emotions":
                     startActivity(new Intent(SearchActivity.this, EmotionsActivity.class));
-                    finish();
+                   // finish();
                     break;
                 case "Text to Emoji":
                     startActivity(new Intent(SearchActivity.this, TextToEmojiActivity.class));
-                    finish();
+                   // finish();
                     break;
                 case "Qr Generator":
                     startActivity(new Intent(SearchActivity.this, QrGeneratorActivity.class));
-                    finish();
+                   // finish();
                     break;
                 case "Qr Scanner":
                     startActivity(new Intent(SearchActivity.this, QrScannerActivity.class));
-                    finish();
+                   // finish();
+                    break;
+                case "Blank Message":
+                    startActivity(new Intent(SearchActivity.this, BlankMessageActivity.class));
+                   // finish();
+                    break;
+                case  "Font Fun":
+                    startActivity(new Intent(SearchActivity.this, FontFunActivity.class));
+                   // finish();
+                    break;
+                case "Insta ReShare":
+                    startActivity(new Intent(SearchActivity.this, InstaReshareActivity.class));
+                   // finish();
                     break;
                 default:
                     break;
@@ -142,7 +153,7 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
+        // startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 }

@@ -45,8 +45,7 @@ public class StatusSaverActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.backbtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            onBackPressed();
         });
 
         if (new File(Constants.SOURCE_FOLDER_WA_NEW).exists()) {
@@ -210,7 +209,7 @@ public class StatusSaverActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
+      //  startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 

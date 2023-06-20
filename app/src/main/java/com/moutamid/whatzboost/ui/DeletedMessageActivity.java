@@ -26,8 +26,7 @@ public class DeletedMessageActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.backbtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            onBackPressed();
         });
 
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, new MessagesFragment()).commit();
@@ -128,7 +127,7 @@ public class DeletedMessageActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
+        // startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 }

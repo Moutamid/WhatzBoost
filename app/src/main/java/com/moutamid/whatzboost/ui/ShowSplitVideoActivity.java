@@ -32,8 +32,7 @@ public class ShowSplitVideoActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.backbtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            onBackPressed();
         });
 
         initViews();
@@ -88,7 +87,7 @@ public class ShowSplitVideoActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
+      //  startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 

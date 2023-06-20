@@ -7,42 +7,42 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
-import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
-import com.moutamid.whatzboost.databinding.ActivityRepeaterBinding;
+import com.moutamid.whatzboost.databinding.ActivityBlankMessageBinding;
 
-public class RepeaterActivity extends AppCompatActivity {
-    ActivityRepeaterBinding binding;
-    String s = "";
+public class BlankMessageActivity extends AppCompatActivity {
+    ActivityBlankMessageBinding binding;
+    String space = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityRepeaterBinding.inflate(getLayoutInflater());
+        binding = ActivityBlankMessageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.backbtn.setOnClickListener(v -> {
             onBackPressed();
         });
 
-        binding.repeatBtn.setOnClickListener(v -> {
-            if (binding.repeat.getText().toString().isEmpty() || binding.message.getText().toString().isEmpty()){
-                Toast.makeText(this, "Please Enter The Required Data", Toast.LENGTH_SHORT).show();
-            } else {
-                if (binding.newLineSwitch.isChecked()) {
-                    int t = Integer.parseInt(binding.repeat.getText().toString());
-                    for (int i = 0; i < t; i++) {
-                        s = s + binding.message.getText().toString() + "\n";
+        binding.createBtn.setOnClickListener(v -> {
+            String s = binding.repeat.getText().toString();
+            if (!s.isEmpty()){
+                int j = Integer.parseInt(s.toString());
+                if (binding.newLineSwitch.isChecked()){
+                    for (int i=0; i<j; i++){
+                        space = space + "\u3164" + "\n";
                     }
-                    binding.result.setText(s);
                 } else {
-                    int t = Integer.parseInt(binding.repeat.getText().toString());
-                    for (int i = 0; i < t; i++) {
-                        s = s + binding.message.getText().toString() + " ";
+                    for (int i =0; i<j; i++){
+                        space = space + "\u3164";
                     }
-                    binding.result.setText(s);
                 }
+                binding.scroll.setVisibility(View.VISIBLE);
+                binding.result.setText(space);
+            } else {
+                Toast.makeText(this, "Add number of text", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -74,7 +74,7 @@ public class RepeaterActivity extends AppCompatActivity {
                 try {
                     startActivity(whatsappIntent);
                 } catch (ActivityNotFoundException e) {
-                    Toast.makeText(RepeaterActivity.this, "Some problems", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BlankMessageActivity.this, "Some problems", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -83,14 +83,14 @@ public class RepeaterActivity extends AppCompatActivity {
             binding.repeat.setText("");
             binding.message.setText("");
             binding.result.setText("Your Result will be here...");
-            s = "";
+            space = "";
         });
+
 
     }
 
     @Override
     public void onBackPressed() {
-       // startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 }

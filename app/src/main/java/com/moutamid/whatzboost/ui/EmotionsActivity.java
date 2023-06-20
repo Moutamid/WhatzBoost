@@ -26,8 +26,7 @@ public class EmotionsActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, new AngryFragment()).commit();
 
         binding.backbtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            onBackPressed();
         });
 
         binding.angryCard.setOnClickListener(v -> {
@@ -98,7 +97,7 @@ public class EmotionsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
+       // startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 }
