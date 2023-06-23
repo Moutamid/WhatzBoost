@@ -17,8 +17,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.fxn.stash.Stash;
 import com.google.android.material.card.MaterialCardView;
 import com.moutamid.whatzboost.R;
+import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.listners.SearchLister;
 import com.moutamid.whatzboost.models.SearchModel;
 import com.moutamid.whatzboost.ui.TextToEmojiActivity;
@@ -31,7 +33,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
     Context context;
     ArrayList<SearchModel> list;
     ArrayList<SearchModel> listAll;
-
     SearchLister searchLister;
 
     public SearchAdapter(Context context, ArrayList<SearchModel> list, SearchLister searchLister) {
@@ -125,6 +126,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
 
     @Override
     public int getItemCount() {
+        if (Stash.getBoolean(Constants.RECENTS, false)){
+            return 6;
+        }
         return list.size();
     }
 

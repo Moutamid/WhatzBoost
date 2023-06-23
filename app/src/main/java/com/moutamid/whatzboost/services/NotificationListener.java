@@ -76,6 +76,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.channels.FileChannel;
+import java.security.spec.ECField;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -356,15 +357,22 @@ public class NotificationListener extends NotificationListenerService {
             String title = sbn.getNotification().extras.getString("android.title");
             String text = sbn.getNotification().extras.getString("android.text");
             Log.d(Constants.TAG, "onNotificationPosted: "+ title + " ---:---- "+ text);
-            if(text.matches(".*\\d.*")&& text.contains("new messages")){
-                return;
-            }
 
+           try {
+               if(text.matches(".*\\d.*")&& text.contains("new messages")){
+                   return;
+               }
+           } catch (Exception e) {
+
+           }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                Icon icon = sbn.getNotification().getLargeIcon();
-                if(icon==null){
-                    icon = sbn.getNotification().getSmallIcon();
-                }
+                Icon icon = null;
+                try {
+                    icon = sbn.getNotification().getLargeIcon();
+                    if(icon==null){
+                        icon = sbn.getNotification().getSmallIcon();
+                    }
+                } catch (Exception e){}
                 try {
                     Bitmap bitmap = null;
                     try {

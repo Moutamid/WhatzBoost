@@ -21,6 +21,7 @@ import com.moutamid.whatzboost.fragments.FeelingFragment;
 import com.moutamid.whatzboost.fragments.MagicFragment;
 import com.moutamid.whatzboost.fragments.MainFragment;
 import com.moutamid.whatzboost.fragments.OtherFragment;
+import com.moutamid.whatzboost.fragments.RecentsFragment;
 import com.moutamid.whatzboost.services.NLService;
 import com.moutamid.whatzboost.ui.MakeProfileActivity;
 import com.moutamid.whatzboost.ui.SearchActivity;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
 
         }
-        binding.mainCard.setOnClickListener(v -> {
+        binding.recentsCard.setOnClickListener(v -> {
             int i = 0;
             if (i != cur){
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(
@@ -56,19 +57,19 @@ public class MainActivity extends AppCompatActivity {
                         R.anim.fade_out,  // exit
                         R.anim.fade_in,   // popEnter
                         R.anim.slide_out  // popExit
-                ).replace(R.id.framelayout, new MainFragment()).addToBackStack(null).commit();
+                ).replace(R.id.framelayout, new RecentsFragment()).addToBackStack(null).commit();
                 cur = 0;
             }
 
 
-            binding.mainCard.setCardBackgroundColor(getResources().getColor(R.color.card));
+            binding.mainCard.setCardBackgroundColor(getResources().getColor(R.color.background));
+            binding.recentsCard.setCardBackgroundColor(getResources().getColor(R.color.card));
             binding.fakeCard.setCardBackgroundColor(getResources().getColor(R.color.background));
             binding.feelingCard.setCardBackgroundColor(getResources().getColor(R.color.background));
             binding.magicCard.setCardBackgroundColor(getResources().getColor(R.color.background));
             binding.otherCard.setCardBackgroundColor(getResources().getColor(R.color.background));
         });
-
-        binding.fakeCard.setOnClickListener(v -> {
+        binding.mainCard.setOnClickListener(v -> {
             int i = 1;
             if (i != cur)
                 if (i < cur) {
@@ -77,24 +78,26 @@ public class MainActivity extends AppCompatActivity {
                             R.anim.fade_out,  // exit
                             R.anim.fade_in,   // popEnter
                             R.anim.slide_out  // popExit
-                    ).replace(R.id.framelayout, new FakeFragment()).addToBackStack(null).commit();
+                    ).replace(R.id.framelayout, new MainFragment()).addToBackStack(null).commit();
                 } else {
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(
                             R.anim.slide_out,  // enter
                             R.anim.fade_out,  // exit
                             R.anim.fade_in,   // popEnter
                             R.anim.slide_in  // popExit
-                    ).replace(R.id.framelayout, new FakeFragment()).addToBackStack(null).commit();
+                    ).replace(R.id.framelayout, new MainFragment()).addToBackStack(null).commit();
                 }
             cur = i;
-            binding.mainCard.setCardBackgroundColor(getResources().getColor(R.color.background));
-            binding.fakeCard.setCardBackgroundColor(getResources().getColor(R.color.card));
+
+            binding.mainCard.setCardBackgroundColor(getResources().getColor(R.color.card));
+            binding.recentsCard.setCardBackgroundColor(getResources().getColor(R.color.background));
+            binding.fakeCard.setCardBackgroundColor(getResources().getColor(R.color.background));
             binding.feelingCard.setCardBackgroundColor(getResources().getColor(R.color.background));
             binding.magicCard.setCardBackgroundColor(getResources().getColor(R.color.background));
             binding.otherCard.setCardBackgroundColor(getResources().getColor(R.color.background));
         });
 
-        binding.feelingCard.setOnClickListener(v -> {
+        binding.fakeCard.setOnClickListener(v -> {
             int i = 2;
             if (i != cur)
                 if (i < cur) {
@@ -103,25 +106,25 @@ public class MainActivity extends AppCompatActivity {
                             R.anim.fade_out,  // exit
                             R.anim.fade_in,   // popEnter
                             R.anim.slide_out  // popExit
-                    ).replace(R.id.framelayout, new FeelingFragment()).addToBackStack(null).commit();
+                    ).replace(R.id.framelayout, new FakeFragment()).addToBackStack(null).commit();
                 } else {
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(
                             R.anim.slide_out,  // enter
                             R.anim.fade_out,  // exit
                             R.anim.fade_in,   // popEnter
                             R.anim.slide_in  // popExit
-                    ).replace(R.id.framelayout, new FeelingFragment()).addToBackStack(null).commit();
+                    ).replace(R.id.framelayout, new FakeFragment()).addToBackStack(null).commit();
                 }
             cur = i;
-
             binding.mainCard.setCardBackgroundColor(getResources().getColor(R.color.background));
-            binding.fakeCard.setCardBackgroundColor(getResources().getColor(R.color.background));
-            binding.feelingCard.setCardBackgroundColor(getResources().getColor(R.color.card));
+            binding.recentsCard.setCardBackgroundColor(getResources().getColor(R.color.background));
+            binding.fakeCard.setCardBackgroundColor(getResources().getColor(R.color.card));
+            binding.feelingCard.setCardBackgroundColor(getResources().getColor(R.color.background));
             binding.magicCard.setCardBackgroundColor(getResources().getColor(R.color.background));
             binding.otherCard.setCardBackgroundColor(getResources().getColor(R.color.background));
         });
 
-        binding.magicCard.setOnClickListener(v -> {
+        binding.feelingCard.setOnClickListener(v -> {
             int i = 3;
             if (i != cur)
                 if (i < cur) {
@@ -130,6 +133,34 @@ public class MainActivity extends AppCompatActivity {
                             R.anim.fade_out,  // exit
                             R.anim.fade_in,   // popEnter
                             R.anim.slide_out  // popExit
+                    ).replace(R.id.framelayout, new FeelingFragment()).addToBackStack(null).commit();
+                } else {
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(
+                            R.anim.slide_out,  // enter
+                            R.anim.fade_out,  // exit
+                            R.anim.fade_in,   // popEnter
+                            R.anim.slide_in  // popExit
+                    ).replace(R.id.framelayout, new FeelingFragment()).addToBackStack(null).commit();
+                }
+            cur = i;
+
+            binding.mainCard.setCardBackgroundColor(getResources().getColor(R.color.background));
+            binding.recentsCard.setCardBackgroundColor(getResources().getColor(R.color.background));
+            binding.fakeCard.setCardBackgroundColor(getResources().getColor(R.color.background));
+            binding.feelingCard.setCardBackgroundColor(getResources().getColor(R.color.card));
+            binding.magicCard.setCardBackgroundColor(getResources().getColor(R.color.background));
+            binding.otherCard.setCardBackgroundColor(getResources().getColor(R.color.background));
+        });
+
+        binding.magicCard.setOnClickListener(v -> {
+            int i = 4;
+            if (i != cur)
+                if (i < cur) {
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(
+                            R.anim.slide_in,  // enter
+                            R.anim.fade_out,  // exit
+                            R.anim.fade_in,   // popEnter
+                            R.anim.slide_out  // popExit
                     ).replace(R.id.framelayout, new MagicFragment()).addToBackStack(null).commit();
                 } else {
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(
@@ -142,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
             cur = i;
 
             binding.mainCard.setCardBackgroundColor(getResources().getColor(R.color.background));
+            binding.recentsCard.setCardBackgroundColor(getResources().getColor(R.color.background));
             binding.fakeCard.setCardBackgroundColor(getResources().getColor(R.color.background));
             binding.feelingCard.setCardBackgroundColor(getResources().getColor(R.color.background));
             binding.magicCard.setCardBackgroundColor(getResources().getColor(R.color.card));
@@ -149,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.otherCard.setOnClickListener(v -> {
-            int i = 4;
+            int i = 5;
             if (i != cur)
                 if (i < cur) {
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(
@@ -170,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
             cur = i;
 
             binding.mainCard.setCardBackgroundColor(getResources().getColor(R.color.background));
+            binding.recentsCard.setCardBackgroundColor(getResources().getColor(R.color.background));
             binding.fakeCard.setCardBackgroundColor(getResources().getColor(R.color.background));
             binding.feelingCard.setCardBackgroundColor(getResources().getColor(R.color.background));
             binding.magicCard.setCardBackgroundColor(getResources().getColor(R.color.background));

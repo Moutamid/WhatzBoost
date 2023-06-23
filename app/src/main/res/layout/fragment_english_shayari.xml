@@ -8,6 +8,21 @@
     android:background="@color/background"
     tools:context=".fragments.EnglishShayariFragment">
 
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8sp"
+        android:background="@drawable/background_rounded"
+        android:backgroundTint="@color/search"
+        android:padding="12sp"
+        android:textColor="@color/off_white"
+        android:drawableRight="@drawable/round_search_24"
+        android:drawablePadding="12sp"
+        android:drawableTint="@color/greyWhats"
+        android:textColorHint="@color/greyWhats"
+        android:hint="Search Authors" />
+
     <LinearLayout
         android:id="@+id/authorLayout"
         android:layout_width="match_parent"

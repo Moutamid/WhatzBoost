@@ -85,7 +85,7 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
                 getExternalFilesDir(""), "SuperTech Uploader"
         );
         splitVideoFolder = new File(folder, SPLIT_VIDEO);
-
+        context = this;
 
         binding.backbtn.setOnClickListener(v -> {
             onBackPressed();
@@ -97,12 +97,7 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
 
         binding.videoView.setOnPreparedListener(mp -> {
             int duration = binding.videoView.getDuration() / 1000;
-            int splitTime;
-            if(end==29000){
-                splitTime = 29;
-            }else{
-                splitTime=15;
-            }
+            int splitTime = 29;
             splitFileCount = duration / splitTime + 1;
         });
         controller.setAnchorView(binding.videoView);
@@ -114,9 +109,22 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
         binding.videoView.start();
 
         binding.split.setOnClickListener(v -> {
+            String ext = path.substring(path.lastIndexOf("."));
+            if (ext.equals(".mkv")){
+                new AlertDialog.Builder(this)
+                        .setIcon(R.drawable.round_error_24)
+                        .setMessage("This Video file is not supported. Supported file are mp4")
+                        .setTitle("Something Wrong")
+                        .setPositiveButton("Close", (dialog, which) -> dialog.dismiss())
+                        .show();
+            } else {
+                new SplitVideo().execute();
+            }
 //            VideoSplitter splitter = new VideoSplitter(this, path);
 //            splitter.splitVideo();
-           new SplitVideo().execute();
+//            String outputPath = splitVideoFolder.getPath() + SEPARATOR ;
+//            VideoSplitter splitter = new VideoSplitter(this);
+//            splitter.splitVideo(path, outputPath);
         });
 
 

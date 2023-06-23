@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +28,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class EnglishShayariFragment extends Fragment {
     FragmentEnglishShayariBinding binding;
+    ShayriAuthorAdapter adapter, titleAdapter;
     public EnglishShayariFragment() {
         // Required empty public constructor
     }
@@ -46,6 +50,29 @@ public class EnglishShayariFragment extends Fragment {
         binding.poetLayout.setVisibility(View.GONE);
 
         getAuthors();
+
+        binding.search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (binding.authorLayout.getVisibility() == View.VISIBLE){
+                        adapter.getFilter().filter(s);
+                } else if (binding.titleLayout.getVisibility() == View.VISIBLE){
+                        if (titleAdapter != null){
+                            titleAdapter.getFilter().filter(s);
+                        }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         return binding.getRoot();
     }
@@ -93,11 +120,11 @@ public class EnglishShayariFragment extends Fragment {
                         JSONObject jsonObject = new JSONObject(htmlData);
                         Log.d("HTMLDATA", htmlData);
                         JSONArray arr = jsonObject.getJSONArray("authors");
-                        String[] author = new String[arr.length()];
+                        ArrayList<String>author = new ArrayList<>();
                         for (int i = 0; i < arr.length(); i++) {
-                            author[i] = arr.getString(i);
+                            author.add(arr.getString(i));
                         }
-                        ShayriAuthorAdapter adapter = new ShayriAuthorAdapter(requireContext(), author, listner);
+                        adapter = new ShayriAuthorAdapter(requireContext(), author, listner);
                         Constants.dismissDialog();
                         Stash.put("SS", 1);
                         binding.authorRC.setHasFixedSize(false);
@@ -153,15 +180,15 @@ public class EnglishShayariFragment extends Fragment {
 //                        Toast.makeText(context, htmlData, Toast.LENGTH_SHORT).show();
                         JSONArray jsonObject = new JSONArray(htmlData);
                         Log.d("HTMLDATA", "Size: " + jsonObject.length());
-                        String[] author = new String[jsonObject.length()];
+                        ArrayList<String>author = new ArrayList<>();
                         for (int i = 0; i < jsonObject.length(); i++) {
-                            author[i] = jsonObject.getJSONObject(i).getString("title");
+                            author.add(jsonObject.getJSONObject(i).getString("title"));
                         }
-                        ShayriAuthorAdapter adapter = new ShayriAuthorAdapter(requireContext(), author, listner);
+                        titleAdapter = new ShayriAuthorAdapter(requireContext(), author, listner);
                         Constants.dismissDialog();
                         Stash.put("SS", 2);
                         binding.titleRC.setHasFixedSize(false);
-                        binding.titleRC.setAdapter(adapter);
+                        binding.titleRC.setAdapter(titleAdapter);
                     } catch (JSONException error) {
                         Constants.dismissDialog();
                         Toast.makeText(requireActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
@@ -244,6 +271,8 @@ public class EnglishShayariFragment extends Fragment {
                 binding.authorLayout.setVisibility(View.GONE);
                 binding.titleLayout.setVisibility(View.VISIBLE);
                 binding.poetLayout.setVisibility(View.GONE);
+                binding.search.setText("");
+                binding.search.setHint("Search Author Titles");
                 Constants.showDialog();
                 Stash.put("AUTH", logo);
                 getTitles(logo);
@@ -251,6 +280,7 @@ public class EnglishShayariFragment extends Fragment {
                 binding.authorLayout.setVisibility(View.GONE);
                 binding.titleLayout.setVisibility(View.GONE);
                 binding.poetLayout.setVisibility(View.VISIBLE);
+                binding.search.setText("");
                 Constants.showDialog();
                 getPoetry(logo);
             }

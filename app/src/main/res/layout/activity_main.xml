@@ -149,23 +149,25 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/search_badge"
-                        android:layout_width="50sp"
+                        android:id="@+id/recentsCard"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/search"
-                        app:cardCornerRadius="10sp"
-                        android:layout_marginStart="12sp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true">
+                        android:layout_margin="3sp"
+                        app:cardCornerRadius="26sp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/background">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8sp"
-                            android:rotation="90"
-                            android:src="@drawable/round_search_24"
-                            android:layout_gravity="center"
-                            app:tint="@color/white" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Recents"
+                            android:paddingStart="20sp"
+                            android:paddingEnd="20sp"
+                            android:paddingBottom="12sp"
+                            android:paddingTop="12sp"
+                            android:textSize="18sp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/poppins" />
 
                     </com.google.android.material.card.MaterialCardView>
 
@@ -183,6 +185,26 @@
             android:layout_weight="1"/>
 
     </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/search_badge"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
+        app:cardBackgroundColor="@color/search"
+        app:cardCornerRadius="10sp"
+        android:layout_margin="12sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8sp"
+            android:src="@drawable/round_search_24"
+            android:layout_gravity="center"
+            app:tint="@color/white" />
+
+    </com.google.android.material.card.MaterialCardView>
 
 
 </RelativeLayout>

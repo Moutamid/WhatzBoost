@@ -60,7 +60,7 @@
         android:layout_marginStart="12sp"
         android:layout_marginEnd="12sp"
         android:gravity="end"
-        android:text="Pick Your Favourite Category 👍"
+        android:text="Pick Your Favourite Category"
         android:textColor="@color/text_color"
         android:textSize="18sp" />
 
