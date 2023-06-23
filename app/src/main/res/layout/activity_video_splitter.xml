@@ -111,7 +111,7 @@
             android:layout_height="wrap_content"
             android:padding="12sp"
             android:layout_margin="12sp"
-            android:text="Split Video"
+            android:text="Saved Video"
             android:textAllCaps="true"
             android:textStyle="bold"
             android:backgroundTint="@color/card"

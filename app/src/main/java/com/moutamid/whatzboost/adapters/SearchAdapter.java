@@ -58,11 +58,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
             int duration = 300;
             switch (event.getAction()) {
                 case MotionEvent.ACTION_MOVE:
-                case MotionEvent.ACTION_HOVER_EXIT:
                     ObjectAnimator scaleDownXX = ObjectAnimator.ofFloat(v,
-                            "scaleX", 1f);
+                            "scaleX", 0.6f);
                     ObjectAnimator scaleDownYY = ObjectAnimator.ofFloat(v,
-                            "scaleY", 1f);
+                            "scaleY", 0.6f);
                     scaleDownXX.setDuration(duration);
                     scaleDownYY.setDuration(duration);
 
@@ -70,6 +69,20 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
                     scaleDownn.play(scaleDownXX).with(scaleDownYY);
 
                     scaleDownn.start();
+
+                    new Handler().postDelayed(()-> {
+                        ObjectAnimator scaleDownX3 = ObjectAnimator.ofFloat(v,
+                                "scaleX", 1f);
+                        ObjectAnimator scaleDownY3 = ObjectAnimator.ofFloat(v,
+                                "scaleY", 1f);
+                        scaleDownX3.setDuration(duration);
+                        scaleDownY3.setDuration(duration);
+
+                        AnimatorSet scaleDown3 = new AnimatorSet();
+                        scaleDown3.play(scaleDownX3).with(scaleDownY3);
+
+                        scaleDown3.start();
+                    }, 300);
                     break;
 
                 case MotionEvent.ACTION_DOWN:

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import android.os.Handler;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -38,7 +39,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class FeelingFragment extends Fragment {
-    FragmentFeelingBinding binding;
+    public FragmentFeelingBinding binding;
     static ProgressDialog progressDialog;
     public FeelingFragment() {
         // Required empty public constructor
@@ -66,9 +67,9 @@ public class FeelingFragment extends Fragment {
 
                     case MotionEvent.ACTION_MOVE:
                         ObjectAnimator scaleDownXX = ObjectAnimator.ofFloat(v,
-                                "scaleX", 1f);
+                                "scaleX", 0.6f);
                         ObjectAnimator scaleDownYY = ObjectAnimator.ofFloat(v,
-                                "scaleY", 1f);
+                                "scaleY", 0.6f);
                         scaleDownXX.setDuration(duration);
                         scaleDownYY.setDuration(duration);
 
@@ -76,6 +77,20 @@ public class FeelingFragment extends Fragment {
                         scaleDownn.play(scaleDownXX).with(scaleDownYY);
 
                         scaleDownn.start();
+
+                        new Handler().postDelayed(()-> {
+                            ObjectAnimator scaleDownX3 = ObjectAnimator.ofFloat(v,
+                                    "scaleX", 1f);
+                            ObjectAnimator scaleDownY3 = ObjectAnimator.ofFloat(v,
+                                    "scaleY", 1f);
+                            scaleDownX3.setDuration(duration);
+                            scaleDownY3.setDuration(duration);
+
+                            AnimatorSet scaleDown3 = new AnimatorSet();
+                            scaleDown3.play(scaleDownX3).with(scaleDownY3);
+
+                            scaleDown3.start();
+                        }, 300);
                         break;
 
                     case MotionEvent.ACTION_DOWN:
@@ -122,7 +137,7 @@ public class FeelingFragment extends Fragment {
     public class LoadListAsyncTask extends AsyncTask<Void, Void, Pair<String, ArrayList<StickerPack>>> {
         private final WeakReference<FragmentActivity> contextWeakReference;
 
-        LoadListAsyncTask(FragmentActivity mainActivity) {
+        public LoadListAsyncTask(FragmentActivity mainActivity) {
             this.contextWeakReference = new WeakReference<>(mainActivity);
         }
 
@@ -185,4 +200,5 @@ public class FeelingFragment extends Fragment {
         startActivity(intent2);
         requireActivity().overridePendingTransition(0, 0);
     }
+
 }

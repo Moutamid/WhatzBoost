@@ -48,9 +48,9 @@ import android.widget.VideoView;
 import com.moutamid.whatzboost.BuildConfig;
 import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
+import com.moutamid.whatzboost.VideoSplitter;
 import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.ActivitySplitVideoBinding;
-import com.moutamid.whatzboost.videosplitter.SplitVideo;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -73,13 +73,19 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
     int end = -1;
     private static final String SEPARATOR = "/";
     private ProgressDialog progress;
+    public File folder;
+    private String SPLIT_VIDEO = "Split Video";
+    public File splitVideoFolder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySplitVideoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        folder = new File(
+                getExternalFilesDir(""), "SuperTech Uploader"
+        );
+        splitVideoFolder = new File(folder, SPLIT_VIDEO);
 
-        context = this;
 
         binding.backbtn.setOnClickListener(v -> {
             onBackPressed();
@@ -108,7 +114,9 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
         binding.videoView.start();
 
         binding.split.setOnClickListener(v -> {
-            new SplitVideo().execute();
+//            VideoSplitter splitter = new VideoSplitter(this, path);
+//            splitter.splitVideo();
+           new SplitVideo().execute();
         });
 
 
@@ -152,39 +160,32 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
     }
 
     private void splitVideo() {
-
-        final File folder = new File(
-                context.getExternalFilesDir(""), "SuperTech Uploader"
-        );
-        final String SPLIT_VIDEO = "Split Video";
-        final File splitVideoFolder = new File(folder, SPLIT_VIDEO);
-
         ArrayList<String> videoFiles = new ArrayList<>();
         for (int i = 0; i < splitFileCount; i++) {
-            String outputPath = splitVideoFolder.getPath() + SEPARATOR + "video" + i + ".mp4";
-            videoFiles.add(splitVideoFolder.getPath() + SEPARATOR + "video" + i + ".mp4");
+            String ext = path.substring(path.lastIndexOf("."));
 
-            File pa = new File(outputPath);
-            pa.mkdir();
-
-           Log.i("TAg1111", "outputPath : " + outputPath);
-           Log.i("TAg1111", "root : " + pa.mkdir());
-           Log.i("TAg1111", "root : " + pa.getPath());
-
+            Log.i("TAG1111", "path : " + path);
+            Log.i("TAG1111", "ext : " + ext);
+            String outputPath = splitVideoFolder.getPath() + SEPARATOR +
+                    "video" + i + ext;
+            videoFiles.add(splitVideoFolder.getPath() + SEPARATOR +
+                    "video" + i + ext);
+            Log.i("TAG1111", "outputPath : " + outputPath);
             try {
-                Log.i("TAg1111", "start : " + start);
-                Log.i("TAg1111", "end : " + end);
-                Log.i("TAg1111", "path : " + path);
+                Log.i("TAG1111", "start : " + start);
+                Log.i("TAG1111", "end : " + end);
                 genVideoUsingMuxer(path, outputPath, start, end, true, true);
-                Log.i("TAg1111", "video saved : " + i);
+                Log.i("TAG1111", "video saved : " + i);
                 start = end;
                 end = end + 29000;
+
             } catch (IOException e) {
                 e.printStackTrace();
-                Log.d("TAg1111", "Catch : " + e.getMessage());
+                Log.d("TAG1111", e.getMessage());
             }
         }
-        saveVideos(videoFiles);
+        shareMultipleVideo(SplitVideoActivity.this, videoFiles, "Share Videos");
+//        saveVideos(videoFiles);
     }
 
     private static final int DEFAULT_BUFFER_SIZE = 1024 * 1024;
@@ -193,29 +194,19 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
     public void genVideoUsingMuxer(String srcPath, String dstPath, int startMs, int endMs, boolean useAudio, boolean useVideo) throws IOException {
         // Set up MediaExtractor to read from the source.
         MediaExtractor extractor = new MediaExtractor();
-        Log.d("BUGCHECK123", "1");
         extractor.setDataSource(srcPath);
-        Log.d("BUGCHECK123", "2");
         int trackCount = extractor.getTrackCount();
-        Log.d("BUGCHECK123", "3");
+
         // Set up MediaMuxer for the destination.
-        MediaMuxer muxer = null;
-        try {
-            muxer = new MediaMuxer(dstPath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
-        } catch (Exception e){
-            Log.d("BUGCHECK123", e.getMessage());
-        }
-        Log.d("BUGCHECK123", "4");
+        MediaMuxer muxer;
+        muxer = new MediaMuxer(dstPath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4);
         // Set up the tracks and retrieve the max buffer size for selected
         // tracks.
-        HashMap<Integer, Integer> indexMap = new HashMap<>(trackCount);
-        Log.d("BUGCHECK123", "5");
+        HashMap<Integer, Integer> indexMap = new HashMap<Integer, Integer>(trackCount);
         int bufferSize = -1;
         for (int i = 0; i < trackCount; i++) {
             MediaFormat format = extractor.getTrackFormat(i);
-            Log.d("BUGCHECK123", "6");
             String mime = format.getString(MediaFormat.KEY_MIME);
-            Log.d("BUGCHECK123", "7");
             boolean selectCurrentTrack = false;
             if (mime.startsWith("audio/") && useAudio) {
                 selectCurrentTrack = true;
@@ -223,33 +214,22 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
                 selectCurrentTrack = true;
             }
             if (selectCurrentTrack) {
-                Log.d("BUGCHECK123", "8 IFFF");
                 extractor.selectTrack(i);
                 int dstIndex = muxer.addTrack(format);
-                Log.d("BUGCHECK123", "8.444 mux");
                 indexMap.put(i, dstIndex);
                 if (format.containsKey(MediaFormat.KEY_MAX_INPUT_SIZE)) {
-                    Log.d("BUGCHECK123", "8 8 IFFF");
                     int newSize = format.getInteger(MediaFormat.KEY_MAX_INPUT_SIZE);
                     bufferSize = Math.max(newSize, bufferSize);
-                } else {
-                    Log.d("BUGCHECK123", "8 Elseee");
                 }
-            } else {
-                Log.d("BUGCHECK123", "9 Elseee");
             }
         }
         if (bufferSize < 0) {
             bufferSize = DEFAULT_BUFFER_SIZE;
         }
-        Log.d("BUGCHECK123", "10");
         // Set up the orientation and starting time for extractor.
         MediaMetadataRetriever retrieverSrc = new MediaMetadataRetriever();
-        Log.d("BUGCHECK123", "11");
         retrieverSrc.setDataSource(srcPath);
-        Log.d("BUGCHECK123", "12");
         String degreesString = retrieverSrc.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
-        Log.d("BUGCHECK123", "13");
         if (degreesString != null) {
             int degrees = Integer.parseInt(degreesString);
             if (degrees >= 0) {
@@ -278,7 +258,7 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
                 if (endMs > 0 && bufferInfo.presentationTimeUs > (endMs * 1000L)) {
                     break;
                 } else {
-                    bufferInfo.flags = extractor.getSampleFlags(); //
+                    bufferInfo.flags = extractor.getSampleFlags();
                     trackIndex = extractor.getSampleTrackIndex();
                     muxer.writeSampleData(indexMap.get(trackIndex), dstBuf, bufferInfo);
                     extractor.advance();
@@ -286,43 +266,39 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
             }
         }
 
+
         try {
             muxer.stop();
         } catch (Throwable e) {
-            Log.d("TAg1111", "Muxer : " + e.getMessage());
             e.printStackTrace();
         }
 
         muxer.release();
     }
 
-
+    public void shareMultipleVideo(Context context, ArrayList<String> videoFiles, String title) {
+        ArrayList<Uri> uriArrayList = new ArrayList<>();
+        for (String videoPath : videoFiles) {
+            Uri uri;
+            // only for gingerbread and newer versions
+            uri = FileProvider.getUriForFile(context,
+                    context.getApplicationContext().getPackageName(), new File(videoPath));
+            uriArrayList.add(uri);
+        }
+        // Intent videoShare = new Intent(Intent.ACTION_SEND_MULTIPLE);
+        Intent videoShare = new Intent(Intent.ACTION_SEND_MULTIPLE);
+        videoShare.setPackage("com.whatsapp");
+        videoShare.setType("video/*");
+        videoShare.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uriArrayList);
+        videoShare.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        context.startActivity(Intent.createChooser(videoShare, title));
+    }
     private void saveVideos(ArrayList<String> videoFiles) {
-
-        Log.d("TAg1111", "Size : " + videoFiles.size());
-        Log.d("TAg1111", "file : " + videoFiles.get(0));
 
         runOnUiThread(() -> {
             new AlertDialog.Builder(SplitVideoActivity.this)
                     .setPositiveButton("Share", (dialog, which) -> {
-                        ArrayList<Uri> uriArrayList = new ArrayList<>();
-                        for (String videoPath : videoFiles) {
-                            Uri uri;
-                            // only for gingerbread and newer versions
-                            uri = FileProvider.getUriForFile(getApplicationContext(),
-                                    BuildConfig.APPLICATION_ID + ".provider", new File(videoPath));
-                            uriArrayList.add(uri);
-                        }
-                        Log.d("TAg1111", "Size : " + uriArrayList.size());
-                        Log.d("TAg1111", "file : " + uriArrayList.get(0));
-                        dialog.dismiss();
-                        // Intent videoShare = new Intent(Intent.ACTION_SEND_MULTIPLE);
-                        Intent videoShare = new Intent(Intent.ACTION_SEND_MULTIPLE);
-                        videoShare.setPackage("com.whatsapp");
-                        videoShare.setType("video/*");
-                        videoShare.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uriArrayList);
-                        videoShare.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        startActivity(Intent.createChooser(videoShare, "Share Videos"));
+                        shareMultipleVideo(SplitVideoActivity.this, videoFiles, "Share Videos");
                     })
                     .setNegativeButton("Save", (dialog, which) -> {
                         ArrayList<Uri> uriArrayList = new ArrayList<>();
@@ -384,8 +360,7 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
         for (Uri uri : uris) {
             String displayName = getDisplayNameFromUri(uri, contentResolver);
             InputStream inputStream = contentResolver.openInputStream(uri);
-            File downloadsDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS + "/WhatzBoost Videos");
-            File outputFile = new File(downloadsDirectory, displayName);
+            File outputFile = new File(splitVideoFolder, displayName);
             OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(outputFile));
 
             try {

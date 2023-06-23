@@ -402,11 +402,10 @@ public class Constants {
             switch (event.getAction()) {
 
                 case MotionEvent.ACTION_MOVE:
-                case MotionEvent.ACTION_HOVER_EXIT:
                     ObjectAnimator scaleDownXX = ObjectAnimator.ofFloat(v,
-                            "scaleX", 1f);
+                            "scaleX", 0.6f);
                     ObjectAnimator scaleDownYY = ObjectAnimator.ofFloat(v,
-                            "scaleY", 1f);
+                            "scaleY", 0.6f);
                     scaleDownXX.setDuration(duration);
                     scaleDownYY.setDuration(duration);
 
@@ -414,6 +413,21 @@ public class Constants {
                     scaleDownn.play(scaleDownXX).with(scaleDownYY);
 
                     scaleDownn.start();
+
+                    new Handler().postDelayed(()-> {
+                        ObjectAnimator scaleDownX3 = ObjectAnimator.ofFloat(v,
+                                "scaleX", 1f);
+                        ObjectAnimator scaleDownY3 = ObjectAnimator.ofFloat(v,
+                                "scaleY", 1f);
+                        scaleDownX3.setDuration(duration);
+                        scaleDownY3.setDuration(duration);
+
+                        AnimatorSet scaleDown3 = new AnimatorSet();
+                        scaleDown3.play(scaleDownX3).with(scaleDownY3);
+
+                        scaleDown3.start();
+                    }, 300);
+
                     break;
 
                 case MotionEvent.ACTION_DOWN:
@@ -452,6 +466,80 @@ public class Constants {
             return true;
         };
     }
+
+    public static View.OnTouchListener customOnTouchListener(Class<?> classs, Context context, Activity activity) {
+        return (v, event) -> {
+            int duration = 300;
+            Log.d("OnTouchLog", event.getAction() + " " + event.toString());
+            switch (event.getAction()) {
+
+                case MotionEvent.ACTION_MOVE:
+                    // Check if the touch event is happening outside the button's bounds
+                    if (isPointInsideView(event.getRawX(), event.getRawY(), v)) {
+                        ObjectAnimator scaleDownXX = ObjectAnimator.ofFloat(v,
+                                "scaleX", 1f);
+                        ObjectAnimator scaleDownYY = ObjectAnimator.ofFloat(v,
+                                "scaleY", 1f);
+                        scaleDownXX.setDuration(duration);
+                        scaleDownYY.setDuration(duration);
+
+                        AnimatorSet scaleDownn = new AnimatorSet();
+                        scaleDownn.play(scaleDownXX).with(scaleDownYY);
+
+                        scaleDownn.start();
+                    }
+                    break;
+
+                case MotionEvent.ACTION_DOWN:
+                    ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
+                            "scaleX", 0.6f);
+                    ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
+                            "scaleY", 0.6f);
+                    scaleDownX.setDuration(duration);
+                    scaleDownY.setDuration(duration);
+
+                    AnimatorSet scaleDown = new AnimatorSet();
+                    scaleDown.play(scaleDownX).with(scaleDownY);
+
+                    scaleDown.start();
+                    break;
+
+                case MotionEvent.ACTION_UP:
+                    ObjectAnimator scaleDownX2 = ObjectAnimator.ofFloat(
+                            v, "scaleX", 1f);
+                    ObjectAnimator scaleDownY2 = ObjectAnimator.ofFloat(
+                            v, "scaleY", 1f);
+                    scaleDownX2.setDuration(duration);
+                    scaleDownY2.setDuration(duration);
+
+                    AnimatorSet scaleDown2 = new AnimatorSet();
+                    scaleDown2.play(scaleDownX2).with(scaleDownY2);
+
+                    scaleDown2.start();
+                    new Handler().postDelayed(() -> {
+                        context.startActivity(new Intent(context, classs));
+                        // activity.finish();
+                    }, 300);
+
+                    break;
+            }
+            return true;
+        };
+    }
+
+    // Helper method to check if a point is inside the view's bounds
+    private static boolean isPointInsideView(float x, float y, View view) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        int viewX = location[0];
+        int viewY = location[1];
+        int viewWidth = view.getWidth();
+        int viewHeight = view.getHeight();
+        boolean check = (x > viewX && x < (viewX + viewWidth) && y > viewY && y < (viewY + viewHeight));
+        Log.d("OnTouchLog", "check " + check);
+        return check;
+    }
+
 
     public static void checkApp(Activity activity) {
         String appName = "WhatzBooster";
