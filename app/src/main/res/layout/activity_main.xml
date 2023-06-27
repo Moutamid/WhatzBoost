@@ -39,6 +39,7 @@
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="26sp"
                         app:cardElevation="0dp"
+                        android:visibility="gone"
                         android:layout_margin="3sp"
                         app:cardBackgroundColor="@color/background">
 
@@ -84,6 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="26sp"
+                        android:visibility="gone"
                         app:cardElevation="0dp"
                         android:layout_margin="3sp"
                         app:cardBackgroundColor="@color/background">
@@ -114,7 +116,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="Make Fake"
+                            android:text="WA Tools"
                             android:paddingStart="20sp"
                             android:paddingEnd="20sp"
                             android:paddingBottom="12sp"

@@ -17,9 +17,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.fxn.stash.Stash;
 import com.google.android.material.card.MaterialCardView;
 import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
+import com.moutamid.whatzboost.constants.Constants;
+import com.moutamid.whatzboost.models.SearchModel;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -51,6 +54,22 @@ public class StickerPackListActivity extends AddStickerPackkkActivity {
 
 
         MaterialCardView backBtn = findViewById(R.id.backbtn);
+
+        ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
+        SearchModel model = new SearchModel(R.drawable.sticker, "Stickers");
+
+        if (recents.size() == 0){
+            recents.add(model);
+            Stash.put(Constants.RECENTS_LIST, recents);
+        } else {
+            for (int i=0; i<recents.size(); i++){
+                if (!recents.get(i).getName().equals(model.getName())){
+                    recents.add(model);
+                    Stash.put(Constants.RECENTS_LIST, recents);
+                }
+            }
+        }
+
 
         backBtn.setOnClickListener(v -> {
             onBackPressed();

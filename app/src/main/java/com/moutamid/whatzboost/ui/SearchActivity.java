@@ -16,9 +16,11 @@ import android.util.Pair;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.fxn.stash.Stash;
 import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.adapters.SearchAdapter;
+import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.ActivitySearchBinding;
 import com.moutamid.whatzboost.fragments.FeelingFragment;
 import com.moutamid.whatzboost.listners.SearchLister;
@@ -40,14 +42,14 @@ public class SearchActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
 
-    String[] name = { "Deleted Messages", "Video Splitter", "Whatsapp Web", "Direct Chat", "Status Saver", "Text Repeater",
-            "Make Profile", "Make Stories", "Stickers", "Caption", "Shayari", "Emotions", "Text to Emoji",
-            "Qr Generator", "Qr Scanner", "Blank Message", "Font Fun", "Insta ReShare"
+    String[] name = { "Deleted\nMessages", "Video\nSplitter", "Whatsapp\nWeb", "Open\nWA Profile", "Status\nSaver", "Text\nRepeater",
+            "Fake\nProfile", "Fake\nStories", "Stickers", "Caption", "Shayari", "Emotions", "Text-to-Emoji",
+            "Font Fun", "Qr\nScanner", "Qr\nGenerator", "Blank\nMessage", "Insta\nReShare"
     };
     int[] icons = {
             R.drawable.bin, R.drawable.split, R.drawable.whatsweb, R.drawable.chat, R.drawable.download, R.drawable.repeat,
             R.drawable.user, R.drawable.stories, R.drawable.sticker, R.drawable.closed_caption, R.drawable.happy, R.drawable.emotions,
-            R.drawable.magic_hat, R.drawable.qr_code, R.drawable.barcode_scanner, R.drawable.comment, R.drawable.fonticons, R.drawable.retweet,
+            R.drawable.magic_hat, R.drawable.fonticons, R.drawable.barcode_scanner, R.drawable.qr_code, R.drawable.comment, R.drawable.retweet,
     };
 
     @Override
@@ -65,7 +67,7 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         list = new ArrayList<>();
-
+        Stash.put(Constants.RECENTS, false);
         getList();
 
         binding.name.addTextChangedListener(new TextWatcher() {

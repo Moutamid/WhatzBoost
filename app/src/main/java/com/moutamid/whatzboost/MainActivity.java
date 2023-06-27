@@ -28,7 +28,7 @@ import com.moutamid.whatzboost.ui.SearchActivity;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
-    int cur = 0;
+    int cur = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         R.anim.fade_out,  // exit
                         R.anim.fade_in,   // popEnter
                         R.anim.slide_out  // popExit
-                ).replace(R.id.framelayout, new RecentsFragment()).addToBackStack(null).commit();
+                ).replace(R.id.framelayout, new RecentsFragment()).commit();
                 cur = 0;
             }
 
@@ -78,14 +78,14 @@ public class MainActivity extends AppCompatActivity {
                             R.anim.fade_out,  // exit
                             R.anim.fade_in,   // popEnter
                             R.anim.slide_out  // popExit
-                    ).replace(R.id.framelayout, new MainFragment()).addToBackStack(null).commit();
+                    ).replace(R.id.framelayout, new MainFragment()).commit();
                 } else {
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(
                             R.anim.slide_out,  // enter
                             R.anim.fade_out,  // exit
                             R.anim.fade_in,   // popEnter
                             R.anim.slide_in  // popExit
-                    ).replace(R.id.framelayout, new MainFragment()).addToBackStack(null).commit();
+                    ).replace(R.id.framelayout, new MainFragment()).commit();
                 }
             cur = i;
 
@@ -106,14 +106,14 @@ public class MainActivity extends AppCompatActivity {
                             R.anim.fade_out,  // exit
                             R.anim.fade_in,   // popEnter
                             R.anim.slide_out  // popExit
-                    ).replace(R.id.framelayout, new FakeFragment()).addToBackStack(null).commit();
+                    ).replace(R.id.framelayout, new FakeFragment()).commit();
                 } else {
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(
                             R.anim.slide_out,  // enter
                             R.anim.fade_out,  // exit
                             R.anim.fade_in,   // popEnter
                             R.anim.slide_in  // popExit
-                    ).replace(R.id.framelayout, new FakeFragment()).addToBackStack(null).commit();
+                    ).replace(R.id.framelayout, new FakeFragment()).commit();
                 }
             cur = i;
             binding.mainCard.setCardBackgroundColor(getResources().getColor(R.color.background));
@@ -133,14 +133,14 @@ public class MainActivity extends AppCompatActivity {
                             R.anim.fade_out,  // exit
                             R.anim.fade_in,   // popEnter
                             R.anim.slide_out  // popExit
-                    ).replace(R.id.framelayout, new FeelingFragment()).addToBackStack(null).commit();
+                    ).replace(R.id.framelayout, new FeelingFragment()).commit();
                 } else {
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(
                             R.anim.slide_out,  // enter
                             R.anim.fade_out,  // exit
                             R.anim.fade_in,   // popEnter
                             R.anim.slide_in  // popExit
-                    ).replace(R.id.framelayout, new FeelingFragment()).addToBackStack(null).commit();
+                    ).replace(R.id.framelayout, new FeelingFragment()).commit();
                 }
             cur = i;
 
@@ -161,14 +161,14 @@ public class MainActivity extends AppCompatActivity {
                             R.anim.fade_out,  // exit
                             R.anim.fade_in,   // popEnter
                             R.anim.slide_out  // popExit
-                    ).replace(R.id.framelayout, new MagicFragment()).addToBackStack(null).commit();
+                    ).replace(R.id.framelayout, new MagicFragment()).commit();
                 } else {
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(
                             R.anim.slide_out,  // enter
                             R.anim.fade_out,  // exit
                             R.anim.fade_in,   // popEnter
                             R.anim.slide_in  // popExit
-                    ).replace(R.id.framelayout, new MagicFragment()).addToBackStack(null).commit();
+                    ).replace(R.id.framelayout, new MagicFragment()).commit();
                 }
             cur = i;
 
@@ -189,14 +189,14 @@ public class MainActivity extends AppCompatActivity {
                             R.anim.fade_out,  // exit
                             R.anim.fade_in,   // popEnter
                             R.anim.slide_out  // popExit
-                    ).replace(R.id.framelayout, new OtherFragment()).addToBackStack(null).commit();
+                    ).replace(R.id.framelayout, new OtherFragment()).commit();
                 } else {
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(
                             R.anim.slide_out,  // enter
                             R.anim.fade_out,  // exit
                             R.anim.fade_in,   // popEnter
                             R.anim.slide_in  // popExit
-                    ).replace(R.id.framelayout, new OtherFragment()).addToBackStack(null).commit();
+                    ).replace(R.id.framelayout, new OtherFragment()).commit();
                 }
 
             cur = i;

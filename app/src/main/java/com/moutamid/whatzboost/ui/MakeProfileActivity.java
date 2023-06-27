@@ -9,12 +9,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.fxn.stash.Stash;
 import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
+import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.ActivityMakeProfileBinding;
+import com.moutamid.whatzboost.models.SearchModel;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Locale;
 
 public class MakeProfileActivity extends AppCompatActivity {
@@ -27,6 +32,30 @@ public class MakeProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMakeProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
+        SearchModel model = new SearchModel(R.drawable.user, "Fake\nProfile");
+
+        if (recents.size() == 0){
+            recents.add(model);
+            Stash.put(Constants.RECENTS_LIST, recents);
+        } else {
+            boolean check = false;
+            Collections.reverse(recents);
+            int size = recents.size() > 6 ? 6 : recents.size();
+            for (int i=0; i<size; i++){
+                if (!recents.get(i).getName().equals(model.getName())){
+                    check = true;
+                } else {
+                    check = false;
+                    break;
+                }
+            }
+            if (check){
+                recents.add(model);
+                Stash.put(Constants.RECENTS_LIST, recents);
+            }
+        }
 
         binding.backbtn.setOnClickListener(v -> {
            onBackPressed();

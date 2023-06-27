@@ -67,6 +67,7 @@ public class Constants {
     public static List<StatusItem> allWAVideoItems = new ArrayList<>();
     public static List<StatusItem> allSavedItems = new ArrayList<>();
     public static final String WaSavedRoute = "WaSavedRoute";
+    public static final String Authors = "Authors";
     public static final String RECENTS = "RECENTS";
     public static final String RECENTS_LIST = "RECENTS_LIST";
     public static final String API_LINK = "https://poetrydb.org/author";
@@ -218,6 +219,12 @@ public class Constants {
         Constants.Statusbackupfolder.mkdirs();
     }
 
+    public static String formatName(String name){
+        if (name.contains(" ")){
+            name = name.replace(" ", "%20");
+        }
+        return name;
+    }
 
     public static String titleLink(String name){
         if (name.contains(" ")){
@@ -405,9 +412,9 @@ public class Constants {
 
                 case MotionEvent.ACTION_DOWN:
                     ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
-                            "scaleX", 0.6f);
+                            "scaleX", 0.8f);
                     ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
-                            "scaleY", 0.6f);
+                            "scaleY", 0.8f);
                     scaleDownX.setDuration(duration);
                     scaleDownY.setDuration(duration);
 
@@ -438,9 +445,9 @@ public class Constants {
 
                 case MotionEvent.ACTION_MOVE:
                     ObjectAnimator scaleDownXX = ObjectAnimator.ofFloat(v,
-                            "scaleX", 0.6f);
+                            "scaleX", 0.8f);
                     ObjectAnimator scaleDownYY = ObjectAnimator.ofFloat(v,
-                            "scaleY", 0.6f);
+                            "scaleY", 0.8f);
                     scaleDownXX.setDuration(duration);
                     scaleDownYY.setDuration(duration);
 

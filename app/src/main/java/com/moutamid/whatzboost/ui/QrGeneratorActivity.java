@@ -15,11 +15,16 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.fxn.stash.Stash;
 import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
+import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.ActivityQrGeneratorBinding;
+import com.moutamid.whatzboost.models.SearchModel;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
@@ -34,6 +39,30 @@ public class QrGeneratorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityQrGeneratorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
+        SearchModel model = new SearchModel(R.drawable.qr_code, "Qr\nGenerator");
+
+        if (recents.size() == 0){
+            recents.add(model);
+            Stash.put(Constants.RECENTS_LIST, recents);
+        } else {
+            boolean check = false;
+            Collections.reverse(recents);
+            int size = recents.size() > 6 ? 6 : recents.size();
+            for (int i=0; i<size; i++){
+                if (!recents.get(i).getName().equals(model.getName())){
+                    check = true;
+                } else {
+                    check = false;
+                    break;
+                }
+            }
+            if (check){
+                recents.add(model);
+                Stash.put(Constants.RECENTS_LIST, recents);
+            }
+        }
 
         File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS + "/QrCode/");
         savePath = file.getPath();

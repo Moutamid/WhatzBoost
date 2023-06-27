@@ -29,6 +29,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class EnglishShayariFragment extends Fragment {
     FragmentEnglishShayariBinding binding;
@@ -43,13 +44,21 @@ public class EnglishShayariFragment extends Fragment {
         binding = FragmentEnglishShayariBinding.inflate(getLayoutInflater(), container, false);
 
         Constants.initDialog(requireContext());
-        Constants.showDialog();
 
         binding.authorLayout.setVisibility(View.VISIBLE);
         binding.titleLayout.setVisibility(View.GONE);
         binding.poetLayout.setVisibility(View.GONE);
 
-        getAuthors();
+        ArrayList<String>author = Stash.getArrayList(Constants.Authors, String.class);
+        if (author.size() > 0){
+            adapter = new ShayriAuthorAdapter(requireContext(), author, listner);
+            Stash.put("SS", 1);
+            binding.authorRC.setHasFixedSize(false);
+            binding.authorRC.setAdapter(adapter);
+        } else {
+            getAuthors();
+        }
+
 
         binding.search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -78,6 +87,7 @@ public class EnglishShayariFragment extends Fragment {
     }
 
     private void getAuthors() {
+        Constants.showDialog();
         new Thread(() -> {
             URL google = null;
             try {
@@ -124,6 +134,7 @@ public class EnglishShayariFragment extends Fragment {
                         for (int i = 0; i < arr.length(); i++) {
                             author.add(arr.getString(i));
                         }
+                        Stash.put(Constants.Authors, author);
                         adapter = new ShayriAuthorAdapter(requireContext(), author, listner);
                         Constants.dismissDialog();
                         Stash.put("SS", 1);
@@ -139,6 +150,7 @@ public class EnglishShayariFragment extends Fragment {
     }
 
     private void getTitles(String logo) {
+        Constants.showDialog();
         new Thread(() -> {
             URL google = null;
             try {
@@ -184,6 +196,7 @@ public class EnglishShayariFragment extends Fragment {
                         for (int i = 0; i < jsonObject.length(); i++) {
                             author.add(jsonObject.getJSONObject(i).getString("title"));
                         }
+                        Stash.put(Constants.formatName(logo), author);
                         titleAdapter = new ShayriAuthorAdapter(requireContext(), author, listner);
                         Constants.dismissDialog();
                         Stash.put("SS", 2);
@@ -199,6 +212,7 @@ public class EnglishShayariFragment extends Fragment {
     }
 
     private void getPoetry(String logo) {
+        Constants.showDialog();
         new Thread(() -> {
             URL google = null;
             try {
@@ -250,6 +264,11 @@ public class EnglishShayariFragment extends Fragment {
                             }
                             poetry[i] = pp;
                         }
+
+                        ArrayList<String> poetryList = new ArrayList<>(Arrays.asList(poetry));
+                        String auth = Stash.getString("AUTH");
+                        String name = Constants.formatName(auth) + Constants.formatName(logo);
+                        Stash.put(name, poetryList);
                         CaptionAdapter adapter = new CaptionAdapter(requireContext(), poetry);
                         Constants.dismissDialog();
                         binding.poetRC.setHasFixedSize(false);
@@ -273,18 +292,43 @@ public class EnglishShayariFragment extends Fragment {
                 binding.poetLayout.setVisibility(View.GONE);
                 binding.search.setText("");
                 binding.search.setHint("Search Author Titles");
-                Constants.showDialog();
                 Stash.put("AUTH", logo);
-                getTitles(logo);
+                ArrayList<String> titles = Stash.getArrayList(Constants.formatName(logo), String.class);
+                if (titles.size() > 0){
+                    getTitlesLocal(titles);
+                } else {
+                    getTitles(logo);
+                }
             } else if (o == 2) {
                 binding.authorLayout.setVisibility(View.GONE);
                 binding.titleLayout.setVisibility(View.GONE);
                 binding.poetLayout.setVisibility(View.VISIBLE);
                 binding.search.setText("");
-                Constants.showDialog();
-                getPoetry(logo);
+                String auth = Stash.getString("AUTH");
+                String name = Constants.formatName(auth) + Constants.formatName(logo);
+                ArrayList<String> poetry = Stash.getArrayList(name, String.class);
+                if (poetry.size() > 0){
+                    getPoetryLocal(poetry);
+                } else {
+                    getPoetry(logo);
+                }
             }
         }
     };
+
+    private void getPoetryLocal(ArrayList<String> poetry) {
+        String[] stringArray = new String[poetry.size()];
+        poetry.toArray(stringArray);
+        CaptionAdapter adapter = new CaptionAdapter(requireContext(), stringArray);
+        binding.poetRC.setHasFixedSize(false);
+        binding.poetRC.setAdapter(adapter);
+    }
+
+    private void getTitlesLocal(ArrayList<String> titles) {
+        titleAdapter = new ShayriAuthorAdapter(requireContext(), titles, listner);
+        Stash.put("SS", 2);
+        binding.titleRC.setHasFixedSize(false);
+        binding.titleRC.setAdapter(titleAdapter);
+    }
 
 }

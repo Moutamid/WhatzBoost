@@ -17,8 +17,10 @@ import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.FragmentMagicBinding;
 import com.moutamid.whatzboost.ui.CaptionListActivity;
+import com.moutamid.whatzboost.ui.EmotionsActivity;
 import com.moutamid.whatzboost.ui.FontFunActivity;
 import com.moutamid.whatzboost.ui.QrScannerActivity;
+import com.moutamid.whatzboost.ui.ShayariActivity;
 import com.moutamid.whatzboost.ui.TextToEmojiActivity;
 
 public class MagicFragment extends Fragment {
@@ -36,7 +38,9 @@ public class MagicFragment extends Fragment {
 
         binding.textMagic.setOnTouchListener(Constants.customOnTouchListner(TextToEmojiActivity.class, requireContext(), requireActivity()));
         binding.fontFun.setOnTouchListener(Constants.customOnTouchListner(FontFunActivity.class, requireContext(), requireActivity()));
-
+        binding.captions.setOnTouchListener(Constants.customOnTouchListner(CaptionListActivity.class, requireContext(), requireActivity()));
+        binding.emotions.setOnTouchListener(Constants.customOnTouchListner(EmotionsActivity.class, requireContext(), requireActivity()));
+        binding.shayari.setOnTouchListener(Constants.customOnTouchListner(ShayariActivity.class, requireContext(), requireActivity()));
 
         return binding.getRoot();
     }

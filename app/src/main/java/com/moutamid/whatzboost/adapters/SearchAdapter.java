@@ -127,7 +127,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
     @Override
     public int getItemCount() {
         if (Stash.getBoolean(Constants.RECENTS, false)){
-            return 6;
+            return list.size()>6 ? 6 : list.size();
         }
         return list.size();
     }

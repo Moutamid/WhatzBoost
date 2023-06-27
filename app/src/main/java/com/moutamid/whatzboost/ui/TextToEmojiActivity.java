@@ -9,12 +9,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.fxn.stash.Stash;
 import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
+import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.ActivityTextToEmojiBinding;
+import com.moutamid.whatzboost.models.SearchModel;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class TextToEmojiActivity extends AppCompatActivity {
     ActivityTextToEmojiBinding binding;
@@ -23,6 +28,30 @@ public class TextToEmojiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityTextToEmojiBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
+        SearchModel model = new SearchModel(R.drawable.magic_hat, "Text-to-Emoji");
+
+        if (recents.size() == 0){
+            recents.add(model);
+            Stash.put(Constants.RECENTS_LIST, recents);
+        } else {
+            boolean check = false;
+            Collections.reverse(recents);
+            int size = recents.size() > 6 ? 6 : recents.size();
+            for (int i=0; i<size; i++){
+                if (!recents.get(i).getName().equals(model.getName())){
+                    check = true;
+                } else {
+                    check = false;
+                    break;
+                }
+            }
+            if (check){
+                recents.add(model);
+                Stash.put(Constants.RECENTS_LIST, recents);
+            }
+        }
 
         binding.backbtn.setOnClickListener(v -> {
             onBackPressed();

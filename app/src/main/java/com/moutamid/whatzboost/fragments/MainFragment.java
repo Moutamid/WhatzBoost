@@ -24,6 +24,9 @@ import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.FragmentMainBinding;
 import com.moutamid.whatzboost.ui.DeletedMessageActivity;
 import com.moutamid.whatzboost.ui.DirectActivity;
+import com.moutamid.whatzboost.ui.InstaReshareActivity;
+import com.moutamid.whatzboost.ui.QrGeneratorActivity;
+import com.moutamid.whatzboost.ui.QrScannerActivity;
 import com.moutamid.whatzboost.ui.RepeaterActivity;
 import com.moutamid.whatzboost.ui.StatusSaverActivity;
 import com.moutamid.whatzboost.ui.VideoSplitterActivity;
@@ -47,9 +50,9 @@ public class MainFragment extends Fragment {
 
                 case MotionEvent.ACTION_DOWN:
                     ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
-                            "scaleX", 0.6f);
+                            "scaleX", 0.8f);
                     ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
-                            "scaleY", 0.6f);
+                            "scaleY", 0.8f);
                     scaleDownX.setDuration(duration);
                     scaleDownY.setDuration(duration);
 
@@ -101,9 +104,9 @@ public class MainFragment extends Fragment {
 
                 case MotionEvent.ACTION_MOVE:
                     ObjectAnimator scaleDownXX = ObjectAnimator.ofFloat(v,
-                            "scaleX", 0.6f);
+                            "scaleX", 0.8f);
                     ObjectAnimator scaleDownYY = ObjectAnimator.ofFloat(v,
-                            "scaleY", 0.6f);
+                            "scaleY", 0.8f);
                     scaleDownXX.setDuration(duration);
                     scaleDownYY.setDuration(duration);
 
@@ -135,10 +138,10 @@ public class MainFragment extends Fragment {
 
 
         binding.videoSplitter.setOnTouchListener(Constants.customOnTouchListner(VideoSplitterActivity.class, requireContext(), requireActivity()));
-        binding.whatsWeb.setOnTouchListener(Constants.customOnTouchListner(WhatsWebActivity.class, requireContext(), requireActivity()));
-        binding.directChat.setOnTouchListener(Constants.customOnTouchListner(DirectActivity.class, requireContext(), requireActivity()));
-        binding.statusSaver.setOnTouchListener(Constants.customOnTouchListner(StatusSaverActivity.class, requireContext(), requireActivity()));
         binding.repeater.setOnTouchListener(Constants.customOnTouchListner(RepeaterActivity.class, requireContext(), requireActivity()));
+        binding.qrGen.setOnTouchListener(Constants.customOnTouchListner(QrGeneratorActivity.class, requireContext(), requireActivity()));
+        binding.qrScan.setOnTouchListener(Constants.customOnTouchListner(QrScannerActivity.class, requireContext(), requireActivity()));
+        binding.reshare.setOnTouchListener(Constants.customOnTouchListner(InstaReshareActivity.class, requireContext(), requireActivity()));
 
         return binding.getRoot();
     }
