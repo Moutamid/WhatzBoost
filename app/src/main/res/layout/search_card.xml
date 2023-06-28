@@ -12,7 +12,6 @@
         android:layout_height="150dp"
         app:cardCornerRadius="12sp"
         android:layout_margin="12sp"
-        android:layout_weight="1"
         app:cardBackgroundColor="@color/card"
         app:cardElevation="0dp">
 
@@ -39,7 +38,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6sp"
-        android:layout_marginBottom="6sp"
         android:textSize="16sp"
         android:gravity="center"
         android:textColor="@color/off_white"

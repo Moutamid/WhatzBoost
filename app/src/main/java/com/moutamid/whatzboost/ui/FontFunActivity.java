@@ -30,6 +30,7 @@ public class FontFunActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityFontFunBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.fonticons, "Font\nFun");

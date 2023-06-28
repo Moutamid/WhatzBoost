@@ -15,6 +15,7 @@ import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.adapters.DetailMessageAdapter;
 import com.moutamid.whatzboost.adapters.MessageAdapter;
+import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.ActivityChatDetailBinding;
 import com.moutamid.whatzboost.room.HiddenMessage;
 import com.moutamid.whatzboost.room.RoomDB;
@@ -85,6 +86,7 @@ public class ChatDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityChatDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         binding.backbtn.setOnClickListener(v -> {
             onBackPressed();

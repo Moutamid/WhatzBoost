@@ -33,6 +33,7 @@ public class ShowSplitVideoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityShowSplitVideoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         binding.backbtn.setOnClickListener(v -> {
             onBackPressed();

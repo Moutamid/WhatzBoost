@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moutamid.whatzboost.R;
+import com.moutamid.whatzboost.constants.Constants;
 
 import java.lang.ref.WeakReference;
 
@@ -79,6 +80,7 @@ public class StickerPackDetailsActivity extends AddStickerPackkkActivity {
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView((int) R.layout.sticker_pack_details);
+        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
         iv_back = (ImageView)findViewById(R.id.iv_back);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override

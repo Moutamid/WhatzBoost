@@ -29,7 +29,8 @@
                 android:layout_height="28sp"
                 android:layout_margin="8sp"
                 android:src="@drawable/round_arrow_back_24"
-                app:tint="@color/icon" />
+                app:tint="@color/icon"
+                android:contentDescription="backBtn" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -38,16 +39,16 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="Font Fun"
-            android:layout_alignParentRight="true"
-            android:textSize="28sp"
+            android:layout_alignParentEnd="true"
+            android:textSize="24sp"
             android:layout_gravity="end"
-            android:drawableTint="@color/icon"
             android:fontFamily="@font/poppins_semibold"
             android:textColor="@color/white"
             android:layout_marginEnd="12sp"
             android:drawablePadding="12sp"
             android:gravity="center"
-            app:drawableLeftCompat="@drawable/font" />
+            app:drawableLeftCompat="@drawable/font"
+            app:drawableTint="@color/icon" />
 
 
     </RelativeLayout>
@@ -69,6 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12sp"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:background="@drawable/text_bg"
         android:layout_margin="12sp"
         android:fontFamily="@font/poppins"

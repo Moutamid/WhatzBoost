@@ -93,7 +93,7 @@
                         android:fontFamily="@font/poppins"
                         android:hint="Your Emoji ❤"
                         android:maxLength="2"
-                        android:inputType="textPersonName"
+                        android:inputType="textShortMessage"
                         android:textColor="@color/white"
                         android:textColorHint="@color/text_off" />
 
@@ -103,6 +103,7 @@
                         android:layout_height="wrap_content"
                         android:padding="12sp"
                         android:background="@drawable/text_bg"
+                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
                         android:layout_marginStart="12sp"
                         android:layout_marginEnd="12sp"
                         android:fontFamily="@font/poppins"

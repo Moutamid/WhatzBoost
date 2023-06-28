@@ -57,6 +57,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySearchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);

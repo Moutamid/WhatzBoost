@@ -163,7 +163,6 @@
                         android:layout_height="150dp"
                         app:cardCornerRadius="12sp"
                         android:layout_margin="12sp"
-                        android:layout_weight="1"
                         app:cardBackgroundColor="@color/card"
                         app:cardElevation="0dp">
 
@@ -187,7 +186,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="13sp"
+                        android:layout_marginTop="6sp"
                         android:textSize="16sp"
                         android:textColor="@color/off_white"
                         android:fontFamily="@font/poppins"
@@ -209,7 +208,6 @@
                         android:layout_height="150dp"
                         app:cardCornerRadius="12sp"
                         android:layout_margin="12sp"
-                        android:layout_weight="1"
                         app:cardBackgroundColor="@color/card"
                         app:cardElevation="0dp">
 
@@ -233,7 +231,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="13sp"
+                        android:layout_marginTop="6sp"
                         android:textSize="16sp"
                         android:textColor="@color/off_white"
                         android:fontFamily="@font/poppins"

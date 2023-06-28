@@ -25,6 +25,7 @@ public class WhatsWebActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityWhatsWebBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.whatsweb, "Whatsapp\nWeb");

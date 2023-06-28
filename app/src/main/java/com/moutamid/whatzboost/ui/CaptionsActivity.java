@@ -22,6 +22,7 @@ public class CaptionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCaptionsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         binding.backbtn.setOnClickListener(v -> {
             onBackPressed();

@@ -20,6 +20,7 @@ public class InstaReshareActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityInstaReshareBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.retweet, "Insta\nReShare");

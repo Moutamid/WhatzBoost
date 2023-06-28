@@ -7,6 +7,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.widget.Toast;
 
 import com.fxn.stash.Stash;
@@ -28,9 +30,12 @@ public class TextToEmojiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityTextToEmojiBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.magic_hat, "Text-to-Emoji");
+
+        binding.emoji.setFilters(new InputFilter[]{new EmojiInputFilter()});
 
         if (recents.size() == 0){
             recents.add(model);
@@ -142,6 +147,27 @@ public class TextToEmojiActivity extends AppCompatActivity {
             binding.result.setBackgroundResource(0);
         });
 
+    }
+
+    private static class EmojiInputFilter implements InputFilter {
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            StringBuilder filteredStringBuilder = new StringBuilder();
+
+            for (int i = start; i < end; i++) {
+                int type = Character.getType(source.charAt(i));
+
+                // Include emojis and certain characters like space or new line
+                if (type == Character.SURROGATE || type == Character.OTHER_SYMBOL
+                        || type == Character.SPACE_SEPARATOR || type == Character.LINE_SEPARATOR) {
+                    filteredStringBuilder.append(source.charAt(i));
+                }
+            }
+
+            // Return null to accept the filtered characters or empty string to reject them
+            return filteredStringBuilder.toString();
+        }
     }
 
     @Override

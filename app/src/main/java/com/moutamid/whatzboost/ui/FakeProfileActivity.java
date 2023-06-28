@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
+import com.moutamid.whatzboost.constants.Constants;
 
 import java.util.Locale;
 
@@ -22,6 +23,7 @@ public class FakeProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fake_profile);
+        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         num1 = findViewById(R.id.num);
         num2 = findViewById(R.id.numb);

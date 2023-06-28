@@ -81,6 +81,7 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
         super.onCreate(savedInstanceState);
         binding = ActivitySplitVideoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
         folder = new File(
                 getExternalFilesDir(""), "SuperTech Uploader"
         );

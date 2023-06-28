@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.DrawableRes;
 
 import com.moutamid.whatzboost.R;
+import com.moutamid.whatzboost.constants.Constants;
 
 import java.io.FileNotFoundException;
 
@@ -26,6 +27,7 @@ public class StickerPackInfoActivity extends BaseeActivity {
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView((int) R.layout.activity_sticker_pack_info);
+        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
         String stringExtra = getIntent().getStringExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_TRAY_ICON);
         final String stringExtra2 = getIntent().getStringExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_WEBSITE);
         final String stringExtra3 = getIntent().getStringExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_EMAIL);

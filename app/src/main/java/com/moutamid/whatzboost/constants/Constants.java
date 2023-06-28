@@ -1,5 +1,6 @@
 package com.moutamid.whatzboost.constants;
 
+import static android.content.Context.WINDOW_SERVICE;
 import static android.os.Environment.DIRECTORY_DCIM;
 import static android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION;
 
@@ -16,6 +17,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.UriPermission;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
@@ -24,14 +26,17 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
+import androidx.test.internal.util.LogUtil;
 
 import com.fxn.stash.Stash;
 import com.moutamid.whatzboost.R;
@@ -116,6 +121,19 @@ public class Constants {
         mediaMetadataRetriever.setDataSource(file.getAbsolutePath());
         String durationStr = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
         return formateMilliSeccond(Long.parseLong(durationStr));
+    }
+
+    public static void adjustFontScale(Context context, Configuration configuration) {
+        if (configuration.fontScale > 1.30) {
+            Log.d(TAG, "fontScale=" + configuration.fontScale); //Custom Log class, you can use Log.w
+            Log.d(TAG, "font too big. scale down..."); //Custom Log class, you can use Log.w
+            configuration.fontScale = 1.30f;
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            WindowManager wm = (WindowManager) context.getSystemService(WINDOW_SERVICE);
+            wm.getDefaultDisplay().getMetrics(metrics);
+            metrics.scaledDensity = configuration.fontScale * metrics.density;
+            context.getResources().updateConfiguration(configuration, metrics);
+        }
     }
 
     public static String formateMilliSeccond(long milliseconds) {

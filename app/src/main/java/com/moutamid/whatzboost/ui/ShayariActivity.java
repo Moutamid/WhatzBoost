@@ -31,6 +31,7 @@ public class ShayariActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityShayariBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.poem, "Poetry\n ");

@@ -78,6 +78,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaHolder>
     public void onBindViewHolder(@NonNull MediaHolder holder, int position) {
         Medias val = medias.get(position);
         String type = val.getType();
+        Toast.makeText(context, type, Toast.LENGTH_SHORT).show();
         this.playingHolder = holder;
         if (type.equals(FilseEnum.AUDIO.name())) {
             holder.aud_const.setVisibility(View.VISIBLE);
@@ -136,7 +137,6 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaHolder>
                     Log.d("de_check", "onClick: ");
                     openImageorVideo(val);
                    // showInterstitialAds();
-
                 }
             });
 
@@ -166,7 +166,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaHolder>
 
             Uri uri = Uri.parse(val.getFile_path());
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            String mime = "*/*";
+            String mime;
             if (val.getType().equals(FilseEnum.IMAGE.name()))
                 mime = "image/*";
             else

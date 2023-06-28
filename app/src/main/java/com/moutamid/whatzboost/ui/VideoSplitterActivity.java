@@ -63,6 +63,7 @@ public class VideoSplitterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityVideoSplitterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.split, "Video\nSplitter");

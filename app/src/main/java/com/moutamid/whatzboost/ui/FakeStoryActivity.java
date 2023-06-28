@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
+import com.moutamid.whatzboost.constants.Constants;
 
 public class FakeStoryActivity extends AppCompatActivity {
 
@@ -23,6 +24,7 @@ public class FakeStoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fake_story);
+        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         personName = findViewById(R.id.personName);
         last = findViewById(R.id.time);
