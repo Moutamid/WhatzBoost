@@ -16,6 +16,10 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.fxn.stash.Stash;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.constants.Constants;
@@ -23,16 +27,14 @@ import com.moutamid.whatzboost.databinding.ActivityQrGeneratorBinding;
 import com.moutamid.whatzboost.models.SearchModel;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import androidmads.library.qrgenearator.QRGContents;
-import androidmads.library.qrgenearator.QRGEncoder;
-import androidmads.library.qrgenearator.QRGSaver;
 
 public class QrGeneratorActivity extends AppCompatActivity {
     ActivityQrGeneratorBinding binding;
     private Bitmap bitmap;
+    Bitmap bmp;
     private String savePath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +67,50 @@ public class QrGeneratorActivity extends AppCompatActivity {
         }
 
         File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS + "/QrCode/");
+        file.mkdirs();
         savePath = file.getPath();
 
         binding.backbtn.setOnClickListener(v -> {
             onBackPressed();
         });
 
+        binding.repeatbtn.setOnClickListener(v -> {
+            try {
+                QRCodeWriter writer = new QRCodeWriter();
+                BitMatrix bitMatrix = writer.encode(binding.message.getText().toString(), BarcodeFormat.QR_CODE, 512, 512);
+                int width = bitMatrix.getWidth();
+                int height = bitMatrix.getHeight();
+                bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+                for (int x = 0; x < width; x++) {
+                    for (int y = 0; y < height; y++) {
+                        bmp.setPixel(x, y, bitMatrix.get(x,y) ? getResources().getColor(R.color.icon) : getResources().getColor(R.color.card));
+                    }
+                }
+
+//                BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+//                Bitmap bitmap = barcodeEncoder.encodeBitmap(binding.message.getText().toString(), BarcodeFormat.QR_CODE, 250, 250);
+                binding.image.setImageBitmap(bmp);
+            } catch(Exception e) {
+
+            }
+        });
+
+        binding.save.setOnClickListener(v -> {
+            String fname = "Image-" + System.currentTimeMillis() + ".jpg";
+            File nwFile = new File(file, fname);
+            if (nwFile.exists()) nwFile.delete();
+            try {
+                FileOutputStream out = new FileOutputStream(nwFile);
+                bmp.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                out.flush();
+                out.close();
+                Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+/*
         binding.repeatbtn.setOnClickListener(v -> {
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(QrGeneratorActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
@@ -111,7 +151,7 @@ public class QrGeneratorActivity extends AppCompatActivity {
             } else {
                 ActivityCompat.requestPermissions(QrGeneratorActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
             }
-        });
+        });*/
 
     }
 

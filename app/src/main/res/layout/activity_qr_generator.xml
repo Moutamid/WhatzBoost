@@ -96,7 +96,7 @@
                 android:inputType="textMultiLine"
                 android:padding="12sp"
                 android:textColor="@color/off_white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/text_off" />
 
             <Button
                 android:id="@+id/repeatbtn"
