@@ -43,12 +43,11 @@
             android:layout_marginEnd="12sp"
             android:drawablePadding="12sp"
             android:drawableTint="@color/icon"
-            android:fontFamily="@font/montserrat_alternates"
+            android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
-            android:padding="12sp"
             android:text="Emotions"
             android:textColor="@color/white"
-            android:textSize="28sp"
+            android:textSize="24sp"
             app:drawableLeftCompat="@drawable/sharp_emoji_emotions_24" />
 
     </RelativeLayout>
@@ -56,12 +55,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_gravity="start"
+        android:fontFamily="@font/poppins"
         android:layout_marginStart="12sp"
         android:layout_marginEnd="12sp"
         android:gravity="end"
         android:text="Enojy According to your mood"
-        android:textColor="@color/text_color"
+        android:textColor="@color/text_off"
         android:textSize="18sp" />
 
     <LinearLayout

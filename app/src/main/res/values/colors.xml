@@ -17,6 +17,7 @@
     <color name="text_color">#DADBDD</color>
     <color name="icon_2">#BD4040</color>
     <color name="icon">#4172D0</color>
+    <color name="icon_bg">#9E4172D0</color>
     <color name="search">#2B2D3A</color>
     <color name="yellow">#C8E88C03</color>
     <color name="card">#20202A</color>
@@ -27,5 +28,7 @@
     <color name="colorPrimary">#0fd28e</color>
     <color name="infoPageBackgroundColor">#ebebeb</color>
     <color name="colorAccent">#0fd28e</color>
+    <color name="text_off">#9C9DA2</color>
+    <color name="transparent">#00000000</color>
 
 </resources>

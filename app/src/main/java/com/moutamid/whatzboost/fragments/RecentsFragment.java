@@ -93,35 +93,35 @@ public class RecentsFragment extends Fragment {
         @Override
         public void click(String Name) {
             switch (Name) {
-                case "Deleted Messages":
+                case "Deleted\nMessages":
                     startActivity(new Intent(requireContext(), DeletedMessageActivity.class));
                     //finish();
                     break;
-                case "Video Splitter":
+                case "Video\nSplitter":
                     startActivity(new Intent(requireContext(), VideoSplitterActivity.class));
                     // finish();
                     break;
-                case "Whatsapp Web":
+                case "Whatsapp\nWeb":
                     startActivity(new Intent(requireContext(), WhatsWebActivity.class));
                     //  finish();
                     break;
-                case "Direct Chat":
+                case "Direct\nChat":
                     startActivity(new Intent(requireContext(), DirectActivity.class));
                     // finish();
                     break;
-                case "Status Saver":
+                case "Status\nSaver":
                     startActivity(new Intent(requireContext(), StatusSaverActivity.class));
                     // finish();
                     break;
-                case "Text Repeater":
+                case "Text\nRepeater":
                     startActivity(new Intent(requireContext(), RepeaterActivity.class));
                     //  finish();
                     break;
-                case "Make Profile":
+                case "Make\nProfile":
                     startActivity(new Intent(requireContext(), MakeProfileActivity.class));
                     //finish();
                     break;
-                case "Make Stories":
+                case "Make\nStories":
                     startActivity(new Intent(requireContext(), MakeStoryActivity.class));
                     // finish();
                     break;
@@ -139,27 +139,27 @@ public class RecentsFragment extends Fragment {
                     startActivity(new Intent(requireContext(), EmotionsActivity.class));
                     // finish();
                     break;
-                case "Text to Emoji":
+                case "Text-to-Emoji":
                     startActivity(new Intent(requireContext(), TextToEmojiActivity.class));
                     // finish();
                     break;
-                case "Qr Generator":
+                case "Qr\nGenerator":
                     startActivity(new Intent(requireContext(), QrGeneratorActivity.class));
                     // finish();
                     break;
-                case "Qr Scanner":
+                case "Qr\nScanner":
                     startActivity(new Intent(requireContext(), QrScannerActivity.class));
                     // finish();
                     break;
-                case "Blank Message":
+                case "Blank\nMessage":
                     startActivity(new Intent(requireContext(), BlankMessageActivity.class));
                     // finish();
                     break;
-                case  "Font Fun":
+                case  "Font\nFun":
                     startActivity(new Intent(requireContext(), FontFunActivity.class));
                     // finish();
                     break;
-                case "Insta ReShare":
+                case "Insta\nReShare":
                     startActivity(new Intent(requireContext(), InstaReshareActivity.class));
                     // finish();
                     break;

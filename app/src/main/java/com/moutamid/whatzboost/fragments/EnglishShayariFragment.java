@@ -2,6 +2,8 @@ package com.moutamid.whatzboost.fragments;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.fxn.stash.Stash;
+import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.adapters.CaptionAdapter;
 import com.moutamid.whatzboost.adapters.ShayriAuthorAdapter;
 import com.moutamid.whatzboost.constants.Constants;
@@ -84,6 +87,33 @@ public class EnglishShayariFragment extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button press
+                // Change the visibility of the view
+                int o = Stash.getInt("SS", 1);
+                if (o == 2){
+                    binding.authorLayout.setVisibility(View.GONE);
+                    binding.titleLayout.setVisibility(View.VISIBLE);
+                    binding.poetLayout.setVisibility(View.GONE);
+                    binding.search.setText("");
+                    binding.search.setHint("Search Author Titles");
+                } else if (o == 1) {
+                    binding.authorLayout.setVisibility(View.VISIBLE);
+                    binding.titleLayout.setVisibility(View.GONE);
+                    binding.poetLayout.setVisibility(View.GONE);
+                    binding.search.setText("");
+                    binding.search.setHint("Search Author");
+                }
+            }
+        });
     }
 
     private void getAuthors() {
@@ -291,6 +321,7 @@ public class EnglishShayariFragment extends Fragment {
                 binding.titleLayout.setVisibility(View.VISIBLE);
                 binding.poetLayout.setVisibility(View.GONE);
                 binding.search.setText("");
+                binding.titles.setText(logo);
                 binding.search.setHint("Search Author Titles");
                 Stash.put("AUTH", logo);
                 ArrayList<String> titles = Stash.getArrayList(Constants.formatName(logo), String.class);
@@ -304,6 +335,7 @@ public class EnglishShayariFragment extends Fragment {
                 binding.titleLayout.setVisibility(View.GONE);
                 binding.poetLayout.setVisibility(View.VISIBLE);
                 binding.search.setText("");
+                binding.poet.setText(logo);
                 String auth = Stash.getString("AUTH");
                 String name = Constants.formatName(auth) + Constants.formatName(logo);
                 ArrayList<String> poetry = Stash.getArrayList(name, String.class);

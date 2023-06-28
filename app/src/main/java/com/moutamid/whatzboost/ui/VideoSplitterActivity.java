@@ -169,7 +169,6 @@ public class VideoSplitterActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
             if (requestCode == REQUEST_TAKE_GALLERY_VIDEO) {
-
                 FilePickerBuilder.getInstance().setMaxCount(1).setSelectedFiles(this.videoPaths)
                         .addFileSupport("MP4", new String[]{".mp4", ".mkv"})
                         .enableVideoPicker(true)
@@ -182,6 +181,26 @@ public class VideoSplitterActivity extends AppCompatActivity {
                 try {
                     this.videoPaths = new ArrayList<>();
                     this.videoPaths = (ArrayList) data.getSerializableExtra(FilePickerConst.KEY_SELECTED_MEDIA);
+                    ArrayList<String> recent = Stash.getArrayList(Constants.RECENTS_SAVED_VIDEOS, String.class);
+                    if (recent.size() == 0) {
+                        recent.addAll(videoPaths);
+                        Stash.put(Constants.RECENTS_SAVED_VIDEOS, recent);
+                    } else {
+                        boolean check = false;
+                        Collections.reverse(recent);
+                        for (int i=0; i<recent.size(); i++) {
+                            if (!recent.get(i).equals(videoPaths.get(0))) {
+                                check = true;
+                            } else {
+                                check = false;
+                                break;
+                            }
+                        }
+                        if (check) {
+                            recent.addAll(videoPaths);
+                            Stash.put(Constants.RECENTS_SAVED_VIDEOS, recent);
+                        }
+                    }
                     Intent intent2 = new Intent(VideoSplitterActivity.this, SplitVideoActivity.class);
                     intent2.putExtra("path", (String) this.videoPaths.get(0));
                     startActivity(intent2);
@@ -190,7 +209,8 @@ public class VideoSplitterActivity extends AppCompatActivity {
                     Toast.makeText(this, "Please retry to select video...!", Toast.LENGTH_LONG).show();
                 }
 
-            } else if (requestCode == REQUEST_LOAD_VIDEOS) {
+            }
+            else if (requestCode == REQUEST_LOAD_VIDEOS) {
                 Uri selectedVideo = null;
                 selectedVideo = data.getData();
                 Log.i("TAG", "image load");
@@ -200,6 +220,26 @@ public class VideoSplitterActivity extends AppCompatActivity {
                     try {
                         Intent intent = new Intent(VideoSplitterActivity.this, SplitVideoActivity.class);
                         String filePath = getPath(getApplicationContext(), selectedVideo);
+                        ArrayList<String> recent = Stash.getArrayList(Constants.RECENTS_SAVED_VIDEOS, String.class);
+                        if (recent.size() == 0){
+                            recent.add(filePath);
+                            Stash.put(Constants.RECENTS_SAVED_VIDEOS, recent);
+                        } else {
+                            boolean check = false;
+                            Collections.reverse(recent);
+                            for (int i=0; i<recent.size(); i++){
+                                if (!recent.get(i).equals(filePath)){
+                                    check = true;
+                                } else {
+                                    check = false;
+                                    break;
+                                }
+                            }
+                            if (check){
+                                recent.add(filePath);
+                                Stash.put(Constants.RECENTS_SAVED_VIDEOS, recent);
+                            }
+                        }
                         intent.putExtra("path", filePath);
                         startActivity(intent);
                     } catch (Exception e) {

@@ -43,13 +43,13 @@ public class SearchActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     String[] name = { "Deleted\nMessages", "Video\nSplitter", "Whatsapp\nWeb", "Open\nWA Profile", "Status\nSaver", "Text\nRepeater",
-            "Fake\nProfile", "Fake\nStories", "Stickers", "Caption", "Shayari", "Emotions", "Text-to-Emoji",
-            "Font Fun", "Qr\nScanner", "Qr\nGenerator", "Blank\nMessage", "Insta\nReShare"
-    };
+            "Fake\nProfile", "Fake\nStories", "Stickers", "Caption", "Poetry", "Emotions", "Text-to-Emoji",
+            "Font Fun", "Qr\nScanner", "Qr\nGenerator", "Blank\nMessage"
+    };   // "Insta\nReShare" , R.drawable.retweet
     int[] icons = {
             R.drawable.bin, R.drawable.split, R.drawable.whatsweb, R.drawable.chat, R.drawable.download, R.drawable.repeat,
-            R.drawable.user, R.drawable.stories, R.drawable.sticker, R.drawable.closed_caption, R.drawable.happy, R.drawable.emotions,
-            R.drawable.magic_hat, R.drawable.fonticons, R.drawable.barcode_scanner, R.drawable.qr_code, R.drawable.comment, R.drawable.retweet,
+            R.drawable.user, R.drawable.stories, R.drawable.sticker, R.drawable.closed_caption, R.drawable.poem, R.drawable.emotions,
+            R.drawable.magic_hat, R.drawable.fonticons, R.drawable.barcode_scanner, R.drawable.qr_code, R.drawable.comment
     };
 
     @Override
@@ -146,6 +146,10 @@ public class SearchActivity extends AppCompatActivity {
                     break;
                 case "Emotions":
                     startActivity(new Intent(SearchActivity.this, EmotionsActivity.class));
+                   // finish();
+                    break;
+                case "Poetry":
+                    startActivity(new Intent(SearchActivity.this, ShayariActivity.class));
                    // finish();
                     break;
                 case "Text to Emoji":

@@ -28,7 +28,7 @@ public class CaptionListActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
-        SearchModel model = new SearchModel(R.drawable.closed_caption, "Caption");
+        SearchModel model = new SearchModel(R.drawable.closed_caption, "Caption\n ");
 
         if (recents.size() == 0){
             recents.add(model);

@@ -20,6 +20,7 @@ import com.moutamid.whatzboost.ui.CaptionListActivity;
 import com.moutamid.whatzboost.ui.EmotionsActivity;
 import com.moutamid.whatzboost.ui.FontFunActivity;
 import com.moutamid.whatzboost.ui.QrScannerActivity;
+import com.moutamid.whatzboost.ui.RepeaterActivity;
 import com.moutamid.whatzboost.ui.ShayariActivity;
 import com.moutamid.whatzboost.ui.TextToEmojiActivity;
 
@@ -36,6 +37,7 @@ public class MagicFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentMagicBinding.inflate(getLayoutInflater(), container, false);
 
+        binding.repeater.setOnTouchListener(Constants.customOnTouchListner(RepeaterActivity.class, requireContext(), requireActivity()));
         binding.textMagic.setOnTouchListener(Constants.customOnTouchListner(TextToEmojiActivity.class, requireContext(), requireActivity()));
         binding.fontFun.setOnTouchListener(Constants.customOnTouchListner(FontFunActivity.class, requireContext(), requireActivity()));
         binding.captions.setOnTouchListener(Constants.customOnTouchListner(CaptionListActivity.class, requireContext(), requireActivity()));

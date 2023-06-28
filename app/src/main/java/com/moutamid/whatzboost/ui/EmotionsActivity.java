@@ -33,7 +33,7 @@ public class EmotionsActivity extends AppCompatActivity {
 
 
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
-        SearchModel model = new SearchModel(R.drawable.emotions, "Emotions");
+        SearchModel model = new SearchModel(R.drawable.emotions, "Emotions\n ");
 
         if (recents.size() == 0){
             recents.add(model);

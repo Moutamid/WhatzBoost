@@ -2169,5 +2169,9 @@
     <string name="title_activity_sticker_pack_info">Info</string>
     <string name="info_send_email_to_prompt">Send email with</string>
     <string name="lorem15">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi magni optio ullam, veritatis!</string>
+    <string name="permission_request">In order to run the app unlock the full potential of our mobile app by granting the permissions it needs to enhance your experience and deliver personalized features tailored just for you.</string>
+    <string name="enable_notifications">Stay connected and never miss a beat! Enable notifications to receive real-time updates, exclusive offers, and important announcements directly to your device. We respect your privacy and promise to only send you relevant and valuable information.</string>
+    <string name="enable_media">Grant access to your camera and media to unlock the full potential of our app. We prioritize your privacy and will only use these permissions for the intended purpose within the app.</string>
+    <string name="enable_stories">Unlock WhatsApp stories with ease! Enable the Stories folder to enjoy captivating moments shared by your contacts. Your privacy is important to us, and this permission is solely for enhancing your storytelling experience.</string>
 
 </resources>

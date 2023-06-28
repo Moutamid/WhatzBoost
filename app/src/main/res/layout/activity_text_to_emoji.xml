@@ -39,11 +39,10 @@
             android:layout_centerVertical="true"
             android:text="Text Emoji"
             android:layout_alignParentRight="true"
-            android:textSize="28sp"
-            android:padding="12sp"
+            android:textSize="24sp"
             android:layout_gravity="end"
             android:drawableTint="@color/icon"
-            android:fontFamily="@font/montserrat_alternates"
+            android:fontFamily="@font/poppins_semibold"
             android:textColor="@color/white"
             android:layout_marginEnd="12sp"
             android:drawablePadding="12sp"
@@ -56,161 +55,171 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Convert Your Text into Emoji"
-        android:textColor="@color/text_color"
-        android:layout_gravity="end"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/text_off"
+        android:layout_gravity="start"
         android:layout_marginEnd="12sp"
         android:layout_marginStart="12sp"
         android:textSize="18sp" />
 
-    <ScrollView
+    <com.ldt.springback.view.SpringBackLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        app:scrollOrientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/nuttons"
-            android:orientation="vertical">
+            android:fillViewport="true">
 
-            <EditText
-                android:id="@+id/emoji"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12sp"
-                android:background="@drawable/text_bg"
-                android:layout_margin="12sp"
-                android:fontFamily="@font/poppins"
-                android:hint="Your Emoji ❤"
-                android:maxLength="2"
-                android:inputType="textPersonName"
-                android:textColor="@color/white"
-                android:textColorHint="@color/off_white" />
+                android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12sp"
-                android:background="@drawable/text_bg"
-                android:layout_marginStart="12sp"
-                android:layout_marginEnd="12sp"
-                android:fontFamily="@font/poppins"
-                android:hint="Your Message"
-                android:textColor="@color/white"
-                android:textColorHint="@color/off_white" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@id/nuttons"
+                    android:orientation="vertical">
 
-            <Button
-                android:id="@+id/convertBtn"
-                style="@style/Widget.Material3.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12sp"
-                android:layout_margin="12sp"
-                android:text="Convert"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:fontFamily="@font/poppins"
-                android:textColor="@color/white" />
+                    <EditText
+                        android:id="@+id/emoji"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12sp"
+                        android:background="@drawable/text_bg"
+                        android:layout_margin="12sp"
+                        android:fontFamily="@font/poppins"
+                        android:hint="Your Emoji ❤"
+                        android:maxLength="2"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/text_off" />
 
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="12sp"
-                android:background="@drawable/text_bg"
-                android:fillViewport="true">
+                    <EditText
+                        android:id="@+id/message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12sp"
+                        android:background="@drawable/text_bg"
+                        android:layout_marginStart="12sp"
+                        android:layout_marginEnd="12sp"
+                        android:fontFamily="@font/poppins"
+                        android:hint="Your Message"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/text_off" />
 
-                <TextView
-                    android:id="@+id/result"
+                    <Button
+                        android:id="@+id/convertBtn"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12sp"
+                        android:layout_margin="12sp"
+                        android:text="Convert"
+                        android:textAllCaps="true"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/poppins"
+                        android:textColor="@color/white" />
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="12sp"
+                        android:background="@drawable/text_bg"
+                        android:fillViewport="true">
+
+                        <TextView
+                            android:id="@+id/result"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:padding="12sp"
+                            android:text="Your Result..."
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+
+                    </androidx.core.widget.NestedScrollView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/nuttons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins"
-                    android:padding="12sp"
-                    android:text="Your Result..."
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal">
 
-            </androidx.core.widget.NestedScrollView>
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/share"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp"
+                        android:layout_weight="1"
+                        android:layout_margin="12sp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/card">
 
-        </LinearLayout>
+                        <ImageView
+                            android:layout_width="32sp"
+                            android:layout_height="32sp"
+                            android:layout_margin="12sp"
+                            android:layout_gravity="center"
+                            app:tint="@color/icon"
+                            android:src="@drawable/share" />
 
-        <LinearLayout
-            android:id="@+id/nuttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+                    </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/share"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="8dp"
-                android:layout_weight="1"
-                android:layout_margin="12sp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="@color/card">
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/copy"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp"
+                        android:layout_weight="1"
+                        android:layout_margin="12sp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/card">
 
-                <ImageView
-                    android:layout_width="32sp"
-                    android:layout_height="32sp"
-                    android:layout_margin="12sp"
-                    android:layout_gravity="center"
-                    app:tint="@color/icon"
-                    android:src="@drawable/share" />
+                        <ImageView
+                            android:layout_width="32sp"
+                            android:layout_height="32sp"
+                            android:layout_margin="12sp"
+                            android:layout_gravity="center"
+                            app:tint="@color/icon"
+                            android:src="@drawable/copy" />
 
-            </com.google.android.material.card.MaterialCardView>
+                    </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/copy"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="8dp"
-                android:layout_weight="1"
-                android:layout_margin="12sp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="@color/card">
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/delete"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp"
+                        android:layout_weight="1"
+                        android:layout_margin="12sp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/card">
 
-                <ImageView
-                    android:layout_width="32sp"
-                    android:layout_height="32sp"
-                    android:layout_margin="12sp"
-                    android:layout_gravity="center"
-                    app:tint="@color/icon"
-                    android:src="@drawable/copy" />
+                        <ImageView
+                            android:layout_width="32sp"
+                            android:layout_height="32sp"
+                            android:layout_margin="12sp"
+                            android:layout_gravity="center"
+                            app:tint="@color/icon_2"
+                            android:src="@drawable/bin" />
 
-            </com.google.android.material.card.MaterialCardView>
+                    </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/delete"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="8dp"
-                android:layout_weight="1"
-                android:layout_margin="12sp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="@color/card">
+                </LinearLayout>
 
-                <ImageView
-                    android:layout_width="32sp"
-                    android:layout_height="32sp"
-                    android:layout_margin="12sp"
-                    android:layout_gravity="center"
-                    app:tint="@color/icon_2"
-                    android:src="@drawable/bin" />
+            </RelativeLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+        </androidx.core.widget.NestedScrollView>
 
-        </LinearLayout>
+    </com.ldt.springback.view.SpringBackLayout>
 
-    </RelativeLayout>
 
-    </ScrollView>
 
 </LinearLayout>

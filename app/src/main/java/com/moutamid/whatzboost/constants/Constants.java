@@ -70,6 +70,7 @@ public class Constants {
     public static final String Authors = "Authors";
     public static final String RECENTS = "RECENTS";
     public static final String RECENTS_LIST = "RECENTS_LIST";
+    public static final String RECENTS_SAVED_VIDEOS = "RECENTS_SAVED_VIDEOS";
     public static final String API_LINK = "https://poetrydb.org/author";
     public static final String NAME = "name";
     public static final String POS = "pos";
@@ -197,10 +198,12 @@ public class Constants {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.READ_MEDIA_VIDEO,
             Manifest.permission.READ_MEDIA_IMAGES,
+            Manifest.permission.CAMERA,
             Manifest.permission.READ_MEDIA_AUDIO
     };
     public static final String[] permissions = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA,
             Manifest.permission.READ_EXTERNAL_STORAGE
     };
 

@@ -1,187 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ldt.springback.view.SpringBackLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    app:scrollOrientation="vertical"
     android:background="@color/background"
     tools:context=".ui.MakeProfileActivity">
 
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/backbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15sp"
-            app:cardCornerRadius="50dp"
-            app:cardElevation="6dp"
-            android:layout_centerVertical="true"
-            app:cardBackgroundColor="@color/card"
-            android:outlineAmbientShadowColor="@color/card"
-            android:outlineSpotShadowColor="@color/card">
-
-            <ImageView
-                android:layout_width="28sp"
-                android:layout_height="28sp"
-                android:layout_margin="8sp"
-                android:src="@drawable/round_arrow_back_24"
-                app:tint="@color/icon" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="Make Fake Profile"
-            android:layout_alignParentRight="true"
-            android:textSize="28sp"
-            android:padding="12sp"
-            android:layout_gravity="end"
-            android:drawableTint="@color/icon"
-            android:fontFamily="@font/montserrat_alternates"
-            android:textColor="@color/white"
-            android:layout_marginEnd="12sp"
-            android:drawablePadding="12sp"
-            android:gravity="center"
-            app:drawableLeftCompat="@drawable/round_person_24" />
-
-    </RelativeLayout>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Make sure to use same data"
-        android:textColor="@color/text_color"
-        android:layout_gravity="end"
-        android:gravity="end"
-        android:layout_marginEnd="12sp"
-        android:layout_marginStart="12sp"
-        android:textSize="18sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:gravity="center"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/imageCard"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginEnd="12sp"
-            app:cardBackgroundColor="@color/white"
-            android:layout_toEndOf="@id/backbtn"
-            app:cardCornerRadius="50dp">
-
-            <ImageView
-                android:id="@+id/profileImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/user" />
-
-        </androidx.cardview.widget.CardView>
-
-        <Button
-            android:id="@+id/selectImage"
-            style="@style/Widget.Material3.Button"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12sp"
-            android:layout_margin="12sp"
-            android:text="Select Profile Image"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:fontFamily="@font/poppins"
-            android:textColor="@color/white" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12sp"
-        android:background="@drawable/text_bg"
-        android:layout_margin="12sp"
-        android:fontFamily="@font/poppins"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        android:textColorHint="@color/off_white" />
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/backbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15sp"
+                    app:cardCornerRadius="50dp"
+                    app:cardElevation="6dp"
+                    android:layout_centerVertical="true"
+                    app:cardBackgroundColor="@color/card"
+                    android:outlineAmbientShadowColor="@color/card"
+                    android:outlineSpotShadowColor="@color/card">
 
-    <EditText
-        android:id="@+id/lastSeen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12sp"
-        android:background="@drawable/text_bg"
-        android:layout_margin="12sp"
-        android:fontFamily="@font/poppins"
-        android:hint="last seen today or Online"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        android:textColorHint="@color/off_white" />
+                    <ImageView
+                        android:layout_width="28sp"
+                        android:layout_height="28sp"
+                        android:layout_margin="8sp"
+                        android:src="@drawable/round_arrow_back_24"
+                        app:tint="@color/icon" />
 
-    <EditText
-        android:id="@+id/status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12sp"
-        android:background="@drawable/text_bg"
-        android:layout_margin="12sp"
-        android:fontFamily="@font/poppins"
-        android:hint="Status (About)"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        android:textColorHint="@color/off_white" />
+                </com.google.android.material.card.MaterialCardView>
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12sp"
-        android:background="@drawable/text_bg"
-        android:layout_margin="12sp"
-        android:textSize="18sp"
-        android:fontFamily="@font/poppins"
-        android:hint="Status Date"
-        android:textColor="@color/white"
-        android:textColorHint="@color/off_white" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Fake Profile"
+                    android:layout_alignParentRight="true"
+                    android:textSize="24sp"
+                    android:layout_gravity="end"
+                    android:drawableTint="@color/icon"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="12sp"
+                    android:drawablePadding="12sp"
+                    android:gravity="center"
+                    app:drawableLeftCompat="@drawable/round_person_24" />
 
-    <EditText
-        android:id="@+id/number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12sp"
-        android:background="@drawable/text_bg"
-        android:layout_margin="12sp"
-        android:fontFamily="@font/poppins"
-        android:hint="Phone Number"
-        android:inputType="number"
-        android:textColor="@color/white"
-        android:textColorHint="@color/off_white" />
+            </RelativeLayout>
 
-    <Button
-        android:id="@+id/send"
-        style="@style/Widget.Material3.Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12sp"
-        android:layout_margin="12sp"
-        android:text="Make Profile"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:fontFamily="@font/poppins"
-        android:textColor="@color/white" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Make sure to use same data"
+                android:textColor="@color/text_off"
+                android:fontFamily="@font/poppins"
+                android:layout_gravity="start"
+                android:gravity="end"
+                android:layout_marginEnd="12sp"
+                android:layout_marginStart="12sp"
+                android:textSize="18sp" />
 
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:gravity="center"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/imageCard"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginEnd="12sp"
+                    app:cardBackgroundColor="@color/white"
+                    android:layout_toEndOf="@id/backbtn"
+                    app:cardCornerRadius="50dp">
+
+                    <ImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/profile_icon" />
+
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/selectImage"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12sp"
+                    android:layout_margin="12sp"
+                    android:text="Select Profile Image"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12sp"
+                android:background="@drawable/text_bg"
+                android:layout_margin="12sp"
+                android:fontFamily="@font/poppins"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:textColor="@color/white"
+                android:textColorHint="@color/text_off" />
+
+            <EditText
+                android:id="@+id/lastSeen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12sp"
+                android:background="@drawable/text_bg"
+                android:layout_margin="12sp"
+                android:fontFamily="@font/poppins"
+                android:hint="last seen today or Online"
+                android:inputType="textPersonName"
+                android:textColor="@color/white"
+                android:textColorHint="@color/text_off" />
+
+            <EditText
+                android:id="@+id/status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12sp"
+                android:background="@drawable/text_bg"
+                android:layout_margin="12sp"
+                android:fontFamily="@font/poppins"
+                android:hint="Status (About)"
+                android:inputType="textPersonName"
+                android:textColor="@color/white"
+                android:textColorHint="@color/text_off" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12sp"
+                android:background="@drawable/text_bg"
+                android:layout_margin="12sp"
+                android:textSize="18sp"
+                android:fontFamily="@font/poppins"
+                android:hint="Status Date"
+                android:textColor="@color/white"
+                android:textColorHint="@color/text_off" />
+
+            <EditText
+                android:id="@+id/number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12sp"
+                android:background="@drawable/text_bg"
+                android:layout_margin="12sp"
+                android:fontFamily="@font/poppins"
+                android:hint="Phone Number"
+                android:inputType="number"
+                android:textColor="@color/white"
+                android:textColorHint="@color/text_off" />
+
+            <Button
+                android:id="@+id/send"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12sp"
+                android:layout_margin="12sp"
+                android:text="Make Profile"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:fontFamily="@font/poppins"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</com.ldt.springback.view.SpringBackLayout>

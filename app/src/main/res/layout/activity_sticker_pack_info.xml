@@ -4,14 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/infoPageBackgroundColor"
+    android:background="@color/background"
     android:orientation="vertical"
     android:paddingTop="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@color/card"
         android:orientation="vertical">
 
         <TextView
@@ -26,20 +26,26 @@
             style="@style/InfoButtonStyle"
             android:drawableStart="@drawable/sticker_3rdparty_web"
             android:drawableLeft="@drawable/sticker_3rdparty_web"
+            android:drawableTint="@color/icon"
             android:text="@string/view_webpage"
+            android:gravity="center_vertical"
             android:textColor="#b9b9b9" />
 
         <TextView
             android:id="@+id/send_email"
             style="@style/InfoButtonStyle"
+            android:drawableTint="@color/icon"
             android:drawableStart="@drawable/sticker_3rdparty_email"
             android:drawableLeft="@drawable/sticker_3rdparty_email"
             android:text="@string/send_email"
+            android:gravity="center_vertical"
             android:textColor="#b9b9b9" />
 
         <TextView
             android:id="@+id/privacy_policy"
             style="@style/InfoButtonStyle"
+            android:gravity="center_vertical"
+            android:drawableTint="@color/icon"
             android:drawableStart="@drawable/sticker_3rdparty_privacy"
             android:drawableLeft="@drawable/sticker_3rdparty_privacy"
             android:text="@string/privacy_policy"

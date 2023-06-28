@@ -88,9 +88,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
 
                 case MotionEvent.ACTION_DOWN:
                     ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
-                            "scaleX", 0.6f);
+                            "scaleX", 0.8f);
                     ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
-                            "scaleY", 0.6f);
+                            "scaleY", 0.8f);
                     scaleDownX.setDuration(duration);
                     scaleDownY.setDuration(duration);
 

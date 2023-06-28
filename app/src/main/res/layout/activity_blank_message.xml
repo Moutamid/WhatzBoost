@@ -39,15 +39,14 @@
             android:layout_centerVertical="true"
             android:text="Blank Message"
             android:layout_alignParentRight="true"
-            android:textSize="28sp"
-            android:padding="12sp"
+            android:textSize="24sp"
             android:layout_gravity="end"
             android:drawableTint="@color/icon"
-            android:fontFamily="@font/montserrat_alternates"
+            android:fontFamily="@font/poppins_semibold"
             android:textColor="@color/white"
             android:layout_marginEnd="12sp"
             android:drawablePadding="12sp"
-            android:gravity="center"
+            android:gravity="center|bottom"
             app:drawableLeftCompat="@drawable/round_mark_unread_chat_alt_24" />
 
 
@@ -57,9 +56,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send a blank message"
-        android:textColor="@color/text_color"
-        android:layout_gravity="end"
-        android:gravity="end"
+        android:textColor="@color/text_off"
+        android:layout_gravity="start"
+        android:gravity="start"
+        android:fontFamily="@font/poppins"
         android:layout_marginEnd="12sp"
         android:layout_marginStart="12sp"
         android:textSize="18sp" />
@@ -91,7 +91,7 @@
                     android:hint="Repeat Times"
                     android:inputType="number"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/off_white" />
+                    android:textColorHint="@color/text_off" />
 
                 <EditText
                     android:id="@+id/message"

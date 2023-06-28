@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ui.PermissionActivity">
+
+    <RelativeLayout
+        android:id="@+id/notification_layout"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/allow_notification"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="200sp"
+                android:layout_height="200sp"
+                android:src="@drawable/push_notifications"
+                android:layout_marginTop="15sp"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enable Notifications"
+                android:gravity="center"
+                android:padding="12sp"
+                android:textSize="24sp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/off_white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/enable_notifications"
+                android:gravity="center"
+                android:padding="12sp"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins"
+                android:textColor="@color/text_off" />
+
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/allow_notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15sp"
+            app:cardCornerRadius="26sp"
+            app:strokeWidth="0sp"
+            android:layout_alignParentBottom="true"
+            app:cardBackgroundColor="#E7E8FE"
+            app:cardElevation="0sp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Allow"
+                android:textColor="@color/icon"
+                android:gravity="center"
+                android:padding="12sp"
+                android:textSize="18sp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/media_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/allow_media"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="200sp"
+                android:layout_height="200sp"
+                android:src="@drawable/photos_media"
+                android:layout_marginTop="15sp"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enable Camera &amp; Media"
+                android:gravity="center"
+                android:padding="12sp"
+                android:textSize="24sp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/off_white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/enable_media"
+                android:gravity="center"
+                android:padding="12sp"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins"
+                android:textColor="@color/text_off" />
+
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/allow_media"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15sp"
+            app:cardCornerRadius="26sp"
+            app:strokeWidth="0sp"
+            android:layout_alignParentBottom="true"
+            app:cardBackgroundColor="#E7E8FE"
+            app:cardElevation="0sp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Allow"
+                android:textColor="@color/icon"
+                android:gravity="center"
+                android:padding="12sp"
+                android:textSize="18sp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/story_layout"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/allow_story"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="200sp"
+                android:layout_height="200sp"
+                android:src="@drawable/player_pana"
+                android:layout_marginTop="15sp"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enable Stories Folder"
+                android:gravity="center"
+                android:padding="12sp"
+                android:textSize="24sp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/off_white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/enable_stories"
+                android:gravity="center"
+                android:padding="12sp"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins"
+                android:textColor="@color/text_off" />
+
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/allow_story"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15sp"
+            app:cardCornerRadius="26sp"
+            app:strokeWidth="0sp"
+            android:layout_alignParentBottom="true"
+            app:cardBackgroundColor="#E7E8FE"
+            app:cardElevation="0sp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Allow"
+                android:textColor="@color/icon"
+                android:gravity="center"
+                android:padding="12sp"
+                android:textSize="18sp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -39,11 +39,10 @@
             android:layout_centerVertical="true"
             android:text="Repeat Text"
             android:layout_alignParentRight="true"
-            android:textSize="28sp"
-            android:padding="12sp"
+            android:textSize="24sp"
             android:layout_gravity="end"
             android:drawableTint="@color/icon"
-            android:fontFamily="@font/montserrat_alternates"
+            android:fontFamily="@font/poppins_semibold"
             android:textColor="@color/white"
             android:layout_marginEnd="12sp"
             android:drawablePadding="12sp"
@@ -56,187 +55,193 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Repeat your message and shock your friends"
-        android:textColor="@color/text_color"
-        android:layout_gravity="end"
+        android:textColor="@color/text_off"
+        android:layout_gravity="start"
+        android:fontFamily="@font/poppins"
         android:layout_marginEnd="12sp"
         android:layout_marginStart="12sp"
         android:textSize="18sp" />
 
-    <ScrollView
+    <com.ldt.springback.view.SpringBackLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:layout_weight="1">
+        app:scrollOrientation="vertical">
 
-        <RelativeLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:layout_weight="1">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@id/nuttons"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/repeat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="12sp"
-                    android:background="@drawable/text_bg"
-                    android:layout_margin="12sp"
-                    android:fontFamily="@font/poppins"
-                    android:hint="Repeat Times"
-                    android:inputType="number"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/off_white" />
-
-                <EditText
-                    android:id="@+id/message"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="12sp"
-                    android:background="@drawable/text_bg"
-                    android:layout_marginStart="12sp"
-                    android:layout_marginEnd="12sp"
-                    android:fontFamily="@font/poppins"
-                    android:hint="Your Message"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/off_white" />
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12sp"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:layout_above="@id/nuttons"
+                    android:orientation="vertical">
 
-                    <TextView
+                    <EditText
+                        android:id="@+id/repeat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Need new line?"
+                        android:padding="12sp"
+                        android:background="@drawable/text_bg"
+                        android:layout_margin="12sp"
                         android:fontFamily="@font/poppins"
+                        android:hint="Repeat Times"
+                        android:inputType="number"
                         android:textColor="@color/white"
-                        android:padding="12sp" />
+                        android:textColorHint="@color/text_off" />
 
-                    <com.google.android.material.checkbox.MaterialCheckBox
-                        android:id="@+id/newLineSwitch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="12sp" />
+                    <EditText
+                        android:id="@+id/message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12sp"
+                        android:background="@drawable/text_bg"
+                        android:layout_marginStart="12sp"
+                        android:layout_marginEnd="12sp"
+                        android:fontFamily="@font/poppins"
+                        android:hint="Your Message"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/text_off" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12sp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Need new line?"
+                            android:fontFamily="@font/poppins"
+                            android:textColor="@color/white"
+                            android:padding="12sp" />
+
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/newLineSwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="12sp" />
+
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/repeatBtn"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12sp"
+                        android:layout_margin="12sp"
+                        android:text="Repeat"
+                        android:textAllCaps="true"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/poppins"
+                        android:textColor="@color/white" />
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="12sp"
+                        android:background="@drawable/text_bg"
+                        android:fillViewport="true">
+
+                        <TextView
+                            android:id="@+id/result"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:padding="12sp"
+                            android:text="Your Result..."
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+
+                    </androidx.core.widget.NestedScrollView>
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/repeatBtn"
-                    style="@style/Widget.Material3.Button"
+                <LinearLayout
+                    android:id="@+id/nuttons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="12sp"
-                    android:layout_margin="12sp"
-                    android:text="Repeat"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/poppins"
-                    android:textColor="@color/white" />
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal">
 
-                <androidx.core.widget.NestedScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="12sp"
-                    android:background="@drawable/text_bg"
-                    android:fillViewport="true">
-
-                    <TextView
-                        android:id="@+id/result"
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/share"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins"
-                        android:padding="12sp"
-                        android:text="Your Result..."
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
-
-                </androidx.core.widget.NestedScrollView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/nuttons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:orientation="horizontal">
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/share"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:cardCornerRadius="8dp"
-                    android:layout_weight="1"
-                    android:layout_margin="12sp"
-                    app:cardElevation="0dp"
-                    app:cardBackgroundColor="@color/card">
-
-                    <ImageView
-                        android:layout_width="32sp"
-                        android:layout_height="32sp"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp"
+                        android:layout_weight="1"
                         android:layout_margin="12sp"
-                        android:layout_gravity="center"
-                        app:tint="@color/icon"
-                        android:src="@drawable/share" />
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/card">
 
-                </com.google.android.material.card.MaterialCardView>
+                        <ImageView
+                            android:layout_width="32sp"
+                            android:layout_height="32sp"
+                            android:layout_margin="12sp"
+                            android:layout_gravity="center"
+                            app:tint="@color/icon"
+                            android:src="@drawable/share" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/copy"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:cardCornerRadius="8dp"
-                    android:layout_weight="1"
-                    android:layout_margin="12sp"
-                    app:cardElevation="0dp"
-                    app:cardBackgroundColor="@color/card">
+                    </com.google.android.material.card.MaterialCardView>
 
-                    <ImageView
-                        android:layout_width="32sp"
-                        android:layout_height="32sp"
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/copy"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp"
+                        android:layout_weight="1"
                         android:layout_margin="12sp"
-                        android:layout_gravity="center"
-                        app:tint="@color/icon"
-                        android:src="@drawable/copy" />
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/card">
 
-                </com.google.android.material.card.MaterialCardView>
+                        <ImageView
+                            android:layout_width="32sp"
+                            android:layout_height="32sp"
+                            android:layout_margin="12sp"
+                            android:layout_gravity="center"
+                            app:tint="@color/icon"
+                            android:src="@drawable/copy" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/delete"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:cardCornerRadius="8dp"
-                    android:layout_weight="1"
-                    android:layout_margin="12sp"
-                    app:cardElevation="0dp"
-                    app:cardBackgroundColor="@color/card">
+                    </com.google.android.material.card.MaterialCardView>
 
-                    <ImageView
-                        android:layout_width="32sp"
-                        android:layout_height="32sp"
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/delete"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp"
+                        android:layout_weight="1"
                         android:layout_margin="12sp"
-                        android:layout_gravity="center"
-                        app:tint="@color/icon_2"
-                        android:src="@drawable/bin" />
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/card">
 
-                </com.google.android.material.card.MaterialCardView>
+                        <ImageView
+                            android:layout_width="32sp"
+                            android:layout_height="32sp"
+                            android:layout_margin="12sp"
+                            android:layout_gravity="center"
+                            app:tint="@color/icon_2"
+                            android:src="@drawable/bin" />
 
-            </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
+        </androidx.core.widget.NestedScrollView>
 
-
-    </ScrollView>
+    </com.ldt.springback.view.SpringBackLayout>
 
 </LinearLayout>

@@ -34,8 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Author's"
-            android:textSize="28sp"
-            android:padding="12sp"
+            android:textSize="24sp"
             android:fontFamily="@font/poppins"
             android:textColor="@color/white"
             android:layout_margin="12sp"
@@ -68,11 +67,11 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/titles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Titles"
-            android:textSize="28sp"
-            android:padding="12sp"
+            android:textSize="24sp"
             android:fontFamily="@font/poppins"
             android:textColor="@color/white"
             android:layout_margin="12sp"
@@ -100,15 +99,14 @@
         android:id="@+id/poetLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/poet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Poetry you love"
-            android:textSize="28sp"
-            android:padding="12sp"
+            android:textSize="24sp"
             android:fontFamily="@font/poppins"
             android:textColor="@color/white"
             android:layout_margin="12sp"

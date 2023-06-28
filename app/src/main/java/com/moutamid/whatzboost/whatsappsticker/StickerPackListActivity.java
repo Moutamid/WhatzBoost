@@ -27,6 +27,7 @@ import com.moutamid.whatzboost.models.SearchModel;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class StickerPackListActivity extends AddStickerPackkkActivity {
@@ -62,11 +63,20 @@ public class StickerPackListActivity extends AddStickerPackkkActivity {
             recents.add(model);
             Stash.put(Constants.RECENTS_LIST, recents);
         } else {
-            for (int i=0; i<recents.size(); i++){
+            boolean check = false;
+            Collections.reverse(recents);
+            int size = recents.size() > 6 ? 6 : recents.size();
+            for (int i=0; i<size; i++){
                 if (!recents.get(i).getName().equals(model.getName())){
-                    recents.add(model);
-                    Stash.put(Constants.RECENTS_LIST, recents);
+                    check = true;
+                } else {
+                    check = false;
+                    break;
                 }
+            }
+            if (check){
+                recents.add(model);
+                Stash.put(Constants.RECENTS_LIST, recents);
             }
         }
 

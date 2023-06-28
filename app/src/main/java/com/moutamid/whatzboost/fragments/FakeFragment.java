@@ -1,5 +1,6 @@
 package com.moutamid.whatzboost.fragments;
 
+import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
@@ -7,8 +8,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -26,6 +29,7 @@ import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.FragmentFakeBinding;
 import com.moutamid.whatzboost.ui.BlankMessageActivity;
+import com.moutamid.whatzboost.ui.DeletedMessageActivity;
 import com.moutamid.whatzboost.ui.DirectActivity;
 import com.moutamid.whatzboost.ui.MakeProfileActivity;
 import com.moutamid.whatzboost.ui.MakeStoryActivity;
@@ -66,6 +70,82 @@ public class FakeFragment extends Fragment {
         binding.directChat.setOnTouchListener(Constants.customOnTouchListner(DirectActivity.class, requireContext(), requireActivity()));
         binding.statusSaver.setOnTouchListener(Constants.customOnTouchListner(StatusSaverActivity.class, requireContext(), requireActivity()));
         binding.blank.setOnTouchListener(Constants.customOnTouchListner(BlankMessageActivity.class, requireContext(), requireActivity()));
+        binding.videoSplitter.setOnTouchListener(Constants.customOnTouchListner(VideoSplitterActivity.class, requireContext(), requireActivity()));
+
+        binding.deleteMessage.setOnTouchListener((v, event) -> {
+            int duration = 300;
+            switch (event.getAction()) {
+
+                case MotionEvent.ACTION_MOVE:
+                    ObjectAnimator scaleDownXX = ObjectAnimator.ofFloat(v,
+                            "scaleX", 0.8f);
+                    ObjectAnimator scaleDownYY = ObjectAnimator.ofFloat(v,
+                            "scaleY", 0.8f);
+                    scaleDownXX.setDuration(duration);
+                    scaleDownYY.setDuration(duration);
+
+                    AnimatorSet scaleDownn = new AnimatorSet();
+                    scaleDownn.play(scaleDownXX).with(scaleDownYY);
+
+                    scaleDownn.start();
+
+                    new Handler().postDelayed(()-> {
+                        ObjectAnimator scaleDownX3 = ObjectAnimator.ofFloat(v,
+                                "scaleX", 1f);
+                        ObjectAnimator scaleDownY3 = ObjectAnimator.ofFloat(v,
+                                "scaleY", 1f);
+                        scaleDownX3.setDuration(duration);
+                        scaleDownY3.setDuration(duration);
+
+                        AnimatorSet scaleDown3 = new AnimatorSet();
+                        scaleDown3.play(scaleDownX3).with(scaleDownY3);
+
+                        scaleDown3.start();
+                    }, 300);
+                    break;
+
+                case MotionEvent.ACTION_DOWN:
+                    ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
+                            "scaleX", 0.8f);
+                    ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
+                            "scaleY", 0.8f);
+                    scaleDownX.setDuration(duration);
+                    scaleDownY.setDuration(duration);
+
+                    AnimatorSet scaleDown = new AnimatorSet();
+                    scaleDown.play(scaleDownX).with(scaleDownY);
+
+                    scaleDown.start();
+                    break;
+
+                case MotionEvent.ACTION_UP:
+                    ObjectAnimator scaleDownX2 = ObjectAnimator.ofFloat(
+                            v, "scaleX", 1f);
+                    ObjectAnimator scaleDownY2 = ObjectAnimator.ofFloat(
+                            v, "scaleY", 1f);
+                    scaleDownX2.setDuration(duration);
+                    scaleDownY2.setDuration(duration);
+
+                    AnimatorSet scaleDown2 = new AnimatorSet();
+                    scaleDown2.play(scaleDownX2).with(scaleDownY2);
+
+                    scaleDown2.start();
+
+                    new Handler().postDelayed(() -> {
+                        if (!Constants.isNotificationServiceEnabled(requireContext())) {
+                            Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                            startActivity(intent);
+                        } else {
+                            startActivity(new Intent(requireContext(), DeletedMessageActivity.class));
+                            // requireActivity().finish();
+                        }
+                    }, 300);
+
+                    break;
+
+            }
+            return true;
+        });
 
         binding.stickers.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")

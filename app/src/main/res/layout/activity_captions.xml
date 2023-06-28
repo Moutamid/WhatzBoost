@@ -43,12 +43,11 @@
             android:layout_marginEnd="12sp"
             android:drawablePadding="12sp"
             android:drawableTint="@color/icon"
-            android:fontFamily="@font/montserrat_alternates"
+            android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
-            android:padding="12sp"
             android:text="Captions"
             android:textColor="@color/white"
-            android:textSize="28sp"
+            android:textSize="24sp"
             app:drawableLeftCompat="@drawable/round_format_quote_24" />
 
     </RelativeLayout>
@@ -56,12 +55,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_gravity="start"
         android:layout_marginStart="12sp"
         android:layout_marginEnd="12sp"
+        android:layout_marginBottom="12sp"
         android:gravity="end"
         android:text="Just Copy Or Share with others"
-        android:textColor="@color/text_color"
+        android:textColor="@color/text_off"
+        android:fontFamily="@font/poppins"
         android:textSize="18sp" />
 
     <com.ldt.springback.view.SpringBackLayout

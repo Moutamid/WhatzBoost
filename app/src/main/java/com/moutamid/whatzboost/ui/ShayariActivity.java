@@ -33,7 +33,7 @@ public class ShayariActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
-        SearchModel model = new SearchModel(R.drawable.happy, "Shayari");
+        SearchModel model = new SearchModel(R.drawable.poem, "Poetry\n ");
 
         if (recents.size() == 0){
             recents.add(model);
