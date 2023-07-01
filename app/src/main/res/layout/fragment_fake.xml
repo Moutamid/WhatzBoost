@@ -682,15 +682,15 @@
                     </LinearLayout>
 
                     <include
-                        android:id="@+id/viewStickers"
-                        layout="@layout/view_ad_indicator"
                         android:layout_width="@dimen/_10sdp"
                         android:layout_height="@dimen/_10sdp"
-                        android:visibility="gone"
+                        android:id="@+id/viewStickers"
+                        layout="@layout/view_ad_indicator"
                         app:layout_constraintBottom_toBottomOf="@+id/linearLayout9"
                         app:layout_constraintEnd_toEndOf="@+id/linearLayout9"
                         app:layout_constraintTop_toTopOf="@+id/linearLayout9"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:layout_constraintVertical_bias="0.0"
+                        />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
