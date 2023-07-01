@@ -4,8 +4,6 @@ import static android.content.Context.WINDOW_SERVICE;
 import static android.os.Environment.DIRECTORY_DCIM;
 import static android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION;
 
-import static com.moutamid.whatzboost.constants.DirUtils.TAG;
-
 import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -32,14 +30,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
-import androidx.test.internal.util.LogUtil;
 
 import com.fxn.stash.Stash;
 import com.moutamid.whatzboost.R;
+import com.moutamid.whatzboost.adsense.Ads;
+import com.moutamid.whatzboost.databinding.ViewAdIndicatorBinding;
 import com.moutamid.whatzboost.models.StatusItem;
 
 import org.json.JSONException;
@@ -60,9 +60,11 @@ import java.net.URLConnection;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class Constants {
     public static final String SAVED_FOLDER = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/WhatzBoost/Saved Status/";
@@ -101,6 +103,7 @@ public class Constants {
     public static File Statusfolder = new File(Environment.getExternalStorageDirectory().getPath() + "/WhatsApp/Media/.Statuses");
 
     public static final int FILE_COPIED = 1;
+    public static final String GUIDE_AD = "GUIDE_AD";
     public static final int FILE_EXISTS = 2;
 
     //android 11
@@ -416,6 +419,22 @@ public class Constants {
 
     }
 
+    public static ViewAdIndicatorBinding[] pickRandomViews(ViewAdIndicatorBinding[] views, int randomNumber) {
+        Random random = new Random();
+        ArrayList<ViewAdIndicatorBinding> pickedViews = new ArrayList<>();
+        for (int i = 0; i < randomNumber; i++) {
+            int randomIndex = random.nextInt(views.length);
+            ViewAdIndicatorBinding pickedView = views[randomIndex];
+
+            // Remove the picked view from the array to avoid duplication
+            views[randomIndex] = views[views.length - 1];
+            views = Arrays.copyOf(views, views.length - 1);
+
+            pickedViews.add(pickedView);
+        }
+        return pickedViews.toArray(new ViewAdIndicatorBinding[0]);
+    }
+
     private static void triggerIntent(Context context) {
         Intent intent  = new Intent(Intent.ACTION_VIEW);
         intent.setAction(ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
@@ -425,7 +444,7 @@ public class Constants {
         triggerIntent(context);
     }
 
-    public static View.OnTouchListener customOnTouchListner(Class<?> classs, Context context, Activity activity) {
+    public static View.OnTouchListener customOnTouchListner(Class<?> classs, Context context, Activity activity, boolean showAd) {
         return (v, event) -> {
             int duration = 300;
             Log.d("OnTouchLog", event.getAction() + " " + event.toString());
@@ -458,7 +477,22 @@ public class Constants {
 
                     scaleDown2.start();
                     new Handler().postDelayed(() -> {
-                        context.startActivity(new Intent(context, classs));
+                        // if even show Interstitial Ad if not show Rewarded Ad
+                        if (showAd) {
+                            if (Stash.getBoolean(GUIDE_AD, true)){
+                                showAdGuide(context, activity, classs);
+                            } else {
+                                int randomNumber = new Random().nextInt(101);
+                                if (randomNumber % 2 == 0) {
+                                    Ads.showInterstitial(context, activity, classs);
+                                } else {
+                                    Ads.showRewarded(context, activity, classs);
+                                }
+                            }
+                        } else {
+                            context.startActivity(new Intent(context, classs));
+                            activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        }
                         // activity.finish();
                     }, 300);
 
@@ -494,6 +528,30 @@ public class Constants {
             }
             return true;
         };
+    }
+
+    private static void showAdGuide(Context context, Activity activity, Class<?> classs) {
+        Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.advertise_dialg);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCancelable(false);
+
+        dialog.show();
+
+        Button ok = dialog.findViewById(R.id.ok);
+
+        ok.setOnClickListener(v -> {
+            dialog.dismiss();
+            Stash.put(GUIDE_AD, false);
+            int randomNumber = new Random().nextInt(101);
+            if (randomNumber % 2 == 0) {
+                Ads.showInterstitial(context, activity, classs);
+            } else {
+                Ads.showRewarded(context, activity, classs);
+            }
+        });
+
     }
 
     public static void checkApp(Activity activity) {

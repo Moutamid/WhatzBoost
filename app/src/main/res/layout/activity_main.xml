@@ -43,6 +43,7 @@
                         app:cardBackgroundColor="@color/background">
 
                         <TextView
+                            android:id="@+id/textMain"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="Others"
@@ -51,7 +52,7 @@
                             android:paddingBottom="12sp"
                             android:paddingTop="12sp"
                             android:textSize="18sp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/text_off"
                             android:fontFamily="@font/poppins" />
 
                     </com.google.android.material.card.MaterialCardView>
@@ -66,6 +67,7 @@
                         app:cardBackgroundColor="@color/background">
 
                         <TextView
+                            android:id="@+id/textMagic"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="Text Magic"
@@ -74,7 +76,7 @@
                             android:paddingBottom="12sp"
                             android:paddingTop="12sp"
                             android:textSize="18sp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/text_off"
                             android:fontFamily="@font/poppins" />
 
                     </com.google.android.material.card.MaterialCardView>
@@ -89,9 +91,10 @@
                         app:cardBackgroundColor="@color/card">
 
                         <TextView
+                            android:id="@+id/textFake"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="WA Tools"
+                            android:text="Main"
                             android:paddingStart="20sp"
                             android:paddingEnd="20sp"
                             android:paddingBottom="12sp"
@@ -112,6 +115,7 @@
                         app:cardBackgroundColor="@color/background">
 
                         <TextView
+                            android:id="@+id/recents"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="Recents"
@@ -120,7 +124,7 @@
                             android:paddingBottom="12sp"
                             android:paddingTop="12sp"
                             android:textSize="18sp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/text_off"
                             android:fontFamily="@font/poppins" />
 
                     </com.google.android.material.card.MaterialCardView>
@@ -142,13 +146,13 @@
 
     <ImageView
         android:id="@+id/settings"
-        android:layout_width="20sp"
-        android:layout_height="20sp"
-        app:tint="@color/text_off"
+        android:layout_width="16sp"
+        android:layout_height="16sp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="50sp"
-        android:layout_marginStart="33sp"
         android:rotation="90"
-        android:src="@drawable/sliders" />
+        android:src="@drawable/sliders"
+        app:tint="@color/text_off" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/search_badge"

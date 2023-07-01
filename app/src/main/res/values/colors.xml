@@ -8,6 +8,7 @@
     <color name="greyTran">#662F2F2F</color>
     <color name="light_grey">#bdbdbd</color>
     <color name="off_white">#f5f5f5</color>
+    <color name="off_white_trans">#99F5F5F5</color>
     <color name="blue">#1E90FF</color>
     <color name="black">#FF000000</color>
     <color name="blackDark">#1C1C1C</color>

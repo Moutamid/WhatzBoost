@@ -52,7 +52,7 @@ public class PermissionActivity extends AppCompatActivity {
         if (Constants.isPermissionGranted(PermissionActivity.this)) {
             binding.mediaLayout.setVisibility(View.GONE);
             binding.storyLayout.setVisibility(View.VISIBLE);
-        }  if (!Constants.checkIfGotAccess(this, treeUriWA)) {
+        }  if (Constants.checkIfGotAccess(this, treeUriWA)) {
             binding.mediaLayout.setVisibility(View.GONE);
             binding.storyLayout.setVisibility(View.GONE);
             binding.notificationLayout.setVisibility(View.VISIBLE);
@@ -100,9 +100,14 @@ public class PermissionActivity extends AppCompatActivity {
         });
 
         binding.allowNotification.setOnClickListener(v -> {
-            if (!Constants.isNotificationServiceEnabled(this)) {
-                Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-                startActivity(intent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS);
+                ActivityCompat.requestPermissions(PermissionActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 3);
+            } else {
+                if (!Constants.isNotificationServiceEnabled(this)) {
+                    Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                    startActivity(intent);
+                }
             }
         });
 
@@ -212,6 +217,11 @@ public class PermissionActivity extends AppCompatActivity {
             binding.mediaLayout.setVisibility(View.GONE);
             binding.storyLayout.setVisibility(View.VISIBLE);
             Stash.put("PERMS", 2);
+        } else if (requestCode == 3) {
+            if (!Constants.isNotificationServiceEnabled(this)) {
+                Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                startActivity(intent);
+            }
         }
     }
 }

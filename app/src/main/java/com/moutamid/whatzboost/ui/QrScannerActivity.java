@@ -80,7 +80,7 @@ public class QrScannerActivity extends AppCompatActivity {
             public void run() {
                 if (data.size() > 0){
                     if (data.get(0).equals(result.getText())){
-                        Toast.makeText(QrScannerActivity.this, "Already scanned", Toast.LENGTH_SHORT).show();
+                        ///Toast.makeText(QrScannerActivity.this, "Already scanned", Toast.LENGTH_SHORT).show();
                     } else {
                         data.add(result.getText());
                         Stash.put("QrResult", data);

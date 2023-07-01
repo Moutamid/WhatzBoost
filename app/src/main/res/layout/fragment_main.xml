@@ -46,7 +46,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10sp"
                 android:visibility="gone"
                 android:orientation="horizontal">
 
@@ -147,98 +146,144 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15sp"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/qr_gen"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        app:cardCornerRadius="12sp"
-                        android:layout_margin="12sp"
-                        app:cardBackgroundColor="@color/card"
-                        app:cardElevation="0dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="14sp"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:src="@drawable/qr_code"
-                                app:tint="@color/icon" />
-
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6sp"
-                        android:textSize="16sp"
-                        android:textColor="@color/off_white"
-                        android:fontFamily="@font/poppins"
                         android:gravity="center"
-                        android:text="Qr\nGenerator" />
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.5">
 
-                </LinearLayout>
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/qr_gen"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            app:cardCornerRadius="12sp"
+                            android:layout_margin="12sp"
+                            app:cardBackgroundColor="@color/card"
+                            app:cardElevation="0dp">
 
-                <LinearLayout
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="14sp"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:src="@drawable/qr_code"
+                                    app:tint="@color/icon" />
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/off_white"
+                            android:fontFamily="@font/poppins"
+                            android:gravity="center"
+                            android:text="Qr\nGenerator" />
+
+                    </LinearLayout>
+
+                    <include
+                        android:id="@+id/viewGenerator"
+                        layout="@layout/view_ad_indicator"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+                        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+                        app:layout_constraintTop_toTopOf="@+id/linearLayout"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/qr_scan"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        app:cardCornerRadius="12sp"
-                        android:layout_margin="12sp"
-                        app:cardBackgroundColor="@color/card"
-                        app:cardElevation="0dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="14sp"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:src="@drawable/barcode_scanner"
-                                app:tint="@color/icon" />
-
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/linearLayout2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6sp"
-                        android:textSize="16sp"
-                        android:textColor="@color/off_white"
-                        android:fontFamily="@font/poppins"
                         android:gravity="center"
-                        android:text="Qr\nScanner" />
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.5">
 
-                </LinearLayout>
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/qr_scan"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            app:cardCornerRadius="12sp"
+                            android:layout_margin="12sp"
+                            app:cardBackgroundColor="@color/card"
+                            app:cardElevation="0dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="14sp"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:src="@drawable/barcode_scanner"
+                                    app:tint="@color/icon" />
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/off_white"
+                            android:fontFamily="@font/poppins"
+                            android:gravity="center"
+                            android:text="Qr\nScanner" />
+
+                    </LinearLayout>
+
+                    <include
+                        android:id="@+id/viewScanner"
+                        layout="@layout/view_ad_indicator"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+                        app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+                        app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             </LinearLayout>
 

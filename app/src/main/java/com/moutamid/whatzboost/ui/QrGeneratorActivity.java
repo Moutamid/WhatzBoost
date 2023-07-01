@@ -52,7 +52,8 @@ public class QrGeneratorActivity extends AppCompatActivity {
         } else {
             boolean check = false;
             Collections.reverse(recents);
-            int size = recents.size() > 6 ? 6 : recents.size();
+//            int size = recents.size() > 6 ? 6 : recents.size();
+            int size = Math.min(recents.size(), 6);
             for (int i=0; i<size; i++){
                 if (!recents.get(i).getName().equals(model.getName())){
                     check = true;
