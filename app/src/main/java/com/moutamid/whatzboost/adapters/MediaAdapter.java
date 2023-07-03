@@ -181,7 +181,8 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaHolder>
             }*/
             try {
                 Log.e("Mime", mime);
-                intent.setDataAndType(uri, mime);
+                intent.setDataAndType(uri, "*/*");
+//                intent.setDataAndType(uri, mime);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);
             } catch (ActivityNotFoundException e) {
@@ -208,7 +209,6 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaHolder>
 
             Uri uri = Uri.parse(val.getFile_path());
             Intent intent = new Intent(Intent.ACTION_VIEW);
-
 
             String mime = "*/*";
             MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();

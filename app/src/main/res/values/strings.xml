@@ -9,6 +9,8 @@
     <string name="doc_time">12:34 MP</string>
     <string name="open_">OPEN</string>
 
+    <string name="facebook_app_id">1234</string>
+    <string name="facebook_client_token">56789</string>
     <string name="AD_App_ID">ca-app-pub-3940256099942544~3347511713</string>
     <string name="AD_Interstitial">ca-app-pub-3940256099942544/1033173712</string>
     <string name="AD_Rewarded">ca-app-pub-3940256099942544/5224354917</string>

@@ -13,6 +13,8 @@ import com.facebook.ads.Ad;
 import com.facebook.ads.AdSettings;
 import com.facebook.ads.AudienceNetworkAds;
 import com.facebook.ads.InterstitialAdListener;
+import com.facebook.ads.RewardedVideoAd;
+import com.facebook.ads.RewardedVideoAdListener;
 import com.fxn.stash.Stash;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
@@ -45,8 +47,9 @@ public class Ads {
     public static String ADMOB_REWARDED_VIDEO = "ADMOB_REWARDED_VIDEO";
     public static String FACEBOOK_INTERSTITIAL = "FACEBOOK_INTERSTITIAL";
     public static String FACEBOOK_REWARDED_VIDEO = "FACEBOOK_REWARDED_VIDEO";
+    public static RewardedVideoAd rewardedVideoAd;
 
-    public static String api = "https://raw.githubusercontent.com/suleman81/suleman81/main/app.txt";
+    public static String api = "https://raw.githubusercontent.com/Moutamid/WhatzBoost/master/app/app.txt";
 
     public static void calledIniti(Context context){
         MobileAds.initialize(context, initializationStatus -> {
@@ -59,6 +62,7 @@ public class Ads {
         AudienceNetworkAds.initialize(context);
         AdSettings.setIntegrationErrorMode(INTEGRATION_ERROR_CRASH_DEBUG_MODE);
         finterstitialAd = new com.facebook.ads.InterstitialAd(context, Stash.getString(FACEBOOK_INTERSTITIAL));
+        rewardedVideoAd = new RewardedVideoAd(context, Stash.getString(FACEBOOK_REWARDED_VIDEO));
     }
 
 
@@ -131,6 +135,72 @@ public class Ads {
             activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
 
+    }
+
+    public static void loadFacebookRewarded(){
+        RewardedVideoAdListener rewardedVideoAdListener = new RewardedVideoAdListener() {
+            @Override
+            public void onError(Ad ad, com.facebook.ads.AdError error) {
+                // Rewarded video ad failed to load
+                Log.e(TAG, "Rewarded video ad failed to load: " + error.getErrorMessage());
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+                // Rewarded video ad is loaded and ready to be displayed
+                Log.d(TAG, "Rewarded video ad is loaded and ready to be displayed!");
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+                // Rewarded video ad clicked
+                Log.d(TAG, "Rewarded video ad clicked!");
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+                // Rewarded Video ad impression - the event will fire when the
+                // video starts playing
+                Log.d(TAG, "Rewarded video ad impression logged!");
+            }
+
+            @Override
+            public void onRewardedVideoCompleted() {
+                // Rewarded Video View Complete - the video has been played to the end.
+                // You can use this event to initialize your reward
+                Log.d(TAG, "Rewarded video completed!");
+
+                // Call method to give reward
+                // giveReward();
+            }
+
+            @Override
+            public void onRewardedVideoClosed() {
+                // The Rewarded Video ad was closed - this can occur during the video
+                // by closing the app, or closing the end card.
+                Log.d(TAG, "Rewarded video ad closed!");
+            }
+        };
+
+        rewardedVideoAd.loadAd(
+                rewardedVideoAd.buildLoadAdConfig()
+                        .withAdListener(rewardedVideoAdListener)
+                        .build());
+
+    }
+
+    public static void showFacebookRewarded(Context context, Activity activity, Class intent){
+        if(rewardedVideoAd.isAdInvalidated()) {
+            context.startActivity(new Intent(context, intent));
+            activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        } else {
+            if(rewardedVideoAd != null || rewardedVideoAd.isAdLoaded()) {
+                rewardedVideoAd.show();
+            } else {
+                context.startActivity(new Intent(context, intent));
+                activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        }
     }
 
     public static void loadFacebookIntersAd(Context context, Activity activity, Class intent){

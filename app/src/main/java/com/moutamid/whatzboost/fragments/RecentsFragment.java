@@ -274,7 +274,7 @@ public class RecentsFragment extends Fragment {
                         if (rand % 2 == 0) {
                             Ads.showFacebookInters(requireContext(), requireActivity(), intent);
                         } else {
-                            Ads.showRewarded(requireContext(), requireActivity(), intent);
+                            Ads.showFacebookRewarded(requireContext(), requireActivity(), intent);
                         }
                     }
                 }

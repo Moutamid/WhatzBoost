@@ -94,6 +94,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void getList() {
+        list.clear();
         for (int i = 0; i < name.length; i++) {
             SearchModel model = new SearchModel(icons[i], name[i]);
             list.add(model);
@@ -283,7 +284,7 @@ public class SearchActivity extends AppCompatActivity {
                         if (rand % 2 == 0) {
                             Ads.showFacebookInters(SearchActivity.this, SearchActivity.this, intent);
                         } else {
-                            Ads.showRewarded(SearchActivity.this, SearchActivity.this, intent);
+                            Ads.showFacebookRewarded(SearchActivity.this, SearchActivity.this, intent);
                         }
                     }
                 }

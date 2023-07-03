@@ -184,7 +184,7 @@ public class FakeFragment extends Fragment {
                                                 if (rand % 2 == 0) {
                                                     Ads.showFacebookInters(requireContext(), requireActivity(), DeletedMessageActivity.class);
                                                 } else {
-                                                    Ads.showRewarded(requireContext(), requireActivity(), DeletedMessageActivity.class);
+                                                    Ads.showFacebookRewarded(requireContext(), requireActivity(), DeletedMessageActivity.class);
                                                 }
                                             }
                                         }

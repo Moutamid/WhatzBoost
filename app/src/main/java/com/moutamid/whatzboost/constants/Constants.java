@@ -508,7 +508,7 @@ public class Constants {
                                             if (randomNumber % 2 == 0) {
                                                 Ads.showFacebookInters(context, activity, classs);
                                             } else {
-                                                Ads.showRewarded(context, activity, classs);
+                                                Ads.showFacebookRewarded(context, activity, classs);
                                             }
                                         }
                                     }

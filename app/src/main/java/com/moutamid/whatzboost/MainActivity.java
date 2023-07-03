@@ -305,6 +305,8 @@ public class MainActivity extends AppCompatActivity {
                        Ads.loadRewardedAD(MainActivity.this);
                    } else {
                        Ads.facebookInititalize(MainActivity.this);
+                       Ads.loadFacebookRewarded();
+                       Ads.loadFacebookIntersAd(MainActivity.this, MainActivity.this, MainActivity.class);
                    }
 
                    try {
@@ -335,6 +337,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Ads.facebookInititalize(this);
             Ads.loadFacebookIntersAd(this, this, MainActivity.class);
+            Ads.loadFacebookRewarded();
         }
     }
 
