@@ -78,7 +78,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaHolder>
     public void onBindViewHolder(@NonNull MediaHolder holder, int position) {
         Medias val = medias.get(position);
         String type = val.getType();
-        Toast.makeText(context, type, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(context, type, Toast.LENGTH_SHORT).show();
         this.playingHolder = holder;
         if (type.equals(FilseEnum.AUDIO.name())) {
             holder.aud_const.setVisibility(View.VISIBLE);

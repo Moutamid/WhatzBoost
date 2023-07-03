@@ -10,17 +10,19 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.fxn.stash.Stash;
-import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.adapters.SearchAdapter;
+import com.moutamid.whatzboost.adsense.Ads;
 import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.FragmentRecentsBinding;
 import com.moutamid.whatzboost.listners.SearchLister;
@@ -38,6 +40,7 @@ import com.moutamid.whatzboost.ui.QrGeneratorActivity;
 import com.moutamid.whatzboost.ui.QrScannerActivity;
 import com.moutamid.whatzboost.ui.RepeaterActivity;
 import com.moutamid.whatzboost.ui.SearchActivity;
+import com.moutamid.whatzboost.ui.ShayariActivity;
 import com.moutamid.whatzboost.ui.StatusSaverActivity;
 import com.moutamid.whatzboost.ui.TextToEmojiActivity;
 import com.moutamid.whatzboost.ui.VideoSplitterActivity;
@@ -50,8 +53,8 @@ import com.moutamid.whatzboost.whatsappsticker.StickerPackValidator;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
+import java.util.Random;
 
 public class RecentsFragment extends Fragment {
     FragmentRecentsBinding binding;
@@ -69,9 +72,16 @@ public class RecentsFragment extends Fragment {
         progressDialog = new ProgressDialog(requireContext());
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading...");
-        getData();
+        //getData();
 
         return binding.getRoot();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData();
     }
 
     private void getData() {
@@ -91,76 +101,148 @@ public class RecentsFragment extends Fragment {
 
     SearchLister searchLister = new SearchLister() {
         @Override
-        public void click(String Name) {
+        public void click(String Name, boolean showAd, View dot, TextView view_counter) {
             switch (Name) {
                 case "Deleted\nMessages":
-                    startActivity(new Intent(requireContext(), DeletedMessageActivity.class));
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, DeletedMessageActivity.class);
+                    } else startActivity(new Intent(requireContext(), DeletedMessageActivity.class));
                     //finish();
                     break;
                 case "Video\nSplitter":
-                    startActivity(new Intent(requireContext(), VideoSplitterActivity.class));
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, VideoSplitterActivity.class);
+                    } else startActivity(new Intent(requireContext(), VideoSplitterActivity.class));
                     // finish();
                     break;
                 case "Whatsapp\nWeb":
-                    startActivity(new Intent(requireContext(), WhatsWebActivity.class));
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, WhatsWebActivity.class);
+                    } else startActivity(new Intent(requireContext(), WhatsWebActivity.class));
                     //  finish();
                     break;
-                case "Direct\nChat":
-                    startActivity(new Intent(requireContext(), DirectActivity.class));
+                case "Open\nWA Profile":
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, DirectActivity.class);
+                    } else startActivity(new Intent(requireContext(), DirectActivity.class));
                     // finish();
                     break;
                 case "Status\nSaver":
-                    startActivity(new Intent(requireContext(), StatusSaverActivity.class));
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, StatusSaverActivity.class);
+                    } else startActivity(new Intent(requireContext(), StatusSaverActivity.class));
                     // finish();
                     break;
                 case "Text\nRepeater":
-                    startActivity(new Intent(requireContext(), RepeaterActivity.class));
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, RepeaterActivity.class);
+                    } else startActivity(new Intent(requireContext(), RepeaterActivity.class));
                     //  finish();
                     break;
-                case "Make\nProfile":
-                    startActivity(new Intent(requireContext(), MakeProfileActivity.class));
+                case "Fake\nProfile":
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, MakeProfileActivity.class);
+                    } else startActivity(new Intent(requireContext(), MakeProfileActivity.class));
                     //finish();
                     break;
-                case "Make\nStories":
-                    startActivity(new Intent(requireContext(), MakeStoryActivity.class));
+                case "Fake\nStories":
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, MakeStoryActivity.class);
+                    } else startActivity(new Intent(requireContext(), MakeStoryActivity.class));
                     // finish();
                     break;
-                case "Stickers":
+                case "Stickers\n ":
                     progressDialog.show();
                     Fresco.initialize(requireContext());
                     loadListAsyncTask = new LoadListAsyncTask(requireActivity());
                     loadListAsyncTask.execute(new Void[0]);
                     break;
-                case "Caption":
-                    startActivity(new Intent(requireContext(), CaptionListActivity.class));
+                case "Caption\n ":
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, CaptionListActivity.class);
+                    } else startActivity(new Intent(requireContext(), CaptionListActivity.class));
                     //finish();
                     break;
-                case "Emotions":
-                    startActivity(new Intent(requireContext(), EmotionsActivity.class));
+                case "Emotions\n ":
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, EmotionsActivity.class);
+                    } else startActivity(new Intent(requireContext(), EmotionsActivity.class));
+                    // finish();
+                    break;
+                case "Poetry\n ":
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, ShayariActivity.class);
+                    } else startActivity(new Intent(requireContext(), ShayariActivity.class));
                     // finish();
                     break;
                 case "Text-to-Emoji":
-                    startActivity(new Intent(requireContext(), TextToEmojiActivity.class));
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, TextToEmojiActivity.class);
+                    } else startActivity(new Intent(requireContext(), TextToEmojiActivity.class));
                     // finish();
                     break;
                 case "Qr\nGenerator":
-                    startActivity(new Intent(requireContext(), QrGeneratorActivity.class));
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, QrGeneratorActivity.class);
+                    } else startActivity(new Intent(requireContext(), QrGeneratorActivity.class));
                     // finish();
                     break;
                 case "Qr\nScanner":
-                    startActivity(new Intent(requireContext(), QrScannerActivity.class));
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, QrScannerActivity.class);
+                    } else startActivity(new Intent(requireContext(), QrScannerActivity.class));
                     // finish();
                     break;
                 case "Blank\nMessage":
-                    startActivity(new Intent(requireContext(), BlankMessageActivity.class));
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, BlankMessageActivity.class);
+                    } else startActivity(new Intent(requireContext(), BlankMessageActivity.class));
                     // finish();
                     break;
                 case  "Font\nFun":
-                    startActivity(new Intent(requireContext(), FontFunActivity.class));
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, FontFunActivity.class);
+                    } else startActivity(new Intent(requireContext(), FontFunActivity.class));
                     // finish();
                     break;
                 case "Insta\nReShare":
-                    startActivity(new Intent(requireContext(), InstaReshareActivity.class));
+                    if (showAd){
+                        dot.setVisibility(View.GONE);
+                        view_counter.setVisibility(View.VISIBLE);
+                        startCounter(view_counter, InstaReshareActivity.class);
+                    } else startActivity(new Intent(requireContext(), InstaReshareActivity.class));
                     // finish();
                     break;
                 default:
@@ -168,6 +250,39 @@ public class RecentsFragment extends Fragment {
             }
         }
     };
+
+    private void startCounter(TextView view_counter, Class intent) {
+        CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                view_counter.setText(String.valueOf((millisUntilFinished / 1000) + 1));
+            }
+
+            @Override
+            public void onFinish() {
+                if (Stash.getBoolean(Constants.GUIDE_AD, true)) {
+                    Constants.showAdGuide(requireContext(), requireActivity(), intent);
+                } else {
+                    int rand = new Random().nextInt(101);
+                    if (Stash.getBoolean(Ads.IS_ADMOB)) {
+                        if (rand % 2 == 0) {
+                            Ads.showInterstitial(requireContext(), requireActivity(), intent);
+                        } else {
+                            Ads.showRewarded(requireContext(), requireActivity(), intent);
+                        }
+                    } else {
+                        if (rand % 2 == 0) {
+                            Ads.showFacebookInters(requireContext(), requireActivity(), intent);
+                        } else {
+                            Ads.showRewarded(requireContext(), requireActivity(), intent);
+                        }
+                    }
+                }
+            }
+        };
+        countDownTimer.start();
+    }
+
 
     public LoadListAsyncTask loadListAsyncTask;
 

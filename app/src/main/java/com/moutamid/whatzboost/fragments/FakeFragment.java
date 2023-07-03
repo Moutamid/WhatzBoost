@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.util.Pair;
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.fxn.stash.Stash;
 import com.moutamid.whatzboost.adsense.Ads;
 import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.FragmentFakeBinding;
@@ -61,10 +63,6 @@ public class FakeFragment extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading...");
 
-        Ads.calledIniti(requireContext());
-        Ads.loadIntersAD(requireContext());
-        Ads.loadRewardedAD(requireContext());
-
         ViewAdIndicatorBinding[] views = {
                 binding.viewDelete, binding.viewSplitter, binding.viewWeb, binding.viewWAProfile,
                 binding.viewFakeProfile, binding.viewFakeStory, binding.viewStatus, binding.viewBlank,binding.viewStickers
@@ -73,10 +71,10 @@ public class FakeFragment extends Fragment {
         int randomNumber = new Random().nextInt(views.length);
         ViewAdIndicatorBinding[] randomViews = Constants.pickRandomViews(views, randomNumber);
 
-        for (int i =0; i< randomViews.length; i++){
-            View includedLayout = randomViews[i].getRoot();
-            includedLayout.setVisibility(View.VISIBLE);
+        for (ViewAdIndicatorBinding randomView : randomViews) {
+            randomView.getRoot().setVisibility(View.VISIBLE);
         }
+
 
         boolean viewProfile = binding.viewFakeProfile.getRoot().getVisibility() == View.VISIBLE ? true : false;
         boolean viewStory = binding.viewFakeStory.getRoot().getVisibility() == View.VISIBLE ? true : false;
@@ -87,13 +85,13 @@ public class FakeFragment extends Fragment {
         boolean viewBlank = binding.viewBlank.getRoot().getVisibility() == View.VISIBLE ? true : false;
         boolean viewDelete = binding.viewDelete.getRoot().getVisibility() == View.VISIBLE ? true : false;
 
-        binding.profile.setOnTouchListener(Constants.customOnTouchListner(MakeProfileActivity.class, requireContext(), requireActivity(), viewProfile));
-        binding.story.setOnTouchListener(Constants.customOnTouchListner(MakeStoryActivity.class, requireContext(), requireActivity(), viewStory));
-        binding.whatsWeb.setOnTouchListener(Constants.customOnTouchListner(WhatsWebActivity.class, requireContext(), requireActivity(), viewWeb));
-        binding.directChat.setOnTouchListener(Constants.customOnTouchListner(DirectActivity.class, requireContext(), requireActivity(), viewWAProfile));
-        binding.statusSaver.setOnTouchListener(Constants.customOnTouchListner(StatusSaverActivity.class, requireContext(), requireActivity(), viewStatus));
-        binding.blank.setOnTouchListener(Constants.customOnTouchListner(BlankMessageActivity.class, requireContext(), requireActivity(), viewBlank));
-        binding.videoSplitter.setOnTouchListener(Constants.customOnTouchListner(VideoSplitterActivity.class, requireContext(), requireActivity(), viewSplitter));
+        binding.profile.setOnTouchListener(Constants.customOnTouchListner(MakeProfileActivity.class, requireContext(), requireActivity(), viewProfile, binding.viewFakeProfile.view, binding.viewFakeProfile.counter));
+        binding.story.setOnTouchListener(Constants.customOnTouchListner(MakeStoryActivity.class, requireContext(), requireActivity(), viewStory, binding.viewFakeStory.view, binding.viewFakeStory.counter));
+        binding.whatsWeb.setOnTouchListener(Constants.customOnTouchListner(WhatsWebActivity.class, requireContext(), requireActivity(), viewWeb, binding.viewWeb.view, binding.viewWeb.counter));
+        binding.directChat.setOnTouchListener(Constants.customOnTouchListner(DirectActivity.class, requireContext(), requireActivity(), viewWAProfile, binding.viewWAProfile.view, binding.viewWAProfile.counter));
+        binding.statusSaver.setOnTouchListener(Constants.customOnTouchListner(StatusSaverActivity.class, requireContext(), requireActivity(), viewStatus, binding.viewStatus.view, binding.viewStatus.counter));
+        binding.blank.setOnTouchListener(Constants.customOnTouchListner(BlankMessageActivity.class, requireContext(), requireActivity(), viewBlank, binding.viewBlank.view, binding.viewBlank.counter));
+        binding.videoSplitter.setOnTouchListener(Constants.customOnTouchListner(VideoSplitterActivity.class, requireContext(), requireActivity(), viewSplitter, binding.viewSplitter.view, binding.viewSplitter.counter));
 
         binding.deleteMessage.setOnTouchListener((v, event) -> {
             int duration = 300;
@@ -160,12 +158,40 @@ public class FakeFragment extends Fragment {
                             startActivity(intent);
                         } else {
                             if (viewDelete){
-                                int rand = new Random().nextInt(101);
-                                if (rand % 2 == 0) {
-                                    Ads.showInterstitial(requireContext(), requireActivity(), DeletedMessageActivity.class);
-                                } else {
-                                    Ads.showRewarded(requireContext(), requireActivity(), DeletedMessageActivity.class);
-                                }
+
+                                binding.viewDelete.view.setVisibility(View.GONE);
+                                binding.viewDelete.counter.setVisibility(View.VISIBLE);
+
+                                CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
+                                    @Override
+                                    public void onTick(long millisUntilFinished) {
+                                        binding.viewDelete.counter.setText(String.valueOf((millisUntilFinished / 1000) + 1));
+                                    }
+
+                                    @Override
+                                    public void onFinish() {
+                                        if (Stash.getBoolean(Constants.GUIDE_AD, true)) {
+                                            Constants.showAdGuide(requireContext(), requireActivity(), DeletedMessageActivity.class);
+                                        } else {
+                                            int rand = new Random().nextInt(101);
+                                            if (Stash.getBoolean(Ads.IS_ADMOB)) {
+                                                if (rand % 2 == 0) {
+                                                    Ads.showInterstitial(requireContext(), requireActivity(), DeletedMessageActivity.class);
+                                                } else {
+                                                    Ads.showRewarded(requireContext(), requireActivity(), DeletedMessageActivity.class);
+                                                }
+                                            } else {
+                                                if (rand % 2 == 0) {
+                                                    Ads.showFacebookInters(requireContext(), requireActivity(), DeletedMessageActivity.class);
+                                                } else {
+                                                    Ads.showRewarded(requireContext(), requireActivity(), DeletedMessageActivity.class);
+                                                }
+                                            }
+                                        }
+                                    }
+                                };
+                                countDownTimer.start();
+
                             } else {
                                 startActivity(new Intent(requireContext(), DeletedMessageActivity.class));
                             }
@@ -256,9 +282,41 @@ public class FakeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Ads.calledIniti(requireContext());
-        Ads.loadIntersAD(requireContext());
-        Ads.loadRewardedAD(requireContext());
+        updateUI();
+    }
+
+    private void updateUI() {
+        binding.viewFakeProfile.counter.setText("3");
+        binding.viewFakeProfile.counter.setVisibility(View.GONE);
+        binding.viewFakeProfile.view.setVisibility(View.VISIBLE);
+
+        binding.viewFakeStory.counter.setText("3");
+        binding.viewFakeStory.counter.setVisibility(View.GONE);
+        binding.viewFakeStory.view.setVisibility(View.VISIBLE);
+
+        binding.viewWeb.counter.setText("3");
+        binding.viewWeb.counter.setVisibility(View.GONE);
+        binding.viewWeb.view.setVisibility(View.VISIBLE);
+
+        binding.viewWAProfile.counter.setText("3");
+        binding.viewWAProfile.counter.setVisibility(View.GONE);
+        binding.viewWAProfile.view.setVisibility(View.VISIBLE);
+
+        binding.viewStatus.counter.setText("3");
+        binding.viewStatus.counter.setVisibility(View.GONE);
+        binding.viewStatus.view.setVisibility(View.VISIBLE);
+
+        binding.viewSplitter.counter.setText("3");
+        binding.viewSplitter.counter.setVisibility(View.GONE);
+        binding.viewSplitter.view.setVisibility(View.VISIBLE);
+
+        binding.viewBlank.counter.setText("3");
+        binding.viewBlank.counter.setVisibility(View.GONE);
+        binding.viewBlank.view.setVisibility(View.VISIBLE);
+
+        binding.viewDelete.counter.setText("3");
+        binding.viewDelete.counter.setVisibility(View.GONE);
+        binding.viewDelete.view.setVisibility(View.VISIBLE);
     }
 
     public LoadListAsyncTask loadListAsyncTask;

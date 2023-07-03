@@ -24,6 +24,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 //        startActivity(new Intent(this, TestActivity.class));
 //        finish();
         new Handler().postDelayed(() -> {

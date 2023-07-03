@@ -3,10 +3,22 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
+    <TextView
+        android:id="@+id/counter"
+        android:text="3"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_centerInParent="true"
+        android:textColor="@color/off_white_trans"
+        android:fontFamily="@font/poppins" />
+
     <View
         android:id="@+id/view"
         android:layout_width="@dimen/_6sdp"
         android:layout_height="@dimen/_6sdp"
+        android:layout_centerInParent="true"
         android:background="@drawable/background_rounded"
         android:backgroundTint="@color/off_white_trans" />
 

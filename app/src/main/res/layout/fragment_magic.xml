@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.ldt.springback.view.SpringBackLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:fillViewport="true"
     tools:context=".fragments.MagicFragment">
@@ -17,314 +17,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="12sp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="12sp">
+
             <TextView
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30sp"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="end"
                 android:paddingEnd="12sp"
                 android:text="Text Magic"
-                android:textSize="24sp"
-                android:gravity="end"
-                android:layout_marginTop="30sp"
                 android:textColor="@color/off_white"
-                android:fontFamily="@font/poppins_semibold" />
+                android:textSize="24sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12sp"
                 android:layout_marginStart="12sp"
-                android:gravity="end"
-                android:textSize="18sp"
-                android:textColor="@color/text_off"
+                android:layout_marginEnd="12sp"
                 android:fontFamily="@font/poppins"
-                android:text="Do some magic with Text" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.5">
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/textMagic"
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            app:cardCornerRadius="12sp"
-                            android:layout_margin="12sp"
-                            app:cardBackgroundColor="@color/card"
-                            app:cardElevation="0dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:padding="14sp"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:layout_width="32dp"
-                                    android:layout_height="32dp"
-                                    android:src="@drawable/magic_hat"
-                                    app:tint="@color/icon" />
-
-                            </LinearLayout>
-
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textColor="@color/off_white"
-                            android:fontFamily="@font/poppins"
-                            android:text="Text-to-Emoji" />
-
-                    </LinearLayout>
-
-                    <include
-                        android:id="@+id/viewEmoji"
-                        layout="@layout/view_ad_indicator"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-                        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayout"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/captions"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        app:cardCornerRadius="12sp"
-                        android:layout_margin="12sp"
-                        app:cardBackgroundColor="@color/card"
-                        app:cardElevation="0dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="14sp"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:src="@drawable/closed_caption"
-                                app:tint="@color/icon" />
-
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="@color/off_white"
-                        android:fontFamily="@font/poppins"
-                        android:text="Caption" />
-
-                </LinearLayout>
-
-                <include
-                    android:id="@+id/viewCaptions"
-                    layout="@layout/view_ad_indicator"
-                    android:layout_width="@dimen/_10sdp"
-                    android:layout_height="@dimen/_10sdp"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-                    app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-                    app:layout_constraintTop_toTopOf="@+id/linearLayout2"
-                    app:layout_constraintVertical_bias="0.0" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.5">
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/shayari"
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            app:cardCornerRadius="12sp"
-                            android:layout_margin="12sp"
-                            app:cardBackgroundColor="@color/card"
-                            app:cardElevation="0dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:padding="14sp"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:layout_width="32dp"
-                                    android:layout_height="32dp"
-                                    android:src="@drawable/poem"
-                                    app:tint="@color/icon" />
-
-                            </LinearLayout>
-
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textColor="@color/off_white"
-                            android:fontFamily="@font/poppins"
-                            android:text="Poetry" />
-
-                    </LinearLayout>
-
-                    <include
-                        android:id="@+id/viewPoetry"
-                        layout="@layout/view_ad_indicator"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
-                        app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayout3"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.5">
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/emotions"
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            app:cardCornerRadius="12sp"
-                            android:layout_margin="12sp"
-                            app:cardBackgroundColor="@color/card"
-                            app:cardElevation="0dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:padding="14sp"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:layout_width="32dp"
-                                    android:layout_height="32dp"
-                                    android:src="@drawable/emotions"
-                                    app:tint="@color/icon" />
-
-                            </LinearLayout>
-
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textColor="@color/off_white"
-                            android:fontFamily="@font/poppins"
-                            android:text="Emotions" />
-
-                    </LinearLayout>
-
-                    <include
-                        android:id="@+id/viewEmotions"
-                        layout="@layout/view_ad_indicator"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
-                        app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayout4"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </LinearLayout>
+                android:gravity="end"
+                android:text="Do some magic with Text"
+                android:textColor="@color/text_off"
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -353,51 +70,50 @@
                             android:id="@+id/fontFun"
                             android:layout_width="120dp"
                             android:layout_height="120dp"
-                            app:cardCornerRadius="12sp"
                             android:layout_margin="12sp"
                             app:cardBackgroundColor="@color/card"
+                            app:cardCornerRadius="12sp"
                             app:cardElevation="0dp">
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:padding="14sp"
-                                android:gravity="center"
-                                android:orientation="vertical">
+                                android:padding="14sp">
 
                                 <ImageView
                                     android:layout_width="32dp"
                                     android:layout_height="32dp"
+                                    android:layout_centerInParent="true"
                                     android:src="@drawable/fonticons"
                                     app:tint="@color/icon" />
 
-                            </LinearLayout>
+                                <include
+                                    android:id="@+id/viewFont"
+                                    layout="@layout/view_ad_indicator"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:visibility="gone" />
+
+                            </RelativeLayout>
 
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:gravity="center"
-                            android:textColor="@color/off_white"
                             android:fontFamily="@font/poppins"
-                            android:text="Font\nFun" />
+                            android:gravity="center"
+                            android:text="Font\nFun"
+                            android:textColor="@color/off_white"
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
-                    <include
-                        android:id="@+id/viewFont"
-                        layout="@layout/view_ad_indicator"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout5"
-                        app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayout5"
-                        app:layout_constraintVertical_bias="0.0" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -421,49 +137,183 @@
                             android:id="@+id/repeater"
                             android:layout_width="120dp"
                             android:layout_height="120dp"
-                            app:cardCornerRadius="12sp"
                             android:layout_margin="12sp"
                             app:cardBackgroundColor="@color/card"
+                            app:cardCornerRadius="12sp"
                             app:cardElevation="0dp">
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:padding="14sp"
-                                android:gravity="center"
-                                android:orientation="vertical">
+                                android:padding="14sp">
 
                                 <ImageView
                                     android:layout_width="32dp"
                                     android:layout_height="32dp"
+                                    android:layout_centerInParent="true"
                                     android:src="@drawable/repeat"
                                     app:tint="@color/icon" />
 
-                            </LinearLayout>
+                                <include
+                                    android:id="@+id/viewRepeater"
+                                    layout="@layout/view_ad_indicator"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:visibility="gone" />
+
+                            </RelativeLayout>
 
                         </com.google.android.material.card.MaterialCardView>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textColor="@color/off_white"
                             android:fontFamily="@font/poppins"
                             android:gravity="center"
-                            android:text="Text\nRepeater" />
+                            android:text="Text\nRepeater"
+                            android:textColor="@color/off_white"
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
-                    <include
-                        android:id="@+id/viewRepeater"
-                        layout="@layout/view_ad_indicator"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout6"
-                        app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayout6"
-                        app:layout_constraintVertical_bias="0.0" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.5">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/textMagic"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_margin="12sp"
+                            app:cardBackgroundColor="@color/card"
+                            app:cardCornerRadius="12sp"
+                            app:cardElevation="0dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="14sp">
+
+                                <ImageView
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/magic_hat"
+                                    app:tint="@color/icon" />
+
+                                <include
+                                    android:id="@+id/viewEmoji"
+                                    layout="@layout/view_ad_indicator"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:visibility="gone" />
+
+                            </RelativeLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:text="Text-to-Emoji"
+                            android:textColor="@color/off_white"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.5">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/emotions"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_margin="12sp"
+                            app:cardBackgroundColor="@color/card"
+                            app:cardCornerRadius="12sp"
+                            app:cardElevation="0dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="14sp">
+
+                                <ImageView
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/emotions"
+                                    app:tint="@color/icon" />
+
+                                <include
+                                    android:id="@+id/viewEmotions"
+                                    layout="@layout/view_ad_indicator"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:visibility="gone" />
+
+                            </RelativeLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:text="Emotions"
+                            android:textColor="@color/off_white"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -472,30 +322,30 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="invisible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:layout_weight="1">
+                    android:orientation="vertical">
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="120dp"
                         android:layout_height="120dp"
-                        app:cardCornerRadius="12sp"
                         android:layout_margin="12sp"
                         app:cardBackgroundColor="@color/card"
+                        app:cardCornerRadius="12sp"
                         app:cardElevation="0dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:padding="14sp"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:padding="14sp">
 
                             <ImageView
                                 android:layout_width="32dp"
@@ -510,35 +360,35 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:gravity="center"
-                        android:textColor="@color/off_white"
                         android:fontFamily="@font/poppins"
-                        android:text="Font\nFun" />
+                        android:gravity="center"
+                        android:text="Font\nFun"
+                        android:textColor="@color/off_white"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:layout_weight="1">
+                    android:orientation="vertical">
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="120dp"
                         android:layout_height="120dp"
-                        app:cardCornerRadius="12sp"
                         android:layout_margin="12sp"
                         app:cardBackgroundColor="@color/card"
+                        app:cardCornerRadius="12sp"
                         app:cardElevation="0dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:padding="14sp"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:padding="14sp">
 
                             <ImageView
                                 android:layout_width="32dp"
@@ -553,11 +403,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="@color/off_white"
                         android:fontFamily="@font/poppins"
                         android:gravity="center"
-                        android:text="Text\nRepeater" />
+                        android:text="Text\nRepeater"
+                        android:textColor="@color/off_white"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -566,7 +416,6 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
 
 </com.ldt.springback.view.SpringBackLayout>

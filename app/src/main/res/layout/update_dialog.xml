@@ -9,10 +9,8 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/image"
         app:cardBackgroundColor="@color/card"
         app:cardCornerRadius="13sp"
-        android:layout_marginTop="-45sp"
         app:cardElevation="0sp">
 
         <LinearLayout
@@ -28,7 +26,7 @@
                 android:gravity="center"
                 android:padding="10sp"
                 android:layout_marginTop="12sp"
-                android:text="Ad Guide"
+                android:text="New Version Available"
                 android:textColor="@color/off_white"
                 android:textSize="24sp" />
 
@@ -37,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
                 android:gravity="center"
-                android:text="@string/advertise_guide"
+                android:text="@string/new_version"
                 android:textColor="@color/text_off"
                 android:textSize="16sp" />
 
@@ -54,19 +52,18 @@
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cancel"
+                    android:text="Later"
                     android:textSize="16sp"
-                    android:visibility="gone"
                     android:textAllCaps="false"
                     android:fontFamily="@font/poppins"
                     android:textColor="@color/text_off" />
 
                 <Button
-                    android:id="@+id/ok"
+                    android:id="@+id/update"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ok"
+                    android:text="Update App"
                     android:textSize="16sp"
                     android:textAllCaps="false"
                     android:fontFamily="@font/poppins_semibold"
@@ -77,14 +74,5 @@
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/image"
-        android:layout_width="130sp"
-        android:layout_height="130sp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/marketing" />
 
 </RelativeLayout>

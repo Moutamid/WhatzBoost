@@ -76,20 +76,28 @@
                             app:cardCornerRadius="12sp"
                             app:cardElevation="0dp">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:orientation="vertical"
+                            <RelativeLayout
+                                android:layout_width="120dp"
+                                android:layout_height="120dp"
                                 android:padding="14sp">
 
                                 <ImageView
                                     android:layout_width="32dp"
                                     android:layout_height="32dp"
                                     android:src="@drawable/bin"
+                                    android:layout_centerInParent="true"
                                     app:tint="@color/icon" />
 
-                            </LinearLayout>
+                                <include
+                                    android:id="@+id/viewDelete"
+                                    layout="@layout/view_ad_indicator"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_alignParentTop="true"
+                                    android:visibility="gone"
+                                    android:layout_alignParentEnd="true"/>
+
+                            </RelativeLayout>
 
                         </com.google.android.material.card.MaterialCardView>
 
@@ -103,17 +111,6 @@
                             android:textSize="16sp" />
 
                     </LinearLayout>
-
-                    <include
-                        android:id="@+id/viewDelete"
-                        layout="@layout/view_ad_indicator"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-                        app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayout2"
-                        app:layout_constraintVertical_bias="0.0" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -145,20 +142,28 @@
                             app:cardCornerRadius="12sp"
                             app:cardElevation="0dp">
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:orientation="vertical"
                                 android:padding="14sp">
 
                                 <ImageView
                                     android:layout_width="32dp"
                                     android:layout_height="32dp"
                                     android:src="@drawable/split"
+                                    android:layout_centerInParent="true"
                                     app:tint="@color/icon" />
 
-                            </LinearLayout>
+                                <include
+                                    android:id="@+id/viewSplitter"
+                                    layout="@layout/view_ad_indicator"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_alignParentTop="true"
+                                    android:visibility="gone"
+                                    android:layout_alignParentEnd="true" />
+
+                            </RelativeLayout>
 
                         </com.google.android.material.card.MaterialCardView>
 
@@ -173,16 +178,6 @@
 
                     </LinearLayout>
 
-                    <include
-                        android:id="@+id/viewSplitter"
-                        layout="@layout/view_ad_indicator"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-                        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayout"
-                        app:layout_constraintVertical_bias="0.0" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -220,20 +215,28 @@
                             app:cardCornerRadius="12sp"
                             app:cardElevation="0dp">
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:orientation="vertical"
                                 android:padding="14sp">
 
                                 <ImageView
                                     android:layout_width="32dp"
                                     android:layout_height="32dp"
+                                    android:layout_centerInParent="true"
                                     android:src="@drawable/whatsweb"
                                     app:tint="@color/icon" />
 
-                            </LinearLayout>
+                                <include
+                                    android:id="@+id/viewWeb"
+                                    layout="@layout/view_ad_indicator"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_alignParentTop="true"
+                                    android:visibility="gone"
+                                    android:layout_alignParentEnd="true" />
+
+                            </RelativeLayout>
 
                         </com.google.android.material.card.MaterialCardView>
 
@@ -247,17 +250,6 @@
                             android:textSize="16sp" />
 
                     </LinearLayout>
-
-                    <include
-                        android:id="@+id/viewWeb"
-                        layout="@layout/view_ad_indicator"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
-                        app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayout3"
-                        app:layout_constraintVertical_bias="0.0" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -289,20 +281,28 @@
                             app:cardCornerRadius="12sp"
                             app:cardElevation="0dp">
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:orientation="vertical"
                                 android:padding="14sp">
 
                                 <ImageView
                                     android:layout_width="32dp"
                                     android:layout_height="32dp"
                                     android:src="@drawable/whatsapp"
+                                    android:layout_centerInParent="true"
                                     app:tint="@color/icon" />
 
-                            </LinearLayout>
+                                <include
+                                    android:id="@+id/viewWAProfile"
+                                    layout="@layout/view_ad_indicator"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_alignParentTop="true"
+                                    android:visibility="gone"
+                                    android:layout_alignParentEnd="true" />
+
+                            </RelativeLayout>
 
                         </com.google.android.material.card.MaterialCardView>
 
@@ -317,17 +317,6 @@
 
                     </LinearLayout>
 
-
-                    <include
-                        android:id="@+id/viewWAProfile"
-                        layout="@layout/view_ad_indicator"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
-                        app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayout4"
-                        app:layout_constraintVertical_bias="0.0" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -365,20 +354,28 @@
                             app:cardCornerRadius="12sp"
                             app:cardElevation="0dp">
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:orientation="vertical"
                                 android:padding="14sp">
 
                                 <ImageView
                                     android:layout_width="32dp"
                                     android:layout_height="32dp"
                                     android:src="@drawable/user"
+                                    android:layout_centerInParent="true"
                                     app:tint="@color/icon" />
 
-                            </LinearLayout>
+                                <include
+                                    android:id="@+id/viewFakeProfile"
+                                    layout="@layout/view_ad_indicator"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_alignParentTop="true"
+                                    android:visibility="gone"
+                                    android:layout_alignParentEnd="true" />
+
+                            </RelativeLayout>
 
                         </com.google.android.material.card.MaterialCardView>
 
@@ -392,17 +389,6 @@
                             android:textSize="16sp" />
 
                     </LinearLayout>
-
-                    <include
-                        android:id="@+id/viewFakeProfile"
-                        layout="@layout/view_ad_indicator"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout7"
-                        app:layout_constraintEnd_toEndOf="@+id/linearLayout7"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayout7"
-                        app:layout_constraintVertical_bias="0.0" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -433,20 +419,28 @@
                             app:cardCornerRadius="12sp"
                             app:cardElevation="0dp">
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:orientation="vertical"
                                 android:padding="14sp">
 
                                 <ImageView
                                     android:layout_width="32dp"
                                     android:layout_height="32dp"
+                                    android:layout_centerInParent="true"
                                     android:src="@drawable/stories"
                                     app:tint="@color/icon" />
 
-                            </LinearLayout>
+                                <include
+                                    android:id="@+id/viewFakeStory"
+                                    layout="@layout/view_ad_indicator"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_alignParentTop="true"
+                                    android:visibility="gone"
+                                    android:layout_alignParentEnd="true" />
+
+                            </RelativeLayout>
 
                         </com.google.android.material.card.MaterialCardView>
 
@@ -460,17 +454,6 @@
                             android:textSize="16sp" />
 
                     </LinearLayout>
-
-                    <include
-                        android:id="@+id/viewFakeStory"
-                        layout="@layout/view_ad_indicator"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout8"
-                        app:layout_constraintEnd_toEndOf="@+id/linearLayout8"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayout8"
-                        app:layout_constraintVertical_bias="0.0" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -508,20 +491,28 @@
                             app:cardCornerRadius="12sp"
                             app:cardElevation="0dp">
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:orientation="vertical"
                                 android:padding="14sp">
 
                                 <ImageView
                                     android:layout_width="32dp"
                                     android:layout_height="32dp"
+                                    android:layout_centerInParent="true"
                                     android:src="@drawable/download"
                                     app:tint="@color/icon" />
 
-                            </LinearLayout>
+                                <include
+                                    android:id="@+id/viewStatus"
+                                    layout="@layout/view_ad_indicator"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_alignParentTop="true"
+                                    android:visibility="gone"
+                                    android:layout_alignParentEnd="true" />
+
+                            </RelativeLayout>
 
                         </com.google.android.material.card.MaterialCardView>
 
@@ -536,16 +527,6 @@
 
                     </LinearLayout>
 
-                    <include
-                        android:id="@+id/viewStatus"
-                        layout="@layout/view_ad_indicator"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout5"
-                        app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayout5"
-                        app:layout_constraintVertical_bias="0.0" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -577,20 +558,28 @@
                             app:cardCornerRadius="12sp"
                             app:cardElevation="0dp">
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:orientation="vertical"
                                 android:padding="14sp">
 
                                 <ImageView
                                     android:layout_width="32dp"
                                     android:layout_height="32dp"
+                                    android:layout_centerInParent="true"
                                     android:src="@drawable/comment"
                                     app:tint="@color/icon" />
 
-                            </LinearLayout>
+                                <include
+                                    android:id="@+id/viewBlank"
+                                    layout="@layout/view_ad_indicator"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_alignParentTop="true"
+                                    android:visibility="gone"
+                                    android:layout_alignParentEnd="true" />
+
+                            </RelativeLayout>
 
                         </com.google.android.material.card.MaterialCardView>
 
@@ -604,17 +593,6 @@
                             android:textSize="16sp" />
 
                     </LinearLayout>
-
-                    <include
-                        android:id="@+id/viewBlank"
-                        layout="@layout/view_ad_indicator"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout6"
-                        app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayout6"
-                        app:layout_constraintVertical_bias="0.0" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -653,20 +631,28 @@
                             app:cardCornerRadius="12sp"
                             app:cardElevation="0dp">
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:orientation="vertical"
                                 android:padding="14sp">
 
                                 <ImageView
                                     android:layout_width="32dp"
                                     android:layout_height="32dp"
+                                    android:layout_centerInParent="true"
                                     android:src="@drawable/sticker"
                                     app:tint="@color/icon" />
 
-                            </LinearLayout>
+                                <include
+                                    android:id="@+id/viewStickers"
+                                    layout="@layout/view_ad_indicator"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_alignParentTop="true"
+                                    android:visibility="gone"
+                                    android:layout_alignParentEnd="true" />
+
+                            </RelativeLayout>
 
                         </com.google.android.material.card.MaterialCardView>
 
@@ -680,17 +666,6 @@
                             android:textSize="16sp" />
 
                     </LinearLayout>
-
-                    <include
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:id="@+id/viewStickers"
-                        layout="@layout/view_ad_indicator"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout9"
-                        app:layout_constraintEnd_toEndOf="@+id/linearLayout9"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayout9"
-                        app:layout_constraintVertical_bias="0.0"
-                        />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

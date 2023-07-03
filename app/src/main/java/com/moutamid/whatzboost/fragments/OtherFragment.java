@@ -28,10 +28,10 @@ public class OtherFragment extends Fragment {
         binding = FragmentOtherBinding.inflate(getLayoutInflater(), container, false);
         boolean viewProfile = false;
 
-        binding.qrGen.setOnTouchListener(Constants.customOnTouchListner(QrGeneratorActivity.class, requireContext(), requireActivity(), viewProfile));
-        binding.qrScan.setOnTouchListener(Constants.customOnTouchListner(QrScannerActivity.class, requireContext(), requireActivity(), viewProfile));
-        binding.reshare.setOnTouchListener(Constants.customOnTouchListner(InstaReshareActivity.class, requireContext(), requireActivity(), viewProfile));
-        binding.blank.setOnTouchListener(Constants.customOnTouchListner(BlankMessageActivity.class, requireContext(), requireActivity(), viewProfile));
+//        binding.qrGen.setOnTouchListener(Constants.customOnTouchListner(QrGeneratorActivity.class, requireContext(), requireActivity(), viewProfile, binding.viewGenerator.view, binding.viewGenerator.counter));
+//        binding.qrScan.setOnTouchListener(Constants.customOnTouchListner(QrScannerActivity.class, requireContext(), requireActivity(), viewProfile, binding.viewGenerator.view, binding.viewGenerator.counter));
+//        binding.reshare.setOnTouchListener(Constants.customOnTouchListner(InstaReshareActivity.class, requireContext(), requireActivity(), viewProfile, binding.viewGenerator.view, binding.viewGenerator.counter));
+//        binding.blank.setOnTouchListener(Constants.customOnTouchListner(BlankMessageActivity.class, requireContext(), requireActivity(), viewProfile, binding.viewGenerator.view, binding.viewGenerator.counter));
 
         return binding.getRoot();
     }

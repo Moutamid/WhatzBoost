@@ -1,5 +1,7 @@
 package com.moutamid.whatzboost.adsense;
 
+import static com.facebook.ads.AdSettings.IntegrationErrorMode.INTEGRATION_ERROR_CRASH_DEBUG_MODE;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -7,36 +9,195 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdSettings;
+import com.facebook.ads.AudienceNetworkAds;
+import com.facebook.ads.InterstitialAdListener;
+import com.fxn.stash.Stash;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.OnUserEarnedRewardListener;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.ads.rewarded.ServerSideVerificationOptions;
+import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd;
+import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoadCallback;
 import com.moutamid.whatzboost.R;
 
 public class Ads {
     private static InterstitialAd mInterstitialAd;
+    private static com.facebook.ads.InterstitialAd finterstitialAd;
     private static RewardedAd rewardedAd;
+    private static RewardedInterstitialAd rewardedInterstitialAd;
     public static AdRequest adRequest = new AdRequest.Builder().build();
 
     public static String TAG = "ADS_MANAG";
+    public static String IS_ADMOB = "IS_ADMOB";
+    public static String ADMOB_INTERSTITIAL = "ADMOB_INTERSTITIAL";
+    public static String ADMOB_REWARDED_VIDEO = "ADMOB_REWARDED_VIDEO";
+    public static String FACEBOOK_INTERSTITIAL = "FACEBOOK_INTERSTITIAL";
+    public static String FACEBOOK_REWARDED_VIDEO = "FACEBOOK_REWARDED_VIDEO";
+
+    public static String api = "https://raw.githubusercontent.com/suleman81/suleman81/main/app.txt";
 
     public static void calledIniti(Context context){
         MobileAds.initialize(context, initializationStatus -> {
-
+            // loadRewardedInterstitialAd(context);
         });
+
+    }
+
+    public static void facebookInititalize(Context context){
+        AudienceNetworkAds.initialize(context);
+        AdSettings.setIntegrationErrorMode(INTEGRATION_ERROR_CRASH_DEBUG_MODE);
+        finterstitialAd = new com.facebook.ads.InterstitialAd(context, Stash.getString(FACEBOOK_INTERSTITIAL));
+    }
+
+
+    public static void loadRewardedInterstitialAd(Context context) {
+        // Use the test ad unit ID to load an ad.
+        RewardedInterstitialAd.load(context, "ca-app-pub-3940256099942544/5354046379",
+                new AdRequest.Builder().build(),  new RewardedInterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(RewardedInterstitialAd ad) {
+                        Log.d(TAG, "Ad was loaded.");
+                        rewardedInterstitialAd = ad;
+                        ServerSideVerificationOptions options = new ServerSideVerificationOptions
+                                .Builder()
+                                .setCustomData("SAMPLE_CUSTOM_DATA_STRING")
+                                .build();
+                        rewardedInterstitialAd.setServerSideVerificationOptions(options);
+                    }
+                    @Override
+                    public void onAdFailedToLoad(LoadAdError loadAdError) {
+                        Log.d(TAG, loadAdError.toString());
+                        rewardedInterstitialAd = null;
+                    }
+                });
+    }
+
+    public static void showRewardedInterstitialAd(Context context, Activity activity, Class intent){
+        if (rewardedInterstitialAd != null){
+            rewardedInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                @Override
+                public void onAdClicked() {
+                    // Called when a click is recorded for an ad.
+                    Log.d(TAG, "Ad was clicked.");
+                }
+
+                @Override
+                public void onAdDismissedFullScreenContent() {
+                    // Called when ad is dismissed.
+                    // Set the ad reference to null so you don't show the ad a second time.
+                    Log.d(TAG, "Ad dismissed fullscreen content.");
+                    rewardedInterstitialAd = null;
+                    context.startActivity(new Intent(context, intent));
+                    activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                }
+
+                @Override
+                public void onAdFailedToShowFullScreenContent(AdError adError) {
+                    // Called when ad fails to show.
+                    Log.e(TAG, "Ad failed to show fullscreen content.");
+                    rewardedInterstitialAd = null;
+                }
+
+                @Override
+                public void onAdImpression() {
+                    // Called when an impression is recorded for an ad.
+                    Log.d(TAG, "Ad recorded an impression.");
+                }
+
+                @Override
+                public void onAdShowedFullScreenContent() {
+                    // Called when ad is shown.
+                    Log.d(TAG, "Ad showed fullscreen content.");
+                }
+            });
+
+            rewardedInterstitialAd.show(activity, rewardItem -> {
+                Log.i(TAG, "User earned reward.");
+            });
+        } else {
+            context.startActivity(new Intent(context, intent));
+            activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        }
+
+    }
+
+    public static void loadFacebookIntersAd(Context context, Activity activity, Class intent){
+        InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
+            @Override
+            public void onInterstitialDisplayed(Ad ad) {
+                // Interstitial ad displayed callback
+                Log.e(TAG, "Interstitial ad displayed.");
+            }
+
+            @Override
+            public void onInterstitialDismissed(Ad ad) {
+                // Interstitial dismissed callback
+                Log.e(TAG, "Interstitial ad dismissed.");
+                context.startActivity(new Intent(context, intent));
+                activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+
+            @Override
+            public void onError(Ad ad, com.facebook.ads.AdError adError) {
+                Log.e(TAG, "Interstitial ad failed to load: " + adError.getErrorMessage());
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+                // Interstitial ad is loaded and ready to be displayed
+                Log.d(TAG, "Interstitial ad is loaded and ready to be displayed!");
+                // Show the ad
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+                // Ad clicked callback
+                Log.d(TAG, "Interstitial ad clicked!");
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+                // Ad impression logged callback
+                Log.d(TAG, "Interstitial ad impression logged!");
+            }
+        };
+
+        finterstitialAd.loadAd(
+                finterstitialAd.buildLoadAdConfig()
+                        .withAdListener(interstitialAdListener)
+                        .build());
+
+    }
+
+    public static void showFacebookInters(Context context, Activity activity, Class intent){
+        if(finterstitialAd.isAdInvalidated()) {
+            context.startActivity(new Intent(context, intent));
+            activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        } else {
+            if(finterstitialAd != null || finterstitialAd.isAdLoaded()) {
+                finterstitialAd.show();
+            } else {
+                context.startActivity(new Intent(context, intent));
+                activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        }
     }
 
     public static void loadIntersAD(Context context) {
 
-        InterstitialAd.load(context, context.getString(R.string.AD_Interstitial), adRequest,
+        InterstitialAd.load(context, Stash.getString(ADMOB_INTERSTITIAL), adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
@@ -74,7 +235,7 @@ public class Ads {
     }
 
     public static void loadRewardedAD(Context context){
-        RewardedAd.load(context, context.getResources().getString(R.string.AD_Rewarded),
+        RewardedAd.load(context, Stash.getString(ADMOB_REWARDED_VIDEO),
                 adRequest, new RewardedAdLoadCallback() {
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {

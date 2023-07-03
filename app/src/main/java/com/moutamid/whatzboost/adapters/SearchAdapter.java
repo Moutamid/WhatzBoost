@@ -27,6 +27,9 @@ import com.moutamid.whatzboost.ui.TextToEmojiActivity;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> implements Filterable {
 
@@ -34,12 +37,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
     ArrayList<SearchModel> list;
     ArrayList<SearchModel> listAll;
     SearchLister searchLister;
+    private Set<Integer> randomIndices;
 
     public SearchAdapter(Context context, ArrayList<SearchModel> list, SearchLister searchLister) {
         this.context = context;
         this.list = list;
         this.listAll = new ArrayList<>(list);
         this.searchLister = searchLister;
+        this.randomIndices = generateRandomIndices(list.size());
     }
 
     @NonNull
@@ -54,6 +59,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
 
         holder.toolName.setText(model.getName());
         holder.toolImage.setImageResource(model.getIcon());
+
+        if (randomIndices.contains(position)) {
+            holder.tool_view.setVisibility(View.VISIBLE);
+        } else {
+            holder.tool_view.setVisibility(View.GONE);
+        }
 
         holder.tool.setOnTouchListener((v, event) -> {
             int duration = 300;
@@ -113,7 +124,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
 
                     scaleDown2.start();
                     new Handler().postDelayed(() -> {
-                        searchLister.click(list.get(holder.getAbsoluteAdapterPosition()).getName());
+                        boolean showAd = holder.tool_view.getVisibility() == View.VISIBLE ? true : false;
+                        searchLister.click(list.get(holder.getAbsoluteAdapterPosition()).getName(), showAd, holder.dot, holder.view_counter);
                     }, 300);
 
 
@@ -122,6 +134,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
             return true;
         });
 
+    }
+
+    private Set<Integer> generateRandomIndices(int dataSize) {
+        Set<Integer> indices = new HashSet<>();
+        Random random = new Random();
+
+        // Generate random indices between 0 and dataSize-1
+        while (indices.size() < Math.min(5, dataSize)) {
+            indices.add(random.nextInt(dataSize));
+        }
+
+        return indices;
     }
 
     @Override
@@ -172,12 +196,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
         TextView toolName;
         ImageView toolImage;
 
+        View tool_view, dot;
+        TextView view_counter;
+
         public SearchVH(@NonNull View itemView) {
             super(itemView);
 
             tool = itemView.findViewById(R.id.tool);
             toolName = itemView.findViewById(R.id.tool_name);
             toolImage = itemView.findViewById(R.id.tool_icon);
+            tool_view = itemView.findViewById(R.id.tool_view);
+            dot = tool_view.findViewById(R.id.view);
+            view_counter = tool_view.findViewById(R.id.counter);
 
         }
     }

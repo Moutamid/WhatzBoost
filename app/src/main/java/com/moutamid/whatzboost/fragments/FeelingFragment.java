@@ -32,10 +32,10 @@ public class FeelingFragment extends Fragment {
         progressDialog.setMessage("Loading...");
         boolean viewProfile = false;
 
-        binding.captions.setOnTouchListener(Constants.customOnTouchListner(CaptionListActivity.class, requireContext(), requireActivity(), viewProfile));
-
-        binding.emotions.setOnTouchListener(Constants.customOnTouchListner(EmotionsActivity.class, requireContext(), requireActivity(), viewProfile));
-        binding.shayari.setOnTouchListener(Constants.customOnTouchListner(ShayariActivity.class, requireContext(), requireActivity(), viewProfile));
+//        binding.captions.setOnTouchListener(Constants.customOnTouchListner(CaptionListActivity.class, requireContext(), requireActivity(), viewProfile, binding.viewProfile.view, binding.viewProfile.counter));
+//
+//        binding.emotions.setOnTouchListener(Constants.customOnTouchListner(EmotionsActivity.class, requireContext(), requireActivity(), viewProfile, binding.viewProfile.view, binding.viewProfile.counter));
+//        binding.shayari.setOnTouchListener(Constants.customOnTouchListner(ShayariActivity.class, requireContext(), requireActivity(), viewProfile, binding.viewGenerator.view, binding.viewGenerator.counter));
 
         return binding.getRoot();
     }

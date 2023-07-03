@@ -8,13 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.moutamid.whatzboost.adsense.Ads;
 import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.FragmentMainBinding;
 import com.moutamid.whatzboost.databinding.ViewAdIndicatorBinding;
+import com.moutamid.whatzboost.ui.CaptionListActivity;
+import com.moutamid.whatzboost.ui.EmotionsActivity;
 import com.moutamid.whatzboost.ui.InstaReshareActivity;
 import com.moutamid.whatzboost.ui.QrGeneratorActivity;
 import com.moutamid.whatzboost.ui.QrScannerActivity;
+import com.moutamid.whatzboost.ui.ShayariActivity;
 
 import java.util.Random;
 
@@ -30,28 +32,27 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentMainBinding.inflate(getLayoutInflater(), container, false);
 
-        Ads.calledIniti(requireContext());
-        Ads.loadIntersAD(requireContext());
-        Ads.loadRewardedAD(requireContext());
-
         ViewAdIndicatorBinding[] views = {
-                binding.viewGenerator, binding.viewScanner
+                binding.viewGenerator, binding.viewScanner, binding.viewCaptions, binding.viewPoetry
         };
 
         int randomNumber = new Random().nextInt(views.length);
         ViewAdIndicatorBinding[] randomViews = Constants.pickRandomViews(views, randomNumber);
 
-        for (int i =0; i< randomViews.length; i++){
-            View includedLayout = randomViews[i].getRoot();
-            includedLayout.setVisibility(View.VISIBLE);
+        for (ViewAdIndicatorBinding randomView : randomViews) {
+            randomView.getRoot().setVisibility(View.VISIBLE);
         }
 
         boolean viewGenerator = binding.viewGenerator.getRoot().getVisibility() == View.VISIBLE ? true : false;
         boolean viewScanner = binding.viewScanner.getRoot().getVisibility() == View.VISIBLE ? true : false;
+        boolean viewPoetry = binding.viewPoetry.getRoot().getVisibility() == View.VISIBLE ? true : false;
+        boolean viewCaptions = binding.viewCaptions.getRoot().getVisibility() == View.VISIBLE ? true : false;
 
-        binding.qrGen.setOnTouchListener(Constants.customOnTouchListner(QrGeneratorActivity.class, requireContext(), requireActivity(), viewGenerator));
-        binding.qrScan.setOnTouchListener(Constants.customOnTouchListner(QrScannerActivity.class, requireContext(), requireActivity(), viewScanner));
-        binding.reshare.setOnTouchListener(Constants.customOnTouchListner(InstaReshareActivity.class, requireContext(), requireActivity(), false));
+        binding.captions.setOnTouchListener(Constants.customOnTouchListner(CaptionListActivity.class, requireContext(), requireActivity(), viewCaptions, binding.viewCaptions.view, binding.viewCaptions.counter));
+        binding.shayari.setOnTouchListener(Constants.customOnTouchListner(ShayariActivity.class, requireContext(), requireActivity(), viewPoetry, binding.viewPoetry.view, binding.viewPoetry.counter));
+        binding.qrGen.setOnTouchListener(Constants.customOnTouchListner(QrGeneratorActivity.class, requireContext(), requireActivity(), viewGenerator, binding.viewGenerator.view, binding.viewGenerator.counter));
+        binding.qrScan.setOnTouchListener(Constants.customOnTouchListner(QrScannerActivity.class, requireContext(), requireActivity(), viewScanner, binding.viewScanner.view, binding.viewScanner.counter));
+        // binding.reshare.setOnTouchListener(Constants.customOnTouchListner(InstaReshareActivity.class, requireContext(), requireActivity(), false, binding.viewGenerator.counter));
 
         return binding.getRoot();
     }
@@ -59,10 +60,25 @@ public class MainFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Ads.calledIniti(requireContext());
-        Ads.loadIntersAD(requireContext());
-        Ads.loadRewardedAD(requireContext());
+        updateUI();
     }
 
+    private void updateUI() {
+        binding.viewGenerator.counter.setText("3");
+        binding.viewGenerator.counter.setVisibility(View.GONE);
+        binding.viewGenerator.view.setVisibility(View.VISIBLE);
+
+        binding.viewScanner.counter.setText("3");
+        binding.viewScanner.counter.setVisibility(View.GONE);
+        binding.viewScanner.view.setVisibility(View.VISIBLE);
+
+        binding.viewPoetry.counter.setText("3");
+        binding.viewPoetry.counter.setVisibility(View.GONE);
+        binding.viewPoetry.view.setVisibility(View.VISIBLE);
+
+        binding.viewCaptions.counter.setText("3");
+        binding.viewCaptions.counter.setVisibility(View.GONE);
+        binding.viewCaptions.view.setVisibility(View.VISIBLE);
+    }
 
 }

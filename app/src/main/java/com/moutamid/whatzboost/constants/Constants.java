@@ -20,6 +20,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings;
@@ -31,6 +32,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -60,11 +62,12 @@ import java.net.URLConnection;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Constants {
     public static final String SAVED_FOLDER = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/WhatzBoost/Saved Status/";
@@ -126,11 +129,13 @@ public class Constants {
         return formateMilliSeccond(Long.parseLong(durationStr));
     }
 
+    public static String TAG1 = "FONTSCALING";
+
     public static void adjustFontScale(Context context, Configuration configuration) {
-        if (configuration.fontScale > 1.30) {
-            Log.d(TAG, "fontScale=" + configuration.fontScale); //Custom Log class, you can use Log.w
-            Log.d(TAG, "font too big. scale down..."); //Custom Log class, you can use Log.w
-            configuration.fontScale = 1.30f;
+        if (configuration.fontScale > 1.00) {
+            Log.d(TAG1, "fontScale=" + configuration.fontScale); //Custom Log class, you can use Log.w
+            Log.d(TAG1, "font too big. scale down..."); //Custom Log class, you can use Log.w
+            configuration.fontScale = 1.00f;
             DisplayMetrics metrics = context.getResources().getDisplayMetrics();
             WindowManager wm = (WindowManager) context.getSystemService(WINDOW_SERVICE);
             wm.getDefaultDisplay().getMetrics(metrics);
@@ -422,16 +427,14 @@ public class Constants {
     public static ViewAdIndicatorBinding[] pickRandomViews(ViewAdIndicatorBinding[] views, int randomNumber) {
         Random random = new Random();
         ArrayList<ViewAdIndicatorBinding> pickedViews = new ArrayList<>();
+
         for (int i = 0; i < randomNumber; i++) {
-            int randomIndex = random.nextInt(views.length);
+            int randomIndex = random.nextInt(views.length - i);
             ViewAdIndicatorBinding pickedView = views[randomIndex];
-
-            // Remove the picked view from the array to avoid duplication
-            views[randomIndex] = views[views.length - 1];
-            views = Arrays.copyOf(views, views.length - 1);
-
+            views[randomIndex] = views[views.length - i - 1];
             pickedViews.add(pickedView);
         }
+
         return pickedViews.toArray(new ViewAdIndicatorBinding[0]);
     }
 
@@ -444,12 +447,11 @@ public class Constants {
         triggerIntent(context);
     }
 
-    public static View.OnTouchListener customOnTouchListner(Class<?> classs, Context context, Activity activity, boolean showAd) {
+    public static View.OnTouchListener customOnTouchListner(Class<?> classs, Context context, Activity activity, boolean showAd, View dot, TextView counter) {
         return (v, event) -> {
             int duration = 300;
             Log.d("OnTouchLog", event.getAction() + " " + event.toString());
             switch (event.getAction()) {
-
                 case MotionEvent.ACTION_DOWN:
                     ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
                             "scaleX", 0.8f);
@@ -477,25 +479,48 @@ public class Constants {
 
                     scaleDown2.start();
                     new Handler().postDelayed(() -> {
-                        // if even show Interstitial Ad if not show Rewarded Ad
                         if (showAd) {
-                            if (Stash.getBoolean(GUIDE_AD, true)){
-                                showAdGuide(context, activity, classs);
-                            } else {
-                                int randomNumber = new Random().nextInt(101);
-                                if (randomNumber % 2 == 0) {
-                                    Ads.showInterstitial(context, activity, classs);
-                                } else {
-                                    Ads.showRewarded(context, activity, classs);
+                            dot.setVisibility(View.GONE);
+                            counter.setVisibility(View.VISIBLE);
+
+                            CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    // Update the countdownTextView with the remaining time
+                                    counter.setText(String.valueOf((millisUntilFinished / 1000) + 1));
                                 }
-                            }
+
+                                @Override
+                                public void onFinish() {
+                                    // Countdown has finished
+                                    //countdownTextView.setText("Countdown Finished");
+                                    if (Stash.getBoolean(GUIDE_AD, true)) {
+                                        showAdGuide(context, activity, classs);
+                                    } else {
+                                        int randomNumber = new Random().nextInt(101);
+                                        if (Stash.getBoolean(Ads.IS_ADMOB)) {
+                                            if (randomNumber % 2 == 0) {
+                                                Ads.showInterstitial(context, activity, classs);
+                                            } else {
+                                                Ads.showRewarded(context, activity, classs);
+                                            }
+                                        } else {
+                                            if (randomNumber % 2 == 0) {
+                                                Ads.showFacebookInters(context, activity, classs);
+                                            } else {
+                                                Ads.showRewarded(context, activity, classs);
+                                            }
+                                        }
+                                    }
+                                }
+                            };
+                            countDownTimer.start();
                         } else {
                             context.startActivity(new Intent(context, classs));
                             activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         }
                         // activity.finish();
                     }, 300);
-
                     break;
 
                 case MotionEvent.ACTION_MOVE:
@@ -530,7 +555,7 @@ public class Constants {
         };
     }
 
-    private static void showAdGuide(Context context, Activity activity, Class<?> classs) {
+    public static void showAdGuide(Context context, Activity activity, Class<?> classs) {
         Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.advertise_dialg);
