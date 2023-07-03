@@ -1,0 +1,9 @@
+{
+"isAdmob": true,
+"version_num": 1,
+"force_update": true,
+"admob_rewarded_video": "ca-app-pub-3940256099942544/5354046379",
+"admob_interstitial": "ca-app-pub-3940256099942544/1033173712",
+"facebook_rewarded_video": "YOUR_PLACEMENT_ID",
+"facebook_interstitial": "YOUR_PLACEMENT_ID"
+}
