@@ -1,5 +1,5 @@
 {
-"isAdmob": false,
+"isAdmob": true,
 "version_num": 1,
 "force_update": false,
 "admob_rewarded_video": "ca-app-pub-3940256099942544/5354046379",
