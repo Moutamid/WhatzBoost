@@ -575,6 +575,8 @@ public class Constants {
         ok.setOnClickListener(v -> {
             dialog.dismiss();
             Stash.put(GUIDE_AD, false);
+            dot.setVisibility(View.GONE);
+            counter.setVisibility(View.VISIBLE);
             CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {

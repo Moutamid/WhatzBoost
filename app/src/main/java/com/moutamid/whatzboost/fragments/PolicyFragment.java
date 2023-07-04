@@ -25,7 +25,7 @@ public class PolicyFragment extends Fragment {
         // Inflate the layout for this fragment
         binding =  FragmentPolicyBinding.inflate(getLayoutInflater(), container, false);
 
-        String url = "https://google.com/";
+        String url = "https://sites.google.com/view/whatzboost/privacy-policy";
 
         binding.web.setWebViewClient(new MyBrowser());
         binding.web.getSettings().setLoadsImagesAutomatically(true);

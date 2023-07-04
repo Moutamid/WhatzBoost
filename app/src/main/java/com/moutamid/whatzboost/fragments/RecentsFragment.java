@@ -114,64 +114,48 @@ public class RecentsFragment extends Fragment {
             switch (Name) {
                 case "Deleted\nMessages":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, DeletedMessageActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), DeletedMessageActivity.class));
                     //finish();
                     break;
                 case "Video\nSplitter":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, VideoSplitterActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), VideoSplitterActivity.class));
                     // finish();
                     break;
                 case "Whatsapp\nWeb":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, WhatsWebActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), WhatsWebActivity.class));
                     //  finish();
                     break;
                 case "Open\nWA Profile":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, DirectActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), DirectActivity.class));
                     // finish();
                     break;
                 case "Status\nSaver":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, StatusSaverActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), StatusSaverActivity.class));
                     // finish();
                     break;
                 case "Text\nRepeater":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, RepeaterActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), RepeaterActivity.class));
                     //  finish();
                     break;
                 case "Fake\nProfile":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, MakeProfileActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), MakeProfileActivity.class));
                     //finish();
                     break;
                 case "Fake\nStories":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, MakeStoryActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), MakeStoryActivity.class));
                     // finish();
@@ -194,72 +178,54 @@ public class RecentsFragment extends Fragment {
                     break;
                 case "Caption\n ":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, CaptionListActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), CaptionListActivity.class));
                     //finish();
                     break;
                 case "Emotions\n ":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, EmotionsActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), EmotionsActivity.class));
                     // finish();
                     break;
                 case "Poetry\n ":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, ShayariActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), ShayariActivity.class));
                     // finish();
                     break;
                 case "Text-to-Emoji":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, TextToEmojiActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), TextToEmojiActivity.class));
                     // finish();
                     break;
                 case "Qr\nGenerator":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, QrGeneratorActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), QrGeneratorActivity.class));
                     // finish();
                     break;
                 case "Qr\nScanner":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, QrScannerActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), QrScannerActivity.class));
                     // finish();
                     break;
                 case "Blank\nMessage":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, BlankMessageActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), BlankMessageActivity.class));
                     // finish();
                     break;
                 case  "Font\nFun":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, FontFunActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), FontFunActivity.class));
                     // finish();
                     break;
                 case "Insta\nReShare":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, InstaReshareActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), InstaReshareActivity.class));
                     // finish();

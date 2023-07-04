@@ -3,10 +3,14 @@ package com.moutamid.whatzboost.ui;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 
 import com.fxn.stash.Stash;
 import com.moutamid.whatzboost.MainActivity;
@@ -34,6 +38,10 @@ public class DeletedMessageActivity extends AppCompatActivity {
 
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.bin, "Deleted\nMessages");
+
+        if (Stash.getBoolean("ISDELETED", true)){
+            showDeleteDialog();
+        }
 
         if (recents.size() == 0){
             recents.add(model);
@@ -130,6 +138,21 @@ public class DeletedMessageActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void showDeleteDialog() {
+        Stash.put("ISDELETED", false);
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.delete_intro_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCancelable(false);
+
+        dialog.show();
+
+        Button ok = dialog.findViewById(R.id.ok);
+
+        ok.setOnClickListener(v -> dialog.dismiss());
     }
 
     private void showAllowNotificaionService() {

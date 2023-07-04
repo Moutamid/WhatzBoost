@@ -2187,5 +2187,6 @@
     <string name="enable_stories">Unlock WhatsApp stories with ease! Enable the Stories folder to enjoy captivating moments shared by your contacts.</string>
     <string name="advertise_guide">When you see the dot above any tool it mean you have to watch an AD to unlock the tool</string>
     <string name="new_version">Exciting news! The new version of our app is now available. Don\'t miss out, go ahead and update the app today!</string>
+    <string name="delete_guide">Introducing "Deleted Messages": a powerful WhatsApp tool that stores every received message, image, audio, or video, even if deleted by the sender. Never miss out on important conversations again and retrieve vanished content effortlessly.</string>
 
 </resources>

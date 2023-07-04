@@ -139,64 +139,48 @@ public class SearchActivity extends AppCompatActivity {
             switch (Name) {
                 case "Deleted\nMessages":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, DeletedMessageActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, DeletedMessageActivity.class));
                     //finish();
                     break;
                 case "Video\nSplitter":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, VideoSplitterActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, VideoSplitterActivity.class));
                    // finish();
                     break;
                 case "Whatsapp\nWeb":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, WhatsWebActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, WhatsWebActivity.class));
                   //  finish();
                     break;
                 case "Open\nWA Profile":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, DirectActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, DirectActivity.class));
                    // finish();
                     break;
                 case "Status\nSaver":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, StatusSaverActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, StatusSaverActivity.class));
                    // finish();
                     break;
                 case "Text\nRepeater":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, RepeaterActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, RepeaterActivity.class));
                   //  finish();
                     break;
                 case "Fake\nProfile":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, MakeProfileActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, MakeProfileActivity.class));
                     //finish();
                     break;
                 case "Fake\nStories":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, MakeStoryActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, MakeStoryActivity.class));
                    // finish();
@@ -219,72 +203,54 @@ public class SearchActivity extends AppCompatActivity {
                     break;
                 case "Caption\n ":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, CaptionListActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, CaptionListActivity.class));
                     //finish();
                     break;
                 case "Emotions\n ":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, EmotionsActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, EmotionsActivity.class));
                    // finish();
                     break;
                 case "Poetry\n ":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, ShayariActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, ShayariActivity.class));
                    // finish();
                     break;
                 case "Text-to-Emoji":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, TextToEmojiActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, TextToEmojiActivity.class));
                    // finish();
                     break;
                 case "Qr\nGenerator":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, QrGeneratorActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, QrGeneratorActivity.class));
                    // finish();
                     break;
                 case "Qr\nScanner":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, QrScannerActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, QrScannerActivity.class));
                    // finish();
                     break;
                 case "Blank\nMessage":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, BlankMessageActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, BlankMessageActivity.class));
                    // finish();
                     break;
                 case  "Font\nFun":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, FontFunActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, FontFunActivity.class));
                    // finish();
                     break;
                 case "Insta\nReShare":
                     if (showAd){
-                        dot.setVisibility(View.GONE);
-                        view_counter.setVisibility(View.VISIBLE);
                         startCounter(view_counter, InstaReshareActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, InstaReshareActivity.class));
                    // finish();
