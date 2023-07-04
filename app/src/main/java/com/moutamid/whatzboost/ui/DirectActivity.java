@@ -31,6 +31,10 @@ public class DirectActivity extends AppCompatActivity {
 
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.chat, "Open\nWA Profile");
+        String countryCode = Stash.getString(Constants.DefaultCountry);
+        if (!countryCode.isEmpty()){
+            binding.countryPick.setCountryForNameCode(countryCode);
+        }
 
         if (recents.size() == 0){
             recents.add(model);

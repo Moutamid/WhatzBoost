@@ -5,6 +5,7 @@ import static com.facebook.ads.AdSettings.IntegrationErrorMode.INTEGRATION_ERROR
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.Settings;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -22,8 +23,6 @@ import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.OnUserEarnedRewardListener;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.rewarded.RewardItem;
@@ -35,11 +34,22 @@ import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoa
 import com.moutamid.whatzboost.R;
 
 public class Ads {
-    private static InterstitialAd mInterstitialAd;
-    private static com.facebook.ads.InterstitialAd finterstitialAd;
-    private static RewardedAd rewardedAd;
+
+    // Ad Mob Variables
+    public static InterstitialAd mInterstitialAd;
+    public static RewardedAd rewardedAd;
     private static RewardedInterstitialAd rewardedInterstitialAd;
     public static AdRequest adRequest = new AdRequest.Builder().build();
+
+    // Facebook Ads Variables
+    public static com.facebook.ads.InterstitialAd finterstitialAd;
+    public static RewardedVideoAd frewardedVideoAd;
+
+    // Facebook Listeners
+    public static InterstitialAdListener interstitialAdListener;
+    public static RewardedVideoAdListener rewardedVideoAdListener;
+
+    // Constants
 
     public static String TAG = "ADS_MANAG";
     public static String IS_ADMOB = "IS_ADMOB";
@@ -47,7 +57,6 @@ public class Ads {
     public static String ADMOB_REWARDED_VIDEO = "ADMOB_REWARDED_VIDEO";
     public static String FACEBOOK_INTERSTITIAL = "FACEBOOK_INTERSTITIAL";
     public static String FACEBOOK_REWARDED_VIDEO = "FACEBOOK_REWARDED_VIDEO";
-    public static RewardedVideoAd rewardedVideoAd;
 
     public static String api = "https://raw.githubusercontent.com/Moutamid/WhatzBoost/master/app/app.txt";
 
@@ -62,7 +71,9 @@ public class Ads {
         AudienceNetworkAds.initialize(context);
         AdSettings.setIntegrationErrorMode(INTEGRATION_ERROR_CRASH_DEBUG_MODE);
         finterstitialAd = new com.facebook.ads.InterstitialAd(context, Stash.getString(FACEBOOK_INTERSTITIAL));
-        rewardedVideoAd = new RewardedVideoAd(context, Stash.getString(FACEBOOK_REWARDED_VIDEO));
+        frewardedVideoAd = new RewardedVideoAd(context, Stash.getString(FACEBOOK_REWARDED_VIDEO));
+        String deviceId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        AdSettings.addTestDevice(deviceId);
     }
 
 
@@ -138,7 +149,29 @@ public class Ads {
     }
 
     public static void loadFacebookRewarded(){
-        RewardedVideoAdListener rewardedVideoAdListener = new RewardedVideoAdListener() {
+        frewardedVideoAd.loadAd(
+                frewardedVideoAd.buildLoadAdConfig()
+                        .withAdListener(rewardedVideoAdListener)
+                        .build());
+
+    }
+
+    public static void showFacebookRewarded(Context context, Activity activity, Class intent){
+        if(frewardedVideoAd.isAdInvalidated()) {
+            context.startActivity(new Intent(context, intent));
+            activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        } else {
+            if(frewardedVideoAd != null || frewardedVideoAd.isAdLoaded()) {
+                frewardedVideoAd.show();
+            } else {
+                context.startActivity(new Intent(context, intent));
+                activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        }
+    }
+
+    public static void setFacebookRewardedListener(Context context, Activity activity, Class intent){
+        rewardedVideoAdListener = new RewardedVideoAdListener() {
             @Override
             public void onError(Ad ad, com.facebook.ads.AdError error) {
                 // Rewarded video ad failed to load
@@ -179,32 +212,14 @@ public class Ads {
                 // The Rewarded Video ad was closed - this can occur during the video
                 // by closing the app, or closing the end card.
                 Log.d(TAG, "Rewarded video ad closed!");
-            }
-        };
-
-        rewardedVideoAd.loadAd(
-                rewardedVideoAd.buildLoadAdConfig()
-                        .withAdListener(rewardedVideoAdListener)
-                        .build());
-
-    }
-
-    public static void showFacebookRewarded(Context context, Activity activity, Class intent){
-        if(rewardedVideoAd.isAdInvalidated()) {
-            context.startActivity(new Intent(context, intent));
-            activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        } else {
-            if(rewardedVideoAd != null || rewardedVideoAd.isAdLoaded()) {
-                rewardedVideoAd.show();
-            } else {
                 context.startActivity(new Intent(context, intent));
                 activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
-        }
+        };
     }
 
-    public static void loadFacebookIntersAd(Context context, Activity activity, Class intent){
-        InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
+    public static void setFacebookInterstitialListener(Context context, Activity activity, Class intent){
+        interstitialAdListener = new InterstitialAdListener() {
             @Override
             public void onInterstitialDisplayed(Ad ad) {
                 // Interstitial ad displayed callback
@@ -243,7 +258,9 @@ public class Ads {
                 Log.d(TAG, "Interstitial ad impression logged!");
             }
         };
+    }
 
+    public static void loadFacebookIntersAd(){
         finterstitialAd.loadAd(
                 finterstitialAd.buildLoadAdConfig()
                         .withAdListener(interstitialAdListener)

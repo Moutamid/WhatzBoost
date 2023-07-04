@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -13,7 +14,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.fxn.stash.Stash;
 import com.moutamid.whatzboost.adsense.Ads;
@@ -23,6 +26,10 @@ import com.moutamid.whatzboost.fragments.FakeFragment;
 import com.moutamid.whatzboost.fragments.MagicFragment;
 import com.moutamid.whatzboost.fragments.MainFragment;
 import com.moutamid.whatzboost.fragments.RecentsFragment;
+import com.moutamid.whatzboost.notification.Data;
+import com.moutamid.whatzboost.notification.NotiModel;
+import com.moutamid.whatzboost.notification.NotificationScheduler;
+import com.moutamid.whatzboost.notification.RestartBootReceiiver;
 import com.moutamid.whatzboost.ui.SearchActivity;
 import com.moutamid.whatzboost.ui.SettingActivity;
 
@@ -34,6 +41,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -47,6 +58,40 @@ public class MainActivity extends AppCompatActivity {
         Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
         Constants.checkApp(this);
         getApi();
+
+        new Thread(() -> {
+
+            ArrayList<NotiModel> linesList = new ArrayList<>();
+
+            linesList.addAll(Data.getData());
+
+            Collections.shuffle(linesList);
+
+            if (Stash.getBoolean(Constants.IS_FIRST_TIME, true)) {
+                Stash.put(Constants.IS_FIRST_TIME, false);
+                Stash.put(Constants.DATA, linesList);
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+
+                calendar.set(Calendar.HOUR_OF_DAY, 4);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+
+                if (Calendar.getInstance().after(calendar)) {
+                    calendar.add(Calendar.DAY_OF_YEAR, 1);
+                }
+
+                NotificationScheduler.scheduleNotification(MainActivity.this, calendar);
+
+                ComponentName receiver = new ComponentName(MainActivity.this, RestartBootReceiiver.class);
+                PackageManager pm = getPackageManager();
+
+                pm.setComponentEnabledSetting(receiver,
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP);
+            }
+        }).start();
 
 //        PackageManager pm = getPackageManager();
 //        pm.setComponentEnabledSetting(new ComponentName(this, NLService.class),
@@ -306,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
                    } else {
                        Ads.facebookInititalize(MainActivity.this);
                        Ads.loadFacebookRewarded();
-                       Ads.loadFacebookIntersAd(MainActivity.this, MainActivity.this, MainActivity.class);
+                       Ads.loadFacebookIntersAd();
                    }
 
                    try {
@@ -336,7 +381,7 @@ public class MainActivity extends AppCompatActivity {
             Ads.loadRewardedAD(this);
         } else {
             Ads.facebookInititalize(this);
-            Ads.loadFacebookIntersAd(this, this, MainActivity.class);
+            Ads.loadFacebookIntersAd();
             Ads.loadFacebookRewarded();
         }
     }

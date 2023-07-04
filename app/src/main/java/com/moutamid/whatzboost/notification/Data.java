@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Data {
 
-    private ArrayList<NotiModel> getData() {
+    public static ArrayList<NotiModel> getData() {
         ArrayList<NotiModel> list = new ArrayList<>();
 
         list.add(new NotiModel( "Deleted Messages",

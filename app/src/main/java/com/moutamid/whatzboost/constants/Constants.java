@@ -79,6 +79,7 @@ public class Constants {
     public static final String WaSavedRoute = "WaSavedRoute";
     public static final String Authors = "Authors";
     public static final String RECENTS = "RECENTS";
+    public static final String DefaultCountry = "DefaultCountry";
     public static final String RECENTS_LIST = "RECENTS_LIST";
     public static final String RECENTS_SAVED_VIDEOS = "RECENTS_SAVED_VIDEOS";
     public static final String API_LINK = "https://poetrydb.org/author";
@@ -105,8 +106,16 @@ public class Constants {
     public static File Docfolder = new File(Environment.getExternalStorageDirectory().getPath() + "/WhatsApp/Media/WhatsApp Documents");
     public static File Statusfolder = new File(Environment.getExternalStorageDirectory().getPath() + "/WhatsApp/Media/.Statuses");
 
+    public static final String DATA = "DATA";
+    public static final String IS_FIRST_TIME = "IS_FIRST_TIME";
+    public static final String COUNT_POEMS = "COUNT_POEMS";
+    public static final String COUNT_WORDS = "COUNT_WORDS";
+    public static final String IS_POEM_TIME = "IS_POEM_TIME";
+    public static final String LAST_TIME = "LAST_TIME";
+
     public static final int FILE_COPIED = 1;
     public static final String GUIDE_AD = "GUIDE_AD";
+    public static final String Duration = "Duration";
     public static final int FILE_EXISTS = 2;
 
     //android 11
@@ -216,7 +225,6 @@ public class Constants {
     }
 
 
-
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     public static final String[] permissions13 = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -225,12 +233,16 @@ public class Constants {
             Manifest.permission.READ_MEDIA_VIDEO,
             Manifest.permission.READ_MEDIA_IMAGES,
             Manifest.permission.CAMERA,
-            Manifest.permission.READ_MEDIA_AUDIO
+            Manifest.permission.READ_MEDIA_AUDIO,
+            Manifest.permission.SCHEDULE_EXACT_ALARM,
+            Manifest.permission.USE_EXACT_ALARM
     };
     public static final String[] permissions = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA,
-            Manifest.permission.READ_EXTERNAL_STORAGE
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.SCHEDULE_EXACT_ALARM,
+            Manifest.permission.USE_EXACT_ALARM
     };
 
     public static Dialog dialog;
@@ -248,15 +260,15 @@ public class Constants {
         Constants.Statusbackupfolder.mkdirs();
     }
 
-    public static String formatName(String name){
-        if (name.contains(" ")){
+    public static String formatName(String name) {
+        if (name.contains(" ")) {
             name = name.replace(" ", "%20");
         }
         return name;
     }
 
-    public static String titleLink(String name){
-        if (name.contains(" ")){
+    public static String titleLink(String name) {
+        if (name.contains(" ")) {
             name = name.replace(" ", "%20");
         }
         return API_LINK + "/" + name + "/title";
@@ -265,16 +277,16 @@ public class Constants {
     public static String poetryLink(String name) {
 //        https://poetrydb.org/author,title/Shakespeare;Sonnet
         String auth = Stash.getString("AUTH");
-        if (auth.contains(" ")){
+        if (auth.contains(" ")) {
             auth = auth.replace(" ", "%20");
         }
-        if (name.contains(" ")){
+        if (name.contains(" ")) {
             name = name.replace(" ", "%20");
         }
         return API_LINK + ",title/" + auth + ";" + name;
     }
 
-    public static void initDialog(Context context){
+    public static void initDialog(Context context) {
         dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.loading_dialog);
@@ -282,11 +294,11 @@ public class Constants {
         dialog.setCancelable(false);
     }
 
-    public static void showDialog(){
+    public static void showDialog() {
         dialog.show();
     }
 
-    public static void dismissDialog(){
+    public static void dismissDialog() {
         dialog.dismiss();
     }
 
@@ -299,6 +311,7 @@ public class Constants {
 
         } else return false;
     }
+
     public static boolean copyFileInSavedDir(Context context, String path, String name) {
         String string = SAVED_FOLDER + name;
         Uri uri = Uri.fromFile(new File(string));
@@ -332,6 +345,7 @@ public class Constants {
             return false;
         }
     }
+
     public static Boolean checkIfGotAccess(Context context, Uri treeUriWA) {
         List<UriPermission> permissionList = context.getContentResolver().getPersistedUriPermissions();
         for (UriPermission it : permissionList) {
@@ -340,12 +354,13 @@ public class Constants {
         }
         return false;
     }
+
     public static boolean isPermissionGranted(Context context) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (
                     (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_MEDIA_VIDEO) == PackageManager.PERMISSION_GRANTED) &&
-                    (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED)
+                            (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED)
 
             ) {
                 return true;
@@ -353,7 +368,7 @@ public class Constants {
         } else {
             if (
                     (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
-                    (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                            (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
             ) {
                 return true;
             } else return false;
@@ -361,7 +376,8 @@ public class Constants {
     }
 
     private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
-    public static boolean isNotificationServiceEnabled(Context context){
+
+    public static boolean isNotificationServiceEnabled(Context context) {
         String pkgName = context.getPackageName();
         final String flat = Settings.Secure.getString(context.getContentResolver(),
                 ENABLED_NOTIFICATION_LISTENERS);
@@ -378,17 +394,19 @@ public class Constants {
         }
         return false;
     }
-    public static boolean  isAllFilePermissionEnable(){
+
+    public static boolean isAllFilePermissionEnable() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if(Environment.isExternalStorageManager()){
+            if (Environment.isExternalStorageManager()) {
                 return true;
-            }else
+            } else
                 return false;
-        }else{
+        } else {
             return true;
         }
     }
-    public static void requestAllFilePermission(Context context){
+
+    public static void requestAllFilePermission(Context context) {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.create();
         builder.setTitle("Storage Permission!");
@@ -411,14 +429,14 @@ public class Constants {
     public static Date date;
     public static Date dateCompareOne;
 
-    public static boolean compareDates(String startDate, String fileDate){
+    public static boolean compareDates(String startDate, String fileDate) {
         try {
             SimpleDateFormat inputParser = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
             date = inputParser.parse(startDate);
             dateCompareOne = inputParser.parse(fileDate);
             return dateCompareOne.after(date);
-        }catch (Exception e){
-            Log.d("TAG", "compareDates: "+e.getMessage());
+        } catch (Exception e) {
+            Log.d("TAG", "compareDates: " + e.getMessage());
             return true;
         }
 
@@ -439,11 +457,12 @@ public class Constants {
     }
 
     private static void triggerIntent(Context context) {
-        Intent intent  = new Intent(Intent.ACTION_VIEW);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setAction(ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
         context.startActivity(intent);
     }
-    public static void requestAllFilePermsiionIntent(Context context){
+
+    public static void requestAllFilePermsiionIntent(Context context) {
         triggerIntent(context);
     }
 
@@ -480,41 +499,28 @@ public class Constants {
                     scaleDown2.start();
                     new Handler().postDelayed(() -> {
                         if (showAd) {
-                            dot.setVisibility(View.GONE);
-                            counter.setVisibility(View.VISIBLE);
-
-                            CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
-                                @Override
-                                public void onTick(long millisUntilFinished) {
-                                    // Update the countdownTextView with the remaining time
-                                    counter.setText(String.valueOf((millisUntilFinished / 1000) + 1));
-                                }
-
-                                @Override
-                                public void onFinish() {
-                                    // Countdown has finished
-                                    //countdownTextView.setText("Countdown Finished");
-                                    if (Stash.getBoolean(GUIDE_AD, true)) {
-                                        showAdGuide(context, activity, classs);
+                            if (Stash.getBoolean(GUIDE_AD, true)) {
+                                dot.setVisibility(View.GONE);
+                                counter.setVisibility(View.VISIBLE);
+                                showAdGuide(context, activity, classs, dot, counter);
+                            } else {
+                                int randomNumber = new Random().nextInt(101);
+                                if (Stash.getBoolean(Ads.IS_ADMOB)) {
+                                    if (randomNumber % 2 == 0) {
+                                        Ads.showInterstitial(context, activity, classs);
                                     } else {
-                                        int randomNumber = new Random().nextInt(101);
-                                        if (Stash.getBoolean(Ads.IS_ADMOB)) {
-                                            if (randomNumber % 2 == 0) {
-                                                Ads.showInterstitial(context, activity, classs);
-                                            } else {
-                                                Ads.showRewarded(context, activity, classs);
-                                            }
-                                        } else {
-                                            if (randomNumber % 2 == 0) {
-                                                Ads.showFacebookInters(context, activity, classs);
-                                            } else {
-                                                Ads.showFacebookRewarded(context, activity, classs);
-                                            }
-                                        }
+                                        Ads.showRewarded(context, activity, classs);
+                                    }
+                                } else {
+                                    if (randomNumber % 2 == 0) {
+                                        Ads.setFacebookInterstitialListener(context, activity, classs);
+                                        Ads.showFacebookInters(context, activity, classs);
+                                    } else {
+                                        Ads.setFacebookRewardedListener(context, activity, classs);
+                                        Ads.showFacebookRewarded(context, activity, classs);
                                     }
                                 }
-                            };
-                            countDownTimer.start();
+                            }
                         } else {
                             context.startActivity(new Intent(context, classs));
                             activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -536,7 +542,7 @@ public class Constants {
 
                     scaleDownn.start();
 
-                    new Handler().postDelayed(()-> {
+                    new Handler().postDelayed(() -> {
                         ObjectAnimator scaleDownX3 = ObjectAnimator.ofFloat(v,
                                 "scaleX", 1f);
                         ObjectAnimator scaleDownY3 = ObjectAnimator.ofFloat(v,
@@ -555,7 +561,7 @@ public class Constants {
         };
     }
 
-    public static void showAdGuide(Context context, Activity activity, Class<?> classs) {
+    public static void showAdGuide(Context context, Activity activity, Class<?> classs, View dot, TextView counter) {
         Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.advertise_dialg);
@@ -569,12 +575,36 @@ public class Constants {
         ok.setOnClickListener(v -> {
             dialog.dismiss();
             Stash.put(GUIDE_AD, false);
-            int randomNumber = new Random().nextInt(101);
-            if (randomNumber % 2 == 0) {
-                Ads.showInterstitial(context, activity, classs);
-            } else {
-                Ads.showRewarded(context, activity, classs);
-            }
+            CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    // Update the countdownTextView with the remaining time
+                    counter.setText(String.valueOf((millisUntilFinished / 1000) + 1));
+                }
+
+                @Override
+                public void onFinish() {
+                    // Countdown has finished
+                    //countdownTextView.setText("Countdown Finished");
+                    int randomNumber = new Random().nextInt(101);
+                    if (Stash.getBoolean(Ads.IS_ADMOB)) {
+                        if (randomNumber % 2 == 0) {
+                            Ads.showInterstitial(context, activity, classs);
+                        } else {
+                            Ads.showRewarded(context, activity, classs);
+                        }
+                    } else {
+                        if (randomNumber % 2 == 0) {
+                            Ads.setFacebookInterstitialListener(context, activity, classs);
+                            Ads.showFacebookInters(context, activity, classs);
+                        } else {
+                            Ads.setFacebookRewardedListener(context, activity, classs);
+                            Ads.showFacebookRewarded(context, activity, classs);
+                        }
+                    }
+                }
+            };
+            countDownTimer.start();
         });
 
     }

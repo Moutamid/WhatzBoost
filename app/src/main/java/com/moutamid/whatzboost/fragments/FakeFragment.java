@@ -3,12 +3,16 @@ package com.moutamid.whatzboost.fragments;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -20,10 +24,18 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.fxn.stash.Stash;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.OnUserEarnedRewardListener;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.adsense.Ads;
 import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.FragmentFakeBinding;
@@ -50,6 +62,7 @@ import java.util.Random;
 public class FakeFragment extends Fragment {
     FragmentFakeBinding binding;
     static ProgressDialog progressDialog;
+
     public FakeFragment() {
         // Required empty public constructor
     }
@@ -65,7 +78,7 @@ public class FakeFragment extends Fragment {
 
         ViewAdIndicatorBinding[] views = {
                 binding.viewDelete, binding.viewSplitter, binding.viewWeb, binding.viewWAProfile,
-                binding.viewFakeProfile, binding.viewFakeStory, binding.viewStatus, binding.viewBlank,binding.viewStickers
+                binding.viewFakeProfile, binding.viewFakeStory, binding.viewStatus, binding.viewBlank, binding.viewStickers
         };
 
         int randomNumber = new Random().nextInt(views.length);
@@ -84,6 +97,7 @@ public class FakeFragment extends Fragment {
         boolean viewSplitter = binding.viewSplitter.getRoot().getVisibility() == View.VISIBLE ? true : false;
         boolean viewBlank = binding.viewBlank.getRoot().getVisibility() == View.VISIBLE ? true : false;
         boolean viewDelete = binding.viewDelete.getRoot().getVisibility() == View.VISIBLE ? true : false;
+        boolean viewSticker = binding.viewStickers.getRoot().getVisibility() == View.VISIBLE ? true : false;
 
         binding.profile.setOnTouchListener(Constants.customOnTouchListner(MakeProfileActivity.class, requireContext(), requireActivity(), viewProfile, binding.viewFakeProfile.view, binding.viewFakeProfile.counter));
         binding.story.setOnTouchListener(Constants.customOnTouchListner(MakeStoryActivity.class, requireContext(), requireActivity(), viewStory, binding.viewFakeStory.view, binding.viewFakeStory.counter));
@@ -92,119 +106,7 @@ public class FakeFragment extends Fragment {
         binding.statusSaver.setOnTouchListener(Constants.customOnTouchListner(StatusSaverActivity.class, requireContext(), requireActivity(), viewStatus, binding.viewStatus.view, binding.viewStatus.counter));
         binding.blank.setOnTouchListener(Constants.customOnTouchListner(BlankMessageActivity.class, requireContext(), requireActivity(), viewBlank, binding.viewBlank.view, binding.viewBlank.counter));
         binding.videoSplitter.setOnTouchListener(Constants.customOnTouchListner(VideoSplitterActivity.class, requireContext(), requireActivity(), viewSplitter, binding.viewSplitter.view, binding.viewSplitter.counter));
-
-        binding.deleteMessage.setOnTouchListener((v, event) -> {
-            int duration = 300;
-            switch (event.getAction()) {
-
-                case MotionEvent.ACTION_MOVE:
-                    ObjectAnimator scaleDownXX = ObjectAnimator.ofFloat(v,
-                            "scaleX", 0.8f);
-                    ObjectAnimator scaleDownYY = ObjectAnimator.ofFloat(v,
-                            "scaleY", 0.8f);
-                    scaleDownXX.setDuration(duration);
-                    scaleDownYY.setDuration(duration);
-
-                    AnimatorSet scaleDownn = new AnimatorSet();
-                    scaleDownn.play(scaleDownXX).with(scaleDownYY);
-
-                    scaleDownn.start();
-
-                    new Handler().postDelayed(()-> {
-                        ObjectAnimator scaleDownX3 = ObjectAnimator.ofFloat(v,
-                                "scaleX", 1f);
-                        ObjectAnimator scaleDownY3 = ObjectAnimator.ofFloat(v,
-                                "scaleY", 1f);
-                        scaleDownX3.setDuration(duration);
-                        scaleDownY3.setDuration(duration);
-
-                        AnimatorSet scaleDown3 = new AnimatorSet();
-                        scaleDown3.play(scaleDownX3).with(scaleDownY3);
-
-                        scaleDown3.start();
-                    }, 300);
-                    break;
-
-                case MotionEvent.ACTION_DOWN:
-                    ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(v,
-                            "scaleX", 0.8f);
-                    ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(v,
-                            "scaleY", 0.8f);
-                    scaleDownX.setDuration(duration);
-                    scaleDownY.setDuration(duration);
-
-                    AnimatorSet scaleDown = new AnimatorSet();
-                    scaleDown.play(scaleDownX).with(scaleDownY);
-
-                    scaleDown.start();
-                    break;
-
-                case MotionEvent.ACTION_UP:
-                    ObjectAnimator scaleDownX2 = ObjectAnimator.ofFloat(
-                            v, "scaleX", 1f);
-                    ObjectAnimator scaleDownY2 = ObjectAnimator.ofFloat(
-                            v, "scaleY", 1f);
-                    scaleDownX2.setDuration(duration);
-                    scaleDownY2.setDuration(duration);
-
-                    AnimatorSet scaleDown2 = new AnimatorSet();
-                    scaleDown2.play(scaleDownX2).with(scaleDownY2);
-
-                    scaleDown2.start();
-
-                    new Handler().postDelayed(() -> {
-                        if (!Constants.isNotificationServiceEnabled(requireContext())) {
-                            Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-                            startActivity(intent);
-                        } else {
-                            if (viewDelete){
-
-                                binding.viewDelete.view.setVisibility(View.GONE);
-                                binding.viewDelete.counter.setVisibility(View.VISIBLE);
-
-                                CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
-                                    @Override
-                                    public void onTick(long millisUntilFinished) {
-                                        binding.viewDelete.counter.setText(String.valueOf((millisUntilFinished / 1000) + 1));
-                                    }
-
-                                    @Override
-                                    public void onFinish() {
-                                        if (Stash.getBoolean(Constants.GUIDE_AD, true)) {
-                                            Constants.showAdGuide(requireContext(), requireActivity(), DeletedMessageActivity.class);
-                                        } else {
-                                            int rand = new Random().nextInt(101);
-                                            if (Stash.getBoolean(Ads.IS_ADMOB)) {
-                                                if (rand % 2 == 0) {
-                                                    Ads.showInterstitial(requireContext(), requireActivity(), DeletedMessageActivity.class);
-                                                } else {
-                                                    Ads.showRewarded(requireContext(), requireActivity(), DeletedMessageActivity.class);
-                                                }
-                                            } else {
-                                                if (rand % 2 == 0) {
-                                                    Ads.showFacebookInters(requireContext(), requireActivity(), DeletedMessageActivity.class);
-                                                } else {
-                                                    Ads.showFacebookRewarded(requireContext(), requireActivity(), DeletedMessageActivity.class);
-                                                }
-                                            }
-                                        }
-                                    }
-                                };
-                                countDownTimer.start();
-
-                            } else {
-                                startActivity(new Intent(requireContext(), DeletedMessageActivity.class));
-                            }
-
-                            // requireActivity().finish();
-                        }
-                    }, 300);
-
-                    break;
-
-            }
-            return true;
-        });
+        binding.deleteMessage.setOnTouchListener(Constants.customOnTouchListner(DeletedMessageActivity.class, requireContext(), requireActivity(), viewDelete, binding.viewDelete.view, binding.viewDelete.counter));
         binding.stickers.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
             @Override
@@ -225,7 +127,7 @@ public class FakeFragment extends Fragment {
 
                         scaleDownn.start();
 
-                        new Handler().postDelayed(()-> {
+                        new Handler().postDelayed(() -> {
                             ObjectAnimator scaleDownX3 = ObjectAnimator.ofFloat(v,
                                     "scaleX", 1f);
                             ObjectAnimator scaleDownY3 = ObjectAnimator.ofFloat(v,
@@ -266,10 +168,19 @@ public class FakeFragment extends Fragment {
                         scaleDown2.play(scaleDownX2).with(scaleDownY2);
 
                         scaleDown2.start();
-                        progressDialog.show();
-                        Fresco.initialize(requireContext());
-                        loadListAsyncTask = new LoadListAsyncTask(requireActivity());
-                        loadListAsyncTask.execute(new Void[0]);
+
+                        if (viewSticker) {
+                            if (Stash.getBoolean(Constants.GUIDE_AD, true)) {
+                                showAdGuide();
+                            } else {
+                                showAD();
+                            }
+                        } else {
+                            progressDialog.show();
+                            Fresco.initialize(requireContext());
+                            loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                            loadListAsyncTask.execute(new Void[0]);
+                        }
                         break;
                 }
                 return true;
@@ -277,6 +188,136 @@ public class FakeFragment extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+
+    public void showAdGuide() {
+        Dialog dialog = new Dialog(requireContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.advertise_dialg);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCancelable(false);
+
+        dialog.show();
+
+        Button ok = dialog.findViewById(R.id.ok);
+
+        ok.setOnClickListener(v -> {
+            dialog.dismiss();
+            Stash.put(Constants.GUIDE_AD, false);
+            CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    // Update the countdownTextView with the remaining time
+                    binding.viewStickers.counter.setText(String.valueOf((millisUntilFinished / 1000) + 1));
+                }
+
+                @Override
+                public void onFinish() {
+                    // Countdown has finished
+                    //countdownTextView.setText("Countdown Finished");
+                   showAD();
+                }
+            };
+            countDownTimer.start();
+        });
+
+    }
+
+    private void showAD() {
+        int rand = new Random().nextInt(101);
+        if (Stash.getBoolean(Ads.IS_ADMOB)) {
+            if (rand % 2 == 0) {
+                if (Ads.mInterstitialAd != null) {
+                    Ads.mInterstitialAd.show(requireActivity());
+                    Ads.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                        @Override
+                        public void onAdDismissedFullScreenContent() {
+                            super.onAdDismissedFullScreenContent();
+                            progressDialog.show();
+                            Fresco.initialize(requireContext());
+                            loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                            loadListAsyncTask.execute(new Void[0]);
+                        }
+                    });
+                } else {
+                    progressDialog.show();
+                    Fresco.initialize(requireContext());
+                    loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                    loadListAsyncTask.execute(new Void[0]);
+                }
+            } else {
+                if (Ads.rewardedAd != null) {
+                    Ads.rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                        @Override
+                        public void onAdDismissedFullScreenContent() {
+                            super.onAdDismissedFullScreenContent();
+                            progressDialog.show();
+                            Fresco.initialize(requireContext());
+                            loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                            loadListAsyncTask.execute(new Void[0]);
+                        }
+
+                        @Override
+                        public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                            super.onAdFailedToShowFullScreenContent(adError);
+                            progressDialog.show();
+                            Fresco.initialize(requireContext());
+                            loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                            loadListAsyncTask.execute(new Void[0]);
+                        }
+                    });
+
+                    Ads.rewardedAd.show(requireActivity(), new OnUserEarnedRewardListener() {
+                        @Override
+                        public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+
+                        }
+                    });
+
+                } else {
+                    progressDialog.show();
+                    Fresco.initialize(requireContext());
+                    loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                    loadListAsyncTask.execute(new Void[0]);
+                }
+
+            }
+        } else {
+            if (rand % 2 == 0) {
+                if (Ads.finterstitialAd.isAdInvalidated()) {
+                    progressDialog.show();
+                    Fresco.initialize(requireContext());
+                    loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                    loadListAsyncTask.execute(new Void[0]);
+                } else {
+                    if (Ads.finterstitialAd != null || Ads.finterstitialAd.isAdLoaded()) {
+                        Ads.finterstitialAd.show();
+                    } else {
+                        progressDialog.show();
+                        Fresco.initialize(requireContext());
+                        loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                        loadListAsyncTask.execute(new Void[0]);
+                    }
+                }
+            } else {
+                if (Ads.frewardedVideoAd.isAdInvalidated()) {
+                    progressDialog.show();
+                    Fresco.initialize(requireContext());
+                    loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                    loadListAsyncTask.execute(new Void[0]);
+                } else {
+                    if (Ads.frewardedVideoAd != null || Ads.frewardedVideoAd.isAdLoaded()) {
+                        Ads.frewardedVideoAd.show();
+                    } else {
+                        progressDialog.show();
+                        Fresco.initialize(requireContext());
+                        loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                        loadListAsyncTask.execute(new Void[0]);
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -317,6 +358,10 @@ public class FakeFragment extends Fragment {
         binding.viewDelete.counter.setText("3");
         binding.viewDelete.counter.setVisibility(View.GONE);
         binding.viewDelete.view.setVisibility(View.VISIBLE);
+
+        binding.viewStickers.counter.setText("3");
+        binding.viewStickers.counter.setVisibility(View.GONE);
+        binding.viewStickers.view.setVisibility(View.VISIBLE);
     }
 
     public LoadListAsyncTask loadListAsyncTask;
@@ -363,6 +408,7 @@ public class FakeFragment extends Fragment {
                 showStickerPack((ArrayList) pair.second);
             }
         }
+
     }
 
     public void showErrorMessage(String str) {

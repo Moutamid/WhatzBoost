@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+    tools:context=".fragments.ToolsSettingsFragment">
+
+    <com.ldt.springback.view.SpringBackLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:scrollOrientation="vertical">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12sp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Video Splitter"
+                    android:padding="12sp"
+                    android:textColor="@color/icon"
+                    android:fontFamily="@font/poppins" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12sp"
+                    android:padding="12sp"
+                    android:backgroundTint="@color/card"
+                    android:background="@drawable/background_rounded">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Set Video Splitting Duration"
+                        android:textColor="@color/white"
+                        android:padding="13sp"
+                        android:fontFamily="@font/poppins" />
+
+                    <RadioGroup
+                        android:id="@+id/radio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:layout_margin="@dimen/_10sdp">
+
+                        <RadioButton
+                            android:id="@+id/radio1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:padding="@dimen/_10sdp"
+                            android:text="30 seconds"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins"
+                            android:buttonTint="@color/icon"
+                            android:textColor="@color/text_off" />
+
+                        <RadioButton
+                            android:id="@+id/radio2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_10sdp"
+                            android:text="15 seconds"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins"
+                            android:buttonTint="@color/icon"
+                            android:textColor="@color/text_off" />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Open Whatsapp Profile"
+                    android:padding="12sp"
+                    android:textColor="@color/icon"
+                    android:fontFamily="@font/poppins" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12sp"
+                    android:layout_marginBottom="12sp"
+                    android:backgroundTint="@color/card"
+                    android:background="@drawable/background_rounded">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Select Default Country"
+                        android:padding="13sp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/poppins" />
+
+                    <com.hbb20.CountryCodePicker
+                        android:id="@+id/countryPick"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:ccp_autoDetectCountry="true"
+                        app:ccp_showNameCode="false"
+                        app:ccp_showFullName="true"
+                        app:ccp_contentColor="@color/white"
+                        android:layout_marginTop="6sp"
+                        android:padding="10sp"
+                        app:ccpDialog_background="@drawable/text_bg"
+                        app:ccpDialog_textColor="@color/white"
+                        app:ccpDialog_showCloseIcon="true"
+                        android:background="@drawable/text_bg"
+                        android:backgroundTint="@color/search"
+                        android:gravity="center"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </com.ldt.springback.view.SpringBackLayout>
+
+</FrameLayout>

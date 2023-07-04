@@ -91,8 +91,8 @@
                                 <include
                                     android:id="@+id/viewDelete"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:layout_alignParentTop="true"
                                     android:visibility="gone"
                                     android:layout_alignParentEnd="true"/>
@@ -157,8 +157,8 @@
                                 <include
                                     android:id="@+id/viewSplitter"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:layout_alignParentTop="true"
                                     android:visibility="gone"
                                     android:layout_alignParentEnd="true" />
@@ -230,8 +230,8 @@
                                 <include
                                     android:id="@+id/viewWeb"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:layout_alignParentTop="true"
                                     android:visibility="gone"
                                     android:layout_alignParentEnd="true" />
@@ -296,8 +296,8 @@
                                 <include
                                     android:id="@+id/viewWAProfile"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:layout_alignParentTop="true"
                                     android:visibility="gone"
                                     android:layout_alignParentEnd="true" />
@@ -369,8 +369,8 @@
                                 <include
                                     android:id="@+id/viewFakeProfile"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:layout_alignParentTop="true"
                                     android:visibility="gone"
                                     android:layout_alignParentEnd="true" />
@@ -434,8 +434,8 @@
                                 <include
                                     android:id="@+id/viewFakeStory"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:layout_alignParentTop="true"
                                     android:visibility="gone"
                                     android:layout_alignParentEnd="true" />
@@ -506,8 +506,8 @@
                                 <include
                                     android:id="@+id/viewStatus"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:layout_alignParentTop="true"
                                     android:visibility="gone"
                                     android:layout_alignParentEnd="true" />
@@ -573,8 +573,8 @@
                                 <include
                                     android:id="@+id/viewBlank"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:layout_alignParentTop="true"
                                     android:visibility="gone"
                                     android:layout_alignParentEnd="true" />
@@ -646,8 +646,8 @@
                                 <include
                                     android:id="@+id/viewStickers"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:layout_alignParentTop="true"
                                     android:visibility="gone"
                                     android:layout_alignParentEnd="true" />

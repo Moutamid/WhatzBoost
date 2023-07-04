@@ -190,8 +190,8 @@
                                 <include
                                     android:id="@+id/viewGenerator"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentEnd="true"
                                     android:visibility="gone" />
@@ -256,8 +256,8 @@
                                 <include
                                     android:id="@+id/viewScanner"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentEnd="true"
                                     android:visibility="gone" />
@@ -329,8 +329,8 @@
                                 <include
                                     android:id="@+id/viewCaptions"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:visibility="gone"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentEnd="true"/>
@@ -393,8 +393,8 @@
                                 <include
                                     android:id="@+id/viewPoetry"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:layout_alignParentEnd="true"
                                     android:layout_alignParentTop="true"
                                     android:visibility="gone"/>

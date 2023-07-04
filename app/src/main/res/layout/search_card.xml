@@ -31,8 +31,8 @@
             <include
                 android:id="@+id/tool_view"
                 layout="@layout/view_ad_indicator"
-                android:layout_width="@dimen/_10sdp"
-                android:layout_height="@dimen/_10sdp"
+                android:layout_width="15sp"
+                android:layout_height="15sp"
                 android:layout_alignParentTop="true"
                 android:visibility="gone"
                 android:layout_alignParentEnd="true" />

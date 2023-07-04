@@ -1,22 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/background"
     tools:context=".ui.SettingActivity">
 
-
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:textColor="@color/text_off"
-        android:textSize="24sp"
-        android:fontFamily="@font/poppins"
-        android:padding="12sp"
-        android:text="coming soon" />
+        android:layout_height="wrap_content">
 
-</RelativeLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/backbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15sp"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="6dp"
+            android:layout_centerVertical="true"
+            app:cardBackgroundColor="@color/card"
+            android:outlineAmbientShadowColor="@color/card"
+            android:outlineSpotShadowColor="@color/card">
+
+            <ImageView
+                android:layout_width="28sp"
+                android:layout_height="28sp"
+                android:layout_margin="8sp"
+                android:src="@drawable/round_arrow_back_24"
+                app:tint="@color/icon" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Settings"
+            android:layout_alignParentRight="true"
+            android:textSize="24sp"
+            android:layout_gravity="end"
+            android:drawableTint="@color/icon"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/white"
+            android:layout_marginEnd="10sp"
+            android:drawablePadding="12sp"
+            android:gravity="center"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.github.rongi.rotate_layout.layout.RotateLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="15sp"
+            app:angle="270">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbarSize="0dp"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:rotation="180"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/feedbackCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3sp"
+                        app:cardCornerRadius="26sp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/background">
+
+                        <TextView
+                            android:id="@+id/feedbackText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Feedback"
+                            android:paddingStart="20sp"
+                            android:paddingEnd="20sp"
+                            android:paddingBottom="12sp"
+                            android:paddingTop="12sp"
+                            android:textSize="18sp"
+                            android:textColor="@color/text_off"
+                            android:fontFamily="@font/poppins" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/policyCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3sp"
+                        app:cardCornerRadius="26sp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/background">
+
+                        <TextView
+                            android:id="@+id/policyText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Privacy Policy"
+                            android:paddingStart="20sp"
+                            android:paddingEnd="20sp"
+                            android:paddingBottom="12sp"
+                            android:paddingTop="12sp"
+                            android:textSize="18sp"
+                            android:textColor="@color/text_off"
+                            android:fontFamily="@font/poppins" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/toolsCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3sp"
+                        app:cardCornerRadius="26sp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/card">
+
+                        <TextView
+                            android:id="@+id/toolsText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Tools"
+                            android:paddingStart="20sp"
+                            android:paddingEnd="20sp"
+                            android:paddingBottom="12sp"
+                            android:paddingTop="12sp"
+                            android:textSize="18sp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/poppins" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+
+        </com.github.rongi.rotate_layout.layout.RotateLayout>
+
+        <FrameLayout
+            android:id="@+id/framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</LinearLayout>

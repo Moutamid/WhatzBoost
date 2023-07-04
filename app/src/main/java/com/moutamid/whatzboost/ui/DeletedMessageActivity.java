@@ -73,6 +73,8 @@ public class DeletedMessageActivity extends AppCompatActivity {
                 cur = 0;
             }
 
+            binding.messageText.setTextColor(getResources().getColor(R.color.white));
+            binding.mediaText.setTextColor(getResources().getColor(R.color.text_off));
 
             binding.photoCard.setCardBackgroundColor(getResources().getColor(R.color.card));
             binding.videoCard.setCardBackgroundColor(getResources().getColor(R.color.background));
@@ -97,6 +99,10 @@ public class DeletedMessageActivity extends AppCompatActivity {
                     ).replace(R.id.framelayout, new MediaFragment()).commit();
                 }
             cur = i;
+
+            binding.messageText.setTextColor(getResources().getColor(R.color.text_off));
+            binding.mediaText.setTextColor(getResources().getColor(R.color.white));
+
             binding.photoCard.setCardBackgroundColor(getResources().getColor(R.color.background));
             binding.videoCard.setCardBackgroundColor(getResources().getColor(R.color.card));
         });

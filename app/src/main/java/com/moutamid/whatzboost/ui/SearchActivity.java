@@ -1,12 +1,15 @@
 package com.moutamid.whatzboost.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -15,16 +18,23 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.fxn.stash.Stash;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.OnUserEarnedRewardListener;
+import com.google.android.gms.ads.rewarded.RewardItem;
 import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.adapters.SearchAdapter;
 import com.moutamid.whatzboost.adsense.Ads;
 import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.ActivitySearchBinding;
+import com.moutamid.whatzboost.fragments.RecentsFragment;
 import com.moutamid.whatzboost.listners.SearchLister;
 import com.moutamid.whatzboost.models.SearchModel;
 import com.moutamid.whatzboost.whatsappsticker.StickerPack;
@@ -44,16 +54,6 @@ public class SearchActivity extends AppCompatActivity {
     SearchAdapter adapter;
 
     ProgressDialog progressDialog;
-
-    String[] name = { "Deleted\nMessages", "Video\nSplitter", "Whatsapp\nWeb", "Open\nWA Profile", "Status\nSaver", "Text\nRepeater",
-            "Fake\nProfile", "Fake\nStories", "Stickers\n ", "Caption\n ", "Poetry\n ", "Emotions\n ", "Text-to-Emoji",
-            "Font Fun", "Qr\nScanner", "Qr\nGenerator", "Blank\nMessage"
-    };   // "Insta\nReShare" , R.drawable.retweet
-    int[] icons = {
-            R.drawable.bin, R.drawable.split, R.drawable.whatsweb, R.drawable.chat, R.drawable.download, R.drawable.repeat,
-            R.drawable.user, R.drawable.stories, R.drawable.sticker, R.drawable.closed_caption, R.drawable.poem, R.drawable.emotions,
-            R.drawable.magic_hat, R.drawable.fonticons, R.drawable.barcode_scanner, R.drawable.qr_code, R.drawable.comment
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,10 +95,25 @@ public class SearchActivity extends AppCompatActivity {
 
     private void getList() {
         list.clear();
-        for (int i = 0; i < name.length; i++) {
-            SearchModel model = new SearchModel(icons[i], name[i]);
-            list.add(model);
-        }
+        list.add(new SearchModel( R.drawable.bin, "Deleted\nMessages"));
+        list.add(new SearchModel( R.drawable.split, "Video\nSplitter"));
+        list.add(new SearchModel( R.drawable.whatsweb, "Whatsapp\nWeb"));
+        list.add(new SearchModel( R.drawable.chat, "Open\nWA Profile"));
+        list.add(new SearchModel( R.drawable.download, "Status\nSaver"));
+        list.add(new SearchModel( R.drawable.repeat, "Text\nRepeater"));
+        list.add(new SearchModel( R.drawable.user, "Fake\nProfile"));
+        list.add(new SearchModel( R.drawable.stories, "Fake\nStories"));
+        list.add(new SearchModel( R.drawable.sticker, "Stickers\n "));
+        list.add(new SearchModel( R.drawable.closed_caption, "Caption\n "));
+        list.add(new SearchModel( R.drawable.poem,  "Poetry\n "));
+        list.add(new SearchModel( R.drawable.emotions, "Emotions\n "));
+        list.add(new SearchModel( R.drawable.magic_hat, "Text-to-Emoji"));
+        list.add(new SearchModel( R.drawable.fonticons,  "Font Fun"));
+        list.add(new SearchModel( R.drawable.barcode_scanner, "Qr\nScanner"));
+        list.add(new SearchModel( R.drawable.qr_code, "Qr\nGenerator"));
+        list.add(new SearchModel( R.drawable.comment, "Blank\nMessage"));
+     //   list.add(new SearchModel( R.drawable.retweet,  "Insta\nReShare"));
+
         adapter = new SearchAdapter(SearchActivity.this, list, lister);
         binding.recycler.setAdapter(adapter);
     }
@@ -107,6 +122,15 @@ public class SearchActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         getList();
+        if (Stash.getBoolean(Ads.IS_ADMOB, true)){
+            Ads.calledIniti(this);
+            Ads.loadIntersAD(this);
+            Ads.loadRewardedAD(this);
+        } else {
+            Ads.facebookInititalize(this);
+            Ads.loadFacebookIntersAd();
+            Ads.loadFacebookRewarded();
+        }
     }
 
     SearchLister lister = new SearchLister() {
@@ -117,7 +141,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, DeletedMessageActivity.class);
+                        startCounter(view_counter, DeletedMessageActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, DeletedMessageActivity.class));
                     //finish();
                     break;
@@ -125,7 +149,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, VideoSplitterActivity.class);
+                        startCounter(view_counter, VideoSplitterActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, VideoSplitterActivity.class));
                    // finish();
                     break;
@@ -133,7 +157,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, WhatsWebActivity.class);
+                        startCounter(view_counter, WhatsWebActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, WhatsWebActivity.class));
                   //  finish();
                     break;
@@ -141,7 +165,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, DirectActivity.class);
+                        startCounter(view_counter, DirectActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, DirectActivity.class));
                    // finish();
                     break;
@@ -149,7 +173,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, StatusSaverActivity.class);
+                        startCounter(view_counter, StatusSaverActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, StatusSaverActivity.class));
                    // finish();
                     break;
@@ -157,7 +181,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, RepeaterActivity.class);
+                        startCounter(view_counter, RepeaterActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, RepeaterActivity.class));
                   //  finish();
                     break;
@@ -165,7 +189,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, MakeProfileActivity.class);
+                        startCounter(view_counter, MakeProfileActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, MakeProfileActivity.class));
                     //finish();
                     break;
@@ -173,21 +197,31 @@ public class SearchActivity extends AppCompatActivity {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, MakeStoryActivity.class);
+                        startCounter(view_counter, MakeStoryActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, MakeStoryActivity.class));
                    // finish();
                     break;
                 case "Stickers\n ":
-                    progressDialog.show();
-                    Fresco.initialize(SearchActivity.this);
-                    loadListAsyncTask = new LoadListAsyncTask(SearchActivity.this);
-                    loadListAsyncTask.execute(new Void[0]);
+                    if (showAd) {
+                        if (Stash.getBoolean(Constants.GUIDE_AD, true)) {
+                            dot.setVisibility(View.GONE);
+                            view_counter.setVisibility(View.VISIBLE);
+                            showAdGuide(view_counter);
+                        } else {
+                            showAD();
+                        }
+                    } else {
+                        progressDialog.show();
+                        Fresco.initialize(SearchActivity.this);
+                        loadListAsyncTask = new LoadListAsyncTask(SearchActivity.this);
+                        loadListAsyncTask.execute(new Void[0]);
+                    }
                     break;
                 case "Caption\n ":
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, CaptionListActivity.class);
+                        startCounter(view_counter, CaptionListActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, CaptionListActivity.class));
                     //finish();
                     break;
@@ -195,7 +229,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, EmotionsActivity.class);
+                        startCounter(view_counter, EmotionsActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, EmotionsActivity.class));
                    // finish();
                     break;
@@ -203,7 +237,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, ShayariActivity.class);
+                        startCounter(view_counter, ShayariActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, ShayariActivity.class));
                    // finish();
                     break;
@@ -211,7 +245,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, TextToEmojiActivity.class);
+                        startCounter(view_counter, TextToEmojiActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, TextToEmojiActivity.class));
                    // finish();
                     break;
@@ -219,7 +253,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, QrGeneratorActivity.class);
+                        startCounter(view_counter, QrGeneratorActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, QrGeneratorActivity.class));
                    // finish();
                     break;
@@ -227,7 +261,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, QrScannerActivity.class);
+                        startCounter(view_counter, QrScannerActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, QrScannerActivity.class));
                    // finish();
                     break;
@@ -235,7 +269,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, BlankMessageActivity.class);
+                        startCounter(view_counter, BlankMessageActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, BlankMessageActivity.class));
                    // finish();
                     break;
@@ -243,7 +277,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, FontFunActivity.class);
+                        startCounter(view_counter, FontFunActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, FontFunActivity.class));
                    // finish();
                     break;
@@ -251,7 +285,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, InstaReshareActivity.class);
+                        startCounter(view_counter, InstaReshareActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, InstaReshareActivity.class));
                    // finish();
                     break;
@@ -261,36 +295,156 @@ public class SearchActivity extends AppCompatActivity {
         }
     };
 
-    private void startCounter(TextView view_counter, Class intent) {
-        CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                view_counter.setText(String.valueOf((millisUntilFinished / 1000) + 1));
-            }
+    public void showAdGuide(TextView view_counter) {
+        Dialog dialog = new Dialog(SearchActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.advertise_dialg);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCancelable(false);
 
-            @Override
-            public void onFinish() {
-                if (Stash.getBoolean(Constants.GUIDE_AD, true)) {
-                    Constants.showAdGuide(SearchActivity.this, SearchActivity.this, intent);
+        dialog.show();
+
+        Button ok = dialog.findViewById(R.id.ok);
+
+        ok.setOnClickListener(v -> {
+            dialog.dismiss();
+            Stash.put(Constants.GUIDE_AD, false);
+            CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    // Update the countdownTextView with the remaining time
+                    view_counter.setText(String.valueOf((millisUntilFinished / 1000) + 1));
+                }
+
+                @Override
+                public void onFinish() {
+                    // Countdown has finished
+                    //countdownTextView.setText("Countdown Finished");
+                    showAD();
+                }
+            };
+            countDownTimer.start();
+        });
+
+    }
+
+    private void showAD() {
+        int rand = new Random().nextInt(101);
+        if (Stash.getBoolean(Ads.IS_ADMOB)) {
+            if (rand % 2 == 0) {
+                if (Ads.mInterstitialAd != null) {
+                    Ads.mInterstitialAd.show(SearchActivity.this);
+                    Ads.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                        @Override
+                        public void onAdDismissedFullScreenContent() {
+                            super.onAdDismissedFullScreenContent();
+                            progressDialog.show();
+                            Fresco.initialize(SearchActivity.this);
+                            loadListAsyncTask = new LoadListAsyncTask(SearchActivity.this);
+                            loadListAsyncTask.execute(new Void[0]);
+                        }
+                    });
                 } else {
-                    int rand = new Random().nextInt(101);
-                    if (Stash.getBoolean(Ads.IS_ADMOB)) {
-                        if (rand % 2 == 0) {
-                            Ads.showInterstitial(SearchActivity.this, SearchActivity.this, intent);
-                        } else {
-                            Ads.showRewarded(SearchActivity.this, SearchActivity.this, intent);
+                    progressDialog.show();
+                    Fresco.initialize(SearchActivity.this);
+                    loadListAsyncTask = new LoadListAsyncTask(SearchActivity.this);
+                    loadListAsyncTask.execute(new Void[0]);
+                }
+            } else {
+                if (Ads.rewardedAd != null) {
+                    Ads.rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                        @Override
+                        public void onAdDismissedFullScreenContent() {
+                            super.onAdDismissedFullScreenContent();
+                            progressDialog.show();
+                            Fresco.initialize(SearchActivity.this);
+                            loadListAsyncTask = new LoadListAsyncTask(SearchActivity.this);
+                            loadListAsyncTask.execute(new Void[0]);
                         }
+
+                        @Override
+                        public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                            super.onAdFailedToShowFullScreenContent(adError);
+                            progressDialog.show();
+                            Fresco.initialize(SearchActivity.this);
+                            loadListAsyncTask = new LoadListAsyncTask(SearchActivity.this);
+                            loadListAsyncTask.execute(new Void[0]);
+                        }
+                    });
+
+                    Ads.rewardedAd.show(SearchActivity.this, new OnUserEarnedRewardListener() {
+                        @Override
+                        public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+
+                        }
+                    });
+
+                } else {
+                    progressDialog.show();
+                    Fresco.initialize(SearchActivity.this);
+                    loadListAsyncTask = new LoadListAsyncTask(SearchActivity.this);
+                    loadListAsyncTask.execute(new Void[0]);
+                }
+
+            }
+        } else {
+            if (rand % 2 == 0) {
+                if (Ads.finterstitialAd.isAdInvalidated()) {
+                    progressDialog.show();
+                    Fresco.initialize(SearchActivity.this);
+                    loadListAsyncTask = new LoadListAsyncTask(SearchActivity.this);
+                    loadListAsyncTask.execute(new Void[0]);
+                } else {
+                    if (Ads.finterstitialAd != null || Ads.finterstitialAd.isAdLoaded()) {
+                        Ads.finterstitialAd.show();
                     } else {
-                        if (rand % 2 == 0) {
-                            Ads.showFacebookInters(SearchActivity.this, SearchActivity.this, intent);
-                        } else {
-                            Ads.showFacebookRewarded(SearchActivity.this, SearchActivity.this, intent);
-                        }
+                        progressDialog.show();
+                        Fresco.initialize(SearchActivity.this);
+                        loadListAsyncTask = new LoadListAsyncTask(SearchActivity.this);
+                        loadListAsyncTask.execute(new Void[0]);
+                    }
+                }
+            } else {
+                if (Ads.frewardedVideoAd.isAdInvalidated()) {
+                    progressDialog.show();
+                    Fresco.initialize(SearchActivity.this);
+                    loadListAsyncTask = new LoadListAsyncTask(SearchActivity.this);
+                    loadListAsyncTask.execute(new Void[0]);
+                } else {
+                    if (Ads.frewardedVideoAd != null || Ads.frewardedVideoAd.isAdLoaded()) {
+                        Ads.frewardedVideoAd.show();
+                    } else {
+                        progressDialog.show();
+                        Fresco.initialize(SearchActivity.this);
+                        loadListAsyncTask = new LoadListAsyncTask(SearchActivity.this);
+                        loadListAsyncTask.execute(new Void[0]);
                     }
                 }
             }
-        };
-        countDownTimer.start();
+        }
+    }
+
+    private void startCounter(TextView view_counter, Class intent, View dot) {
+        if (Stash.getBoolean(Constants.GUIDE_AD, true)) {
+            Constants.showAdGuide(SearchActivity.this, SearchActivity.this, intent, dot, view_counter);
+        } else {
+            int rand = new Random().nextInt(101);
+            if (Stash.getBoolean(Ads.IS_ADMOB)) {
+                if (rand % 2 == 0) {
+                    Ads.showInterstitial(SearchActivity.this, SearchActivity.this, intent);
+                } else {
+                    Ads.showRewarded(SearchActivity.this, SearchActivity.this, intent);
+                }
+            } else {
+                if (rand % 2 == 0) {
+                    Ads.setFacebookInterstitialListener(SearchActivity.this, SearchActivity.this, intent);
+                    Ads.showFacebookInters(SearchActivity.this, SearchActivity.this, intent);
+                } else {
+                    Ads.setFacebookRewardedListener(SearchActivity.this, SearchActivity.this, intent);
+                    Ads.showFacebookRewarded(SearchActivity.this, SearchActivity.this, intent);
+                }
+            }
+        }
     }
 
     public LoadListAsyncTask loadListAsyncTask;
@@ -367,4 +521,7 @@ public class SearchActivity extends AppCompatActivity {
         // startActivity(new Intent(this, MainActivity.class));
         finish();
     }
+
+
+
 }

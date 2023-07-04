@@ -75,8 +75,8 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MediaHolder holder, int position) {
-        Medias val = medias.get(position);
+    public void onBindViewHolder(@NonNull MediaHolder holder, int pos) {
+        Medias val = medias.get(holder.getAbsoluteAdapterPosition());
         String type = val.getType();
       //  Toast.makeText(context, type, Toast.LENGTH_SHORT).show();
         this.playingHolder = holder;
@@ -84,7 +84,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaHolder>
             holder.aud_const.setVisibility(View.VISIBLE);
             holder.audi_file_name.setText(val.getName());
             holder.audio_time.setText(val.getTime());
-            playAudio(holder, val, position);
+            playAudio(holder, val, holder.getAbsoluteAdapterPosition());
 
         } else if (type.equals(FilseEnum.IMAGE.name())) {
             holder.img_constriant.setVisibility(View.VISIBLE);
@@ -98,15 +98,17 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaHolder>
                 public void onClick(View view) {
                     //show image
                     try {
-                      /*  Log.d("de_me", "onClick: "+val.getFile_path());
-                        Intent intent = new Intent(context, ViewStatusAct.class);
+                        Log.d("de_me", "PATH : "+val.getFile_path());
+                        Log.d("de_me", "TYPE : "+val.getType());
+                        Log.d("de_me", "ENUM : "+FilseEnum.IMAGE.name());
+                      /*  Intent intent = new Intent(context, ViewStatusAct.class);
                         intent.putExtra("title",val.getName());
                         intent.putExtra("path",val.getFile_path());
                         context.startActivity(intent);*/
-                        openImageorVideo(val);
+                       openImageorVideo(medias.get(holder.getAbsoluteAdapterPosition()));
 
                     }catch (Exception e){
-                        openImageorVideo(val);
+                        // openImageorVideo(val);
                     }
 
                     //openImageorVideo(val);
@@ -144,7 +146,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaHolder>
             holder.aud_const.setVisibility(View.VISIBLE);
             holder.audi_file_name.setText(val.getName());
             holder.audio_time.setText(val.getTime());
-            playAudio(holder, val, position);
+            playAudio(holder, val, holder.getAbsoluteAdapterPosition());
         } else {
             holder.doc_const.setVisibility(View.VISIBLE);
             holder.doc_file_name.setText(val.getName());
@@ -161,16 +163,20 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaHolder>
     }
     public void openImageorVideo(Medias val) {
         try {
-            Log.d("de_check", "openImageorVideo: ");
-            File a = new File(String.valueOf(Uri.parse(val.getFile_path())));
-
             Uri uri = Uri.parse(val.getFile_path());
+            Log.d("de_me", "openImageorVideo: " + uri.toString());
+           // File a = new File(String.valueOf(Uri.parse(val.getFile_path())));
             Intent intent = new Intent(Intent.ACTION_VIEW);
             String mime;
             if (val.getType().equals(FilseEnum.IMAGE.name()))
                 mime = "image/*";
             else
                 mime = "video/*";
+            Log.d("de_me", "MEME: " + mime);
+            intent.setDataAndType(uri, mime);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            context.startActivity(intent);
+
             /*MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
             if (mimeTypeMap.hasExtension(
                     MimeTypeMap.getFileExtensionFromUrl(uri.toString()))) {
@@ -179,22 +185,21 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaHolder>
                         MimeTypeMap.getFileExtensionFromUrl(uri.toString()));
 
             }*/
-            try {
-                Log.e("Mime", mime);
-                intent.setDataAndType(uri, "*/*");
+//           try {
+//                Log.e("de_me", "Mime  " + mime);
 //                intent.setDataAndType(uri, mime);
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                context.startActivity(intent);
-            } catch (ActivityNotFoundException e) {
-                try {
-                    intent.setDataAndType(uri, "*/*");
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    context.startActivity(intent);
-                } catch (Exception es) {
-                    Toast.makeText(context, "Couldn't find app that open this file ", Toast.LENGTH_SHORT).show();
-                }
-
-            }
+//                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                context.startActivity(intent);
+//            } catch (ActivityNotFoundException e) {
+//                try {
+//                    intent.setDataAndType(uri, "*/*");
+//                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                    context.startActivity(intent);
+//                } catch (Exception es) {
+//                    Toast.makeText(context, "Couldn't find app that open this file ", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
 
         } catch (Exception e) {
             e.printStackTrace();

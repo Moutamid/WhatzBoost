@@ -110,6 +110,7 @@
                         app:cardBackgroundColor="@color/background">
 
                         <TextView
+                            android:id="@+id/mediaText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="Media"
@@ -118,7 +119,7 @@
                             android:paddingBottom="12sp"
                             android:paddingTop="12sp"
                             android:textSize="18sp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/text_off"
                             android:fontFamily="@font/poppins" />
 
                     </com.google.android.material.card.MaterialCardView>
@@ -133,6 +134,7 @@
                         app:cardBackgroundColor="@color/card">
 
                         <TextView
+                            android:id="@+id/messageText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="Messages"

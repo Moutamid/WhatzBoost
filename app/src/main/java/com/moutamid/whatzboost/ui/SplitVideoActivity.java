@@ -45,6 +45,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.fxn.stash.Stash;
 import com.moutamid.whatzboost.BuildConfig;
 import com.moutamid.whatzboost.MainActivity;
 import com.moutamid.whatzboost.R;
@@ -94,11 +95,11 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
 
         path = getIntent().getStringExtra("path");
         MediaController controller = new MediaController(this);
-        end = 29000;
+        end = Stash.getInt(Constants.Duration, 29000);
 
         binding.videoView.setOnPreparedListener(mp -> {
             int duration = binding.videoView.getDuration() / 1000;
-            int splitTime = 29;
+            int splitTime = Stash.getInt(Constants.Duration, 29000) == 29000 ? 29 : 15;
             splitFileCount = duration / splitTime + 1;
         });
         controller.setAnchorView(binding.videoView);
@@ -186,7 +187,7 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
                 genVideoUsingMuxer(path, outputPath, start, end, true, true);
                 Log.i("TAG1111", "video saved : " + i);
                 start = end;
-                end = end + 29000;
+                end = end + Stash.getInt(Constants.Duration, 29000);
 
             } catch (IOException e) {
                 e.printStackTrace();

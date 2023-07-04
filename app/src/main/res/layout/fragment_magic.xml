@@ -90,8 +90,8 @@
                                 <include
                                     android:id="@+id/viewFont"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentEnd="true"
                                     android:visibility="gone" />
@@ -157,8 +157,8 @@
                                 <include
                                     android:id="@+id/viewRepeater"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentEnd="true"
                                     android:visibility="gone" />
@@ -230,8 +230,8 @@
                                 <include
                                     android:id="@+id/viewEmoji"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentEnd="true"
                                     android:visibility="gone" />
@@ -295,8 +295,8 @@
                                 <include
                                     android:id="@+id/viewEmotions"
                                     layout="@layout/view_ad_indicator"
-                                    android:layout_width="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_width="15sp"
+                                    android:layout_height="15sp"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentEnd="true"
                                     android:visibility="gone" />

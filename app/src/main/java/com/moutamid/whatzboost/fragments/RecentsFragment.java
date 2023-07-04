@@ -1,12 +1,15 @@
 package com.moutamid.whatzboost.fragments;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -16,11 +19,18 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.fxn.stash.Stash;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.OnUserEarnedRewardListener;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.adapters.SearchAdapter;
 import com.moutamid.whatzboost.adsense.Ads;
 import com.moutamid.whatzboost.constants.Constants;
@@ -39,7 +49,6 @@ import com.moutamid.whatzboost.ui.MakeStoryActivity;
 import com.moutamid.whatzboost.ui.QrGeneratorActivity;
 import com.moutamid.whatzboost.ui.QrScannerActivity;
 import com.moutamid.whatzboost.ui.RepeaterActivity;
-import com.moutamid.whatzboost.ui.SearchActivity;
 import com.moutamid.whatzboost.ui.ShayariActivity;
 import com.moutamid.whatzboost.ui.StatusSaverActivity;
 import com.moutamid.whatzboost.ui.TextToEmojiActivity;
@@ -107,7 +116,7 @@ public class RecentsFragment extends Fragment {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, DeletedMessageActivity.class);
+                        startCounter(view_counter, DeletedMessageActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), DeletedMessageActivity.class));
                     //finish();
                     break;
@@ -115,7 +124,7 @@ public class RecentsFragment extends Fragment {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, VideoSplitterActivity.class);
+                        startCounter(view_counter, VideoSplitterActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), VideoSplitterActivity.class));
                     // finish();
                     break;
@@ -123,7 +132,7 @@ public class RecentsFragment extends Fragment {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, WhatsWebActivity.class);
+                        startCounter(view_counter, WhatsWebActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), WhatsWebActivity.class));
                     //  finish();
                     break;
@@ -131,7 +140,7 @@ public class RecentsFragment extends Fragment {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, DirectActivity.class);
+                        startCounter(view_counter, DirectActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), DirectActivity.class));
                     // finish();
                     break;
@@ -139,7 +148,7 @@ public class RecentsFragment extends Fragment {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, StatusSaverActivity.class);
+                        startCounter(view_counter, StatusSaverActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), StatusSaverActivity.class));
                     // finish();
                     break;
@@ -147,7 +156,7 @@ public class RecentsFragment extends Fragment {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, RepeaterActivity.class);
+                        startCounter(view_counter, RepeaterActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), RepeaterActivity.class));
                     //  finish();
                     break;
@@ -155,7 +164,7 @@ public class RecentsFragment extends Fragment {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, MakeProfileActivity.class);
+                        startCounter(view_counter, MakeProfileActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), MakeProfileActivity.class));
                     //finish();
                     break;
@@ -163,21 +172,31 @@ public class RecentsFragment extends Fragment {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, MakeStoryActivity.class);
+                        startCounter(view_counter, MakeStoryActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), MakeStoryActivity.class));
                     // finish();
                     break;
                 case "Stickers\n ":
-                    progressDialog.show();
-                    Fresco.initialize(requireContext());
-                    loadListAsyncTask = new LoadListAsyncTask(requireActivity());
-                    loadListAsyncTask.execute(new Void[0]);
+                    if (showAd) {
+                        if (Stash.getBoolean(Constants.GUIDE_AD, true)) {
+                            dot.setVisibility(View.GONE);
+                            view_counter.setVisibility(View.VISIBLE);
+                            showAdGuide(view_counter);
+                        } else {
+                            showAD();
+                        }
+                    } else {
+                        progressDialog.show();
+                        Fresco.initialize(requireContext());
+                        loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                        loadListAsyncTask.execute(new Void[0]);
+                    }
                     break;
                 case "Caption\n ":
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, CaptionListActivity.class);
+                        startCounter(view_counter, CaptionListActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), CaptionListActivity.class));
                     //finish();
                     break;
@@ -185,7 +204,7 @@ public class RecentsFragment extends Fragment {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, EmotionsActivity.class);
+                        startCounter(view_counter, EmotionsActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), EmotionsActivity.class));
                     // finish();
                     break;
@@ -193,7 +212,7 @@ public class RecentsFragment extends Fragment {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, ShayariActivity.class);
+                        startCounter(view_counter, ShayariActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), ShayariActivity.class));
                     // finish();
                     break;
@@ -201,7 +220,7 @@ public class RecentsFragment extends Fragment {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, TextToEmojiActivity.class);
+                        startCounter(view_counter, TextToEmojiActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), TextToEmojiActivity.class));
                     // finish();
                     break;
@@ -209,7 +228,7 @@ public class RecentsFragment extends Fragment {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, QrGeneratorActivity.class);
+                        startCounter(view_counter, QrGeneratorActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), QrGeneratorActivity.class));
                     // finish();
                     break;
@@ -217,7 +236,7 @@ public class RecentsFragment extends Fragment {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, QrScannerActivity.class);
+                        startCounter(view_counter, QrScannerActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), QrScannerActivity.class));
                     // finish();
                     break;
@@ -225,7 +244,7 @@ public class RecentsFragment extends Fragment {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, BlankMessageActivity.class);
+                        startCounter(view_counter, BlankMessageActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), BlankMessageActivity.class));
                     // finish();
                     break;
@@ -233,7 +252,7 @@ public class RecentsFragment extends Fragment {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, FontFunActivity.class);
+                        startCounter(view_counter, FontFunActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), FontFunActivity.class));
                     // finish();
                     break;
@@ -241,7 +260,7 @@ public class RecentsFragment extends Fragment {
                     if (showAd){
                         dot.setVisibility(View.GONE);
                         view_counter.setVisibility(View.VISIBLE);
-                        startCounter(view_counter, InstaReshareActivity.class);
+                        startCounter(view_counter, InstaReshareActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), InstaReshareActivity.class));
                     // finish();
                     break;
@@ -251,38 +270,157 @@ public class RecentsFragment extends Fragment {
         }
     };
 
-    private void startCounter(TextView view_counter, Class intent) {
-        CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                view_counter.setText(String.valueOf((millisUntilFinished / 1000) + 1));
-            }
-
-            @Override
-            public void onFinish() {
-                if (Stash.getBoolean(Constants.GUIDE_AD, true)) {
-                    Constants.showAdGuide(requireContext(), requireActivity(), intent);
+    private void startCounter(TextView view_counter, Class intent, View dot) {
+        if (Stash.getBoolean(Constants.GUIDE_AD, true)) {
+            Constants.showAdGuide(requireContext(), requireActivity(), intent, dot, view_counter);
+        } else {
+            int rand = new Random().nextInt(101);
+            if (Stash.getBoolean(Ads.IS_ADMOB)) {
+                if (rand % 2 == 0) {
+                    Ads.showInterstitial(requireContext(), requireActivity(), intent);
                 } else {
-                    int rand = new Random().nextInt(101);
-                    if (Stash.getBoolean(Ads.IS_ADMOB)) {
-                        if (rand % 2 == 0) {
-                            Ads.showInterstitial(requireContext(), requireActivity(), intent);
-                        } else {
-                            Ads.showRewarded(requireContext(), requireActivity(), intent);
+                    Ads.showRewarded(requireContext(), requireActivity(), intent);
+                }
+            } else {
+                if (rand % 2 == 0) {
+                    Ads.setFacebookInterstitialListener(requireContext(), requireActivity(), intent);
+                    Ads.showFacebookInters(requireContext(), requireActivity(), intent);
+                } else {
+                    Ads.setFacebookRewardedListener(requireContext(), requireActivity(), intent);
+                    Ads.showFacebookRewarded(requireContext(), requireActivity(), intent);
+                }
+            }
+        }
+    }
+
+    public void showAdGuide(TextView view_counter) {
+        Dialog dialog = new Dialog(requireContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.advertise_dialg);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCancelable(false);
+
+        dialog.show();
+
+        Button ok = dialog.findViewById(R.id.ok);
+
+        ok.setOnClickListener(v -> {
+            dialog.dismiss();
+            Stash.put(Constants.GUIDE_AD, false);
+            CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    // Update the countdownTextView with the remaining time
+                    view_counter.setText(String.valueOf((millisUntilFinished / 1000) + 1));
+                }
+
+                @Override
+                public void onFinish() {
+                    // Countdown has finished
+                    //countdownTextView.setText("Countdown Finished");
+                    showAD();
+                }
+            };
+            countDownTimer.start();
+        });
+
+    }
+
+    private void showAD() {
+        int rand = new Random().nextInt(101);
+        if (Stash.getBoolean(Ads.IS_ADMOB)) {
+            if (rand % 2 == 0) {
+                if (Ads.mInterstitialAd != null) {
+                    Ads.mInterstitialAd.show(requireActivity());
+                    Ads.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                        @Override
+                        public void onAdDismissedFullScreenContent() {
+                            super.onAdDismissedFullScreenContent();
+                            progressDialog.show();
+                            Fresco.initialize(requireContext());
+                            loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                            loadListAsyncTask.execute(new Void[0]);
                         }
+                    });
+                } else {
+                    progressDialog.show();
+                    Fresco.initialize(requireContext());
+                    loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                    loadListAsyncTask.execute(new Void[0]);
+                }
+            } else {
+                if (Ads.rewardedAd != null) {
+                    Ads.rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                        @Override
+                        public void onAdDismissedFullScreenContent() {
+                            super.onAdDismissedFullScreenContent();
+                            progressDialog.show();
+                            Fresco.initialize(requireContext());
+                            loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                            loadListAsyncTask.execute(new Void[0]);
+                        }
+
+                        @Override
+                        public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                            super.onAdFailedToShowFullScreenContent(adError);
+                            progressDialog.show();
+                            Fresco.initialize(requireContext());
+                            loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                            loadListAsyncTask.execute(new Void[0]);
+                        }
+                    });
+
+                    Ads.rewardedAd.show(requireActivity(), new OnUserEarnedRewardListener() {
+                        @Override
+                        public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+
+                        }
+                    });
+
+                } else {
+                    progressDialog.show();
+                    Fresco.initialize(requireContext());
+                    loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                    loadListAsyncTask.execute(new Void[0]);
+                }
+
+            }
+        } else {
+            if (rand % 2 == 0) {
+                if (Ads.finterstitialAd.isAdInvalidated()) {
+                    progressDialog.show();
+                    Fresco.initialize(requireContext());
+                    loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                    loadListAsyncTask.execute(new Void[0]);
+                } else {
+                    if (Ads.finterstitialAd != null || Ads.finterstitialAd.isAdLoaded()) {
+                        Ads.finterstitialAd.show();
                     } else {
-                        if (rand % 2 == 0) {
-                            Ads.showFacebookInters(requireContext(), requireActivity(), intent);
-                        } else {
-                            Ads.showFacebookRewarded(requireContext(), requireActivity(), intent);
-                        }
+                        progressDialog.show();
+                        Fresco.initialize(requireContext());
+                        loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                        loadListAsyncTask.execute(new Void[0]);
+                    }
+                }
+            } else {
+                if (Ads.frewardedVideoAd.isAdInvalidated()) {
+                    progressDialog.show();
+                    Fresco.initialize(requireContext());
+                    loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                    loadListAsyncTask.execute(new Void[0]);
+                } else {
+                    if (Ads.frewardedVideoAd != null || Ads.frewardedVideoAd.isAdLoaded()) {
+                        Ads.frewardedVideoAd.show();
+                    } else {
+                        progressDialog.show();
+                        Fresco.initialize(requireContext());
+                        loadListAsyncTask = new LoadListAsyncTask(requireActivity());
+                        loadListAsyncTask.execute(new Void[0]);
                     }
                 }
             }
-        };
-        countDownTimer.start();
+        }
     }
-
 
     public LoadListAsyncTask loadListAsyncTask;
 
