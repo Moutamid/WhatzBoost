@@ -22,8 +22,11 @@ import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.databinding.FragmentVideoBinding;
 import com.moutamid.whatzboost.models.StatusItem;
 
+import org.apache.commons.io.comparator.LastModifiedFileComparator;
+
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -137,6 +140,33 @@ public class VideoFragment extends Fragment {
         }).start();
     }
 
+    private void getItemsonLower() {
+        File path = Constants.whatsAppFolderStatus;
+        if (path.listFiles() != null) {
+            File[] files = path.listFiles();
+            Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
+            for (File mfile : files) {
+                if (!mfile.getName().startsWith(".")) {
+                    if (!statusItems.contains(mfile) && !mfile.isDirectory()) {
+
+                        StatusItem mediaModel = new StatusItem();
+                        mediaModel.setFilePath(mfile.getPath());
+                        mediaModel.setFileName(mfile.getName());
+                        mediaModel.setSelected(false);
+                        mediaModel.setImage(false);
+                        mediaModel.setTimeStamp(mfile.lastModified());
+                        statusItems.add(mediaModel);
+                        if (!statusItems.isEmpty()) binding.noStatusLayout.setVisibility(View.GONE);
+                        else binding.noStatusLayout.setVisibility(View.VISIBLE);
+                        adapter = new StatusAdapter(getContext(), statusItems);
+                        binding.recycler.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        }
+    }
+
     private DocumentFile[] getFromSdcard() {
         String str = Stash.getString(Constants.WaSavedRoute);
 
@@ -150,7 +180,8 @@ public class VideoFragment extends Fragment {
         if (SDK_INT >= Build.VERSION_CODES.R) {
             getStatus();
         } else {
-            getItems();
+            //getItems();
+            getItemsonLower();
         }
     }
 

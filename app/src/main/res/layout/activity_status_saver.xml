@@ -54,7 +54,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save your favrouite status from whatsapp"
+        android:text="@string/note_to_save_status"
         android:textColor="@color/text_off"
         android:fontFamily="@font/poppins"
         android:layout_gravity="end"

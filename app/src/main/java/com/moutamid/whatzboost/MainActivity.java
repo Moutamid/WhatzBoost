@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -335,6 +336,8 @@ public class MainActivity extends AppCompatActivity {
                 String admob_interstitial = obj.getString("admob_interstitial");
                 String facebook_rewarded_video = obj.getString("facebook_rewarded_video");
                 String facebook_interstitial = obj.getString("facebook_interstitial");
+
+                Log.d(Ads.TAG, admob_rewarded_video);
 
                 Stash.put(Ads.IS_ADMOB, isAdmob);
                 Stash.put(Ads.ADMOB_INTERSTITIAL, admob_interstitial);

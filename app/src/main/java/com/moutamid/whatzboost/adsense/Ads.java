@@ -327,7 +327,7 @@ public class Ads {
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                         // Handle the error.
-                        Log.d(TAG, "Error : " + loadAdError.toString());
+                        Log.d(TAG, "Error Rewarded : " + loadAdError.toString());
                         rewardedAd = null;
                     }
 
