@@ -5,5 +5,7 @@
 "admob_rewarded_video": "ca-app-pub-3940256099942544/5224354917",
 "admob_interstitial": "ca-app-pub-3940256099942544/1033173712",
 "facebook_rewarded_video": "VID_HD_16_9_15S_LINK",
-"facebook_interstitial": "VID_HD_16_9_15S_LINK"
+"facebook_interstitial": "VID_HD_16_9_15S_LINK",
+"interstitial_ratio": 7,
+"rewarded_ratio": 3
 }
