@@ -7,5 +7,6 @@
 "facebook_rewarded_video": "VID_HD_16_9_15S_LINK",
 "facebook_interstitial": "VID_HD_16_9_15S_LINK",
 "interstitial_ratio": 7,
-"rewarded_ratio": 3
+"rewarded_ratio": 3,
+"dots_frequency": 0
 }
