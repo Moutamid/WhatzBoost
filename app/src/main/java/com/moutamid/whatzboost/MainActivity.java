@@ -331,6 +331,9 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject obj = new JSONObject(htmlData);
                 boolean isAdmob = obj.getBoolean("isAdmob");
                 int version_num = obj.getInt("version_num");
+                int interstitial_ratio = obj.getInt("interstitial_ratio");
+                int rewarded_ratio = obj.getInt("rewarded_ratio");
+                int dots_frequency = obj.getInt("dots_frequency");
                 boolean force_update = obj.getBoolean("force_update");
                 String admob_rewarded_video = obj.getString("admob_rewarded_video");
                 String admob_interstitial = obj.getString("admob_interstitial");
@@ -344,6 +347,9 @@ public class MainActivity extends AppCompatActivity {
                 Stash.put(Ads.ADMOB_REWARDED_VIDEO, admob_rewarded_video);
                 Stash.put(Ads.FACEBOOK_INTERSTITIAL, facebook_interstitial);
                 Stash.put(Ads.FACEBOOK_REWARDED_VIDEO, facebook_rewarded_video);
+                Stash.put(Ads.DOTS_FREQUENCY, dots_frequency);
+                Stash.put(Ads.REWARDED_RATIO, rewarded_ratio);
+                Stash.put(Ads.INTERSTITIAL_RATIO, interstitial_ratio);
 
                runOnUiThread(() -> {
 

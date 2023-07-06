@@ -39,6 +39,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
 import com.fxn.stash.Stash;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.adsense.Ads;
 import com.moutamid.whatzboost.databinding.ViewAdIndicatorBinding;
@@ -78,6 +79,9 @@ public class Constants {
     public static List<StatusItem> allSavedItems = new ArrayList<>();
     public static final String WaSavedRoute = "WaSavedRoute";
     public static final String Authors = "Authors";
+    public static final String Tool_Name = "Tool_Name";
+    public static final String Type = "Type";
+    public static final String Most_Used_Tool = "Most_Used_Tool";
     public static final String RECENTS = "RECENTS";
     public static final String DefaultCountry = "DefaultCountry";
     public static final String RECENTS_LIST = "RECENTS_LIST";
@@ -116,6 +120,9 @@ public class Constants {
     public static final int FILE_COPIED = 1;
     public static final String GUIDE_AD = "GUIDE_AD";
     public static final String Duration = "Duration";
+    public static final String INTERSTITIAL_RATIO = "INTERSTITIAL_RATIO";
+    public static final String REWARDED_RATIO = "REWARDED_RATIO";
+    public static final String DOTS_FREQUENCY = "DOTS_FREQUENCY";
     public static final int FILE_EXISTS = 2;
 
     //android 11
@@ -446,11 +453,19 @@ public class Constants {
         Random random = new Random();
         ArrayList<ViewAdIndicatorBinding> pickedViews = new ArrayList<>();
 
-        for (int i = 0; i < randomNumber; i++) {
-            int randomIndex = random.nextInt(views.length - i);
-            ViewAdIndicatorBinding pickedView = views[randomIndex];
-            views[randomIndex] = views[views.length - i - 1];
-            pickedViews.add(pickedView);
+        for (int i = 0; i < views.length; i++) {
+           try {
+               int randomIndex = random.nextInt(views.length - i);
+               int s = Stash.getInt(Ads.DOTS_FREQUENCY, 4);
+               int freq = random.nextInt(s);
+               if (freq == 1) {
+                   ViewAdIndicatorBinding pickedView = views[randomIndex];
+                   views[randomIndex] = views[views.length - i - 1];
+                   pickedViews.add(pickedView);
+               }
+           } catch (Exception e){
+               e.printStackTrace();
+           }
         }
 
         return pickedViews.toArray(new ViewAdIndicatorBinding[0]);
@@ -504,15 +519,18 @@ public class Constants {
                                 counter.setVisibility(View.VISIBLE);
                                 showAdGuide(context, activity, classs, dot, counter);
                             } else {
-                                int randomNumber = new Random().nextInt(101);
+                                int inter_ratio = Stash.getInt(Constants.INTERSTITIAL_RATIO, 7);
+                                int rewarded_ratio = Stash.getInt(Constants.REWARDED_RATIO, 3);
+                                int totalRatio = inter_ratio + rewarded_ratio;
+                                int randomNumber = new Random().nextInt(totalRatio) + 1;
                                 if (Stash.getBoolean(Ads.IS_ADMOB)) {
-                                    if (randomNumber % 2 == 0) {
+                                    if (randomNumber <= inter_ratio) {
                                         Ads.showInterstitial(context, activity, classs);
                                     } else {
                                         Ads.showRewarded(context, activity, classs);
                                     }
                                 } else {
-                                    if (randomNumber % 2 == 0) {
+                                    if (randomNumber <= inter_ratio) {
                                         Ads.setFacebookInterstitialListener(context, activity, classs);
                                         Ads.showFacebookInters(context, activity, classs);
                                     } else {
@@ -561,6 +579,10 @@ public class Constants {
         };
     }
 
+    public static FirebaseAnalytics firebaseAnalytics(Context context){
+        return FirebaseAnalytics.getInstance(context);
+    }
+
     public static void showAdGuide(Context context, Activity activity, Class<?> classs, View dot, TextView counter) {
         Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -588,15 +610,18 @@ public class Constants {
                 public void onFinish() {
                     // Countdown has finished
                     //countdownTextView.setText("Countdown Finished");
-                    int randomNumber = new Random().nextInt(101);
+                    int inter_ratio = Stash.getInt(Constants.INTERSTITIAL_RATIO, 7);
+                    int rewarded_ratio = Stash.getInt(Constants.REWARDED_RATIO, 3);
+                    int totalRatio = inter_ratio + rewarded_ratio;
+                    int randomNumber = new Random().nextInt(totalRatio) + 1;
                     if (Stash.getBoolean(Ads.IS_ADMOB)) {
-                        if (randomNumber % 2 == 0) {
+                        if (randomNumber <= inter_ratio) {
                             Ads.showInterstitial(context, activity, classs);
                         } else {
                             Ads.showRewarded(context, activity, classs);
                         }
                     } else {
-                        if (randomNumber % 2 == 0) {
+                        if (randomNumber <= inter_ratio) {
                             Ads.setFacebookInterstitialListener(context, activity, classs);
                             Ads.showFacebookInters(context, activity, classs);
                         } else {

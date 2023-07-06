@@ -56,6 +56,9 @@ public class Ads {
     public static String ADMOB_INTERSTITIAL = "ADMOB_INTERSTITIAL";
     public static String ADMOB_REWARDED_VIDEO = "ADMOB_REWARDED_VIDEO";
     public static String FACEBOOK_INTERSTITIAL = "FACEBOOK_INTERSTITIAL";
+    public static String DOTS_FREQUENCY = "DOTS_FREQUENCY";
+    public static final String INTERSTITIAL_RATIO = "INTERSTITIAL_RATIO";
+    public static final String REWARDED_RATIO = "REWARDED_RATIO";
     public static String FACEBOOK_REWARDED_VIDEO = "FACEBOOK_REWARDED_VIDEO";
 
     public static String api = "https://raw.githubusercontent.com/Moutamid/WhatzBoost/master/app/app.txt";

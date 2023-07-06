@@ -39,6 +39,11 @@ public class DeletedMessageActivity extends AppCompatActivity {
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.bin, "Deleted\nMessages");
 
+        Bundle params = new Bundle();
+        params.putString(Constants.Tool_Name, "Deleted Messages");
+        params.putString(Constants.Type, "TOOL");
+        Constants.firebaseAnalytics(this).logEvent(Constants.Most_Used_Tool, params);
+
         if (Stash.getBoolean("ISDELETED", true)){
             showDeleteDialog();
         }

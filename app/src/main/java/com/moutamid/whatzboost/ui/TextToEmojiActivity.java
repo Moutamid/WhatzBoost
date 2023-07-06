@@ -35,6 +35,11 @@ public class TextToEmojiActivity extends AppCompatActivity {
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.magic_hat, "Text-to-Emoji");
 
+        Bundle params = new Bundle();
+        params.putString(Constants.Tool_Name, "Text-to-Emoji");
+        params.putString(Constants.Type, "TOOL");
+        Constants.firebaseAnalytics(this).logEvent(Constants.Most_Used_Tool, params);
+
         binding.emoji.setFilters(new InputFilter[]{new EmojiInputFilter()});
 
         if (recents.size() == 0){

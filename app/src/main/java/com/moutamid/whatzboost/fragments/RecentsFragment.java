@@ -240,15 +240,18 @@ public class RecentsFragment extends Fragment {
         if (Stash.getBoolean(Constants.GUIDE_AD, true)) {
             Constants.showAdGuide(requireContext(), requireActivity(), intent, dot, view_counter);
         } else {
-            int rand = new Random().nextInt(101);
+            int inter_ratio = Stash.getInt(Constants.INTERSTITIAL_RATIO, 7);
+            int rewarded_ratio = Stash.getInt(Constants.REWARDED_RATIO, 3);
+            int totalRatio = inter_ratio + rewarded_ratio;
+            int randomNumber = new Random().nextInt(totalRatio) + 1;
             if (Stash.getBoolean(Ads.IS_ADMOB)) {
-                if (rand % 2 == 0) {
+                if (randomNumber <= inter_ratio) {
                     Ads.showInterstitial(requireContext(), requireActivity(), intent);
                 } else {
                     Ads.showRewarded(requireContext(), requireActivity(), intent);
                 }
             } else {
-                if (rand % 2 == 0) {
+                if (randomNumber <= inter_ratio) {
                     Ads.setFacebookInterstitialListener(requireContext(), requireActivity(), intent);
                     Ads.showFacebookInters(requireContext(), requireActivity(), intent);
                 } else {

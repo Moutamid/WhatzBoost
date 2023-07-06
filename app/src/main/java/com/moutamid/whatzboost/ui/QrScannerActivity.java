@@ -41,6 +41,11 @@ public class QrScannerActivity extends AppCompatActivity {
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.barcode_scanner, "Qr\nScanner");
 
+        Bundle params = new Bundle();
+        params.putString(Constants.Tool_Name, "QR Scanner");
+        params.putString(Constants.Type, "TOOL");
+        Constants.firebaseAnalytics(this).logEvent(Constants.Most_Used_Tool, params);
+
         if (recents.size() == 0){
             recents.add(model);
             Stash.put(Constants.RECENTS_LIST, recents);

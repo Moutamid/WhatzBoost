@@ -46,6 +46,11 @@ public class QrGeneratorActivity extends AppCompatActivity {
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.qr_code, "Qr\nGenerator");
 
+        Bundle params = new Bundle();
+        params.putString(Constants.Tool_Name, "QR Generator");
+        params.putString(Constants.Type, "TOOL");
+        Constants.firebaseAnalytics(this).logEvent(Constants.Most_Used_Tool, params);
+
         if (recents.size() == 0){
             recents.add(model);
             Stash.put(Constants.RECENTS_LIST, recents);

@@ -31,6 +31,12 @@ public class DirectActivity extends AppCompatActivity {
 
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.chat, "Open\nWA Profile");
+
+        Bundle params = new Bundle();
+        params.putString(Constants.Tool_Name, "Open WA Profile");
+        params.putString(Constants.Type, "TOOL");
+        Constants.firebaseAnalytics(this).logEvent(Constants.Most_Used_Tool, params);
+
         String countryCode = Stash.getString(Constants.DefaultCountry);
         if (!countryCode.isEmpty()){
             binding.countryPick.setCountryForNameCode(countryCode);

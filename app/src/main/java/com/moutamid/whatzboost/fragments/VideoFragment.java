@@ -10,6 +10,7 @@ import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -141,7 +142,8 @@ public class VideoFragment extends Fragment {
     }
 
     private void getItemsonLower() {
-        File path = Constants.whatsAppFolderStatus;
+        File whatsAppFolderStatus = new File(Environment.getExternalStorageDirectory().getPath() + "/WhatsApp/Media/.Statuses");
+        File path = whatsAppFolderStatus;
         if (path.listFiles() != null) {
             File[] files = path.listFiles();
             Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);

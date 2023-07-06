@@ -68,6 +68,11 @@ public class VideoSplitterActivity extends AppCompatActivity {
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.split, "Video\nSplitter");
 
+        Bundle params = new Bundle();
+        params.putString(Constants.Tool_Name, "Video Splitter");
+        params.putString(Constants.Type, "TOOL");
+        Constants.firebaseAnalytics(this).logEvent(Constants.Most_Used_Tool, params);
+
         if (recents.size() == 0){
             recents.add(model);
             Stash.put(Constants.RECENTS_LIST, recents);

@@ -11,6 +11,7 @@ import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -155,6 +156,7 @@ public class PhotoFragment extends Fragment {
         super.onResume();
         if (SDK_INT >= Build.VERSION_CODES.R) {
             getStatus();
+//            getItemsonLower();
         } else {
            // getItems();
             getItemsonLower();
@@ -162,14 +164,16 @@ public class PhotoFragment extends Fragment {
     }
 
     private void getItemsonLower() {
-        File path = Constants.whatsAppFolderStatus;
+
+        File whatsAppFolderStatus = new File(Environment.getExternalStorageDirectory().getPath() + "/WhatsApp/Media/.Statuses");
+        File path = whatsAppFolderStatus;
+
         if (path.listFiles() != null) {
             File[] files = path.listFiles();
             Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
             for (File mfile : files) {
                 if (!mfile.getName().startsWith(".")) {
                     if (!statusItems.contains(mfile) && !mfile.isDirectory()) {
-
                         StatusItem mediaModel = new StatusItem();
                         mediaModel.setFilePath(mfile.getPath());
                         mediaModel.setFileName(mfile.getName());

@@ -394,15 +394,18 @@ public class SearchActivity extends AppCompatActivity {
         if (Stash.getBoolean(Constants.GUIDE_AD, true)) {
             Constants.showAdGuide(SearchActivity.this, SearchActivity.this, intent, dot, view_counter);
         } else {
-            int rand = new Random().nextInt(101);
+            int inter_ratio = Stash.getInt(Constants.INTERSTITIAL_RATIO, 7);
+            int rewarded_ratio = Stash.getInt(Constants.REWARDED_RATIO, 3);
+            int totalRatio = inter_ratio + rewarded_ratio;
+            int randomNumber = new Random().nextInt(totalRatio) + 1;
             if (Stash.getBoolean(Ads.IS_ADMOB)) {
-                if (rand % 2 == 0) {
+                if (randomNumber <= inter_ratio) {
                     Ads.showInterstitial(SearchActivity.this, SearchActivity.this, intent);
                 } else {
                     Ads.showRewarded(SearchActivity.this, SearchActivity.this, intent);
                 }
             } else {
-                if (rand % 2 == 0) {
+                if (randomNumber <= inter_ratio) {
                     Ads.setFacebookInterstitialListener(SearchActivity.this, SearchActivity.this, intent);
                     Ads.showFacebookInters(SearchActivity.this, SearchActivity.this, intent);
                 } else {
