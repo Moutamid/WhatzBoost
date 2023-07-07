@@ -154,12 +154,11 @@ public class PhotoFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (SDK_INT >= Build.VERSION_CODES.R) {
+        if (SDK_INT >= Build.VERSION_CODES.Q) {
             getStatus();
-//            getItemsonLower();
         } else {
-           // getItems();
-            getItemsonLower();
+            getItems();
+            // getItemsonLower();
         }
     }
 

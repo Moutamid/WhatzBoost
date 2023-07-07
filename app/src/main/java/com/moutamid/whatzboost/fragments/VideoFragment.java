@@ -179,11 +179,11 @@ public class VideoFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (SDK_INT >= Build.VERSION_CODES.R) {
+        if (SDK_INT >= Build.VERSION_CODES.Q) {
             getStatus();
         } else {
-            //getItems();
-            getItemsonLower();
+            getItems();
+//            getItemsonLower();
         }
     }
 
