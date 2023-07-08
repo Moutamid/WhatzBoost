@@ -61,7 +61,7 @@ public class Ads {
     public static final String REWARDED_RATIO = "REWARDED_RATIO";
     public static String FACEBOOK_REWARDED_VIDEO = "FACEBOOK_REWARDED_VIDEO";
 
-    public static String api = "https://raw.githubusercontent.com/Moutamid/WhatzBoost/master/app/app.txt";
+    public static String api = "https://sweet-nutrition-default-rtdb.firebaseio.com/AppsData/Whatzboost.json";
 
     public static void calledIniti(Context context){
         MobileAds.initialize(context, initializationStatus -> {
