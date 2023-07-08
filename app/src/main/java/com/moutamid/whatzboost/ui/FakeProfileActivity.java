@@ -22,8 +22,8 @@ public class FakeProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Constants.adjustFontScale(FakeProfileActivity.this);
         setContentView(R.layout.activity_fake_profile);
-        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         num1 = findViewById(R.id.num);
         num2 = findViewById(R.id.numb);

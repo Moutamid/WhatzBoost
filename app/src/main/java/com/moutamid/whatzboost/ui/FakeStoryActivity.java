@@ -23,8 +23,8 @@ public class FakeStoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Constants.adjustFontScale(FakeStoryActivity.this);
         setContentView(R.layout.activity_fake_story);
-        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         personName = findViewById(R.id.personName);
         last = findViewById(R.id.time);

@@ -1,12 +1,16 @@
 package com.moutamid.whatzboost.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -32,9 +36,11 @@ public class DeletedMessageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Constants.adjustFontScale(DeletedMessageActivity.this);
+
         binding = ActivityDeletedMessageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
+
 
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.bin, "Deleted\nMessages");
@@ -43,6 +49,25 @@ public class DeletedMessageActivity extends AppCompatActivity {
         params.putString(Constants.Tool_Name, "Deleted Messages");
         params.putString(Constants.Type, "TOOL");
         Constants.firebaseAnalytics(this).logEvent(Constants.Most_Used_Tool, params);
+
+        if (!Constants.isPermissionGranted(DeletedMessageActivity.this)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                shouldShowRequestPermissionRationale(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE);
+                shouldShowRequestPermissionRationale(android.Manifest.permission.READ_MEDIA_AUDIO);
+                shouldShowRequestPermissionRationale(android.Manifest.permission.READ_MEDIA_VIDEO);
+                shouldShowRequestPermissionRationale(android.Manifest.permission.READ_MEDIA_IMAGES);
+                shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS);
+                String[] per = new String[Constants.permissions13.length + 2];
+                System.arraycopy(Constants.permissions13, 0, per, 0, Constants.permissions13.length+1);
+                per[Constants.permissions13.length+1] = Manifest.permission.POST_NOTIFICATIONS;
+                ActivityCompat.requestPermissions(DeletedMessageActivity.this, per, 1);
+            } else {
+                shouldShowRequestPermissionRationale(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE);
+                ActivityCompat.requestPermissions(DeletedMessageActivity.this, Constants.permissions, 1);
+            }
+        }
 
         if (Stash.getBoolean("ISDELETED", true)){
             showDeleteDialog();
@@ -158,6 +183,15 @@ public class DeletedMessageActivity extends AppCompatActivity {
         Button ok = dialog.findViewById(R.id.ok);
 
         ok.setOnClickListener(v -> dialog.dismiss());
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1){
+            Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+            startActivity(intent);
+        }
     }
 
     private void showAllowNotificaionService() {

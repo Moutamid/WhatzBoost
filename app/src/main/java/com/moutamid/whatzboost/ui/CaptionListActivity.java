@@ -24,9 +24,9 @@ public class CaptionListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Constants.adjustFontScale(CaptionListActivity.this);
         binding = ActivityCaptionListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.closed_caption, "Caption\n ");
 

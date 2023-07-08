@@ -80,9 +80,9 @@ public class SplitVideoActivity extends AppCompatActivity implements MediaPlayer
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Constants.adjustFontScale(SplitVideoActivity.this);
         binding = ActivitySplitVideoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
         folder = new File(
                 getExternalFilesDir(""), "SuperTech Uploader"
         );

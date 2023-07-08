@@ -147,7 +147,8 @@ public class Constants {
 
     public static String TAG1 = "FONTSCALING";
 
-    public static void adjustFontScale(Context context, Configuration configuration) {
+    public static void adjustFontScale(Context context) {
+        Configuration configuration = context.getResources().getConfiguration();
         if (configuration.fontScale > 1.00) {
             Log.d(TAG1, "fontScale=" + configuration.fontScale); //Custom Log class, you can use Log.w
             Log.d(TAG1, "font too big. scale down..."); //Custom Log class, you can use Log.w
@@ -239,14 +240,12 @@ public class Constants {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.READ_MEDIA_VIDEO,
             Manifest.permission.READ_MEDIA_IMAGES,
-            Manifest.permission.CAMERA,
             Manifest.permission.READ_MEDIA_AUDIO,
             Manifest.permission.SCHEDULE_EXACT_ALARM,
             Manifest.permission.USE_EXACT_ALARM
     };
     public static final String[] permissions = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.SCHEDULE_EXACT_ALARM,
             Manifest.permission.USE_EXACT_ALARM

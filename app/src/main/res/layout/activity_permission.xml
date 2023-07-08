@@ -49,6 +49,19 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/skipNotiifcation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skip"
+            android:fontFamily="@font/poppins"
+            android:padding="10sp"
+            android:textSize="18sp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/icon"
+            android:layout_margin="10sp" />
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/allow_notification"
             android:layout_width="match_parent"
@@ -100,7 +113,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:gravity="center"
                 android:padding="12sp"
-                android:text="Enable Camera &amp; Media"
+                android:text="Enable Media"
                 android:textColor="@color/off_white"
                 android:textSize="24sp" />
 
@@ -116,8 +129,101 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/skipMedia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skip"
+            android:fontFamily="@font/poppins"
+            android:padding="10sp"
+            android:textSize="18sp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/icon"
+            android:layout_margin="10sp" />
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/allow_media"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="15sp"
+            app:cardBackgroundColor="#E7E8FE"
+            app:cardCornerRadius="26sp"
+            app:cardElevation="0sp"
+            app:strokeWidth="0sp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center"
+                android:padding="12sp"
+                android:text="Allow"
+                android:textColor="@color/icon"
+                android:textSize="18sp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/camera_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/allow_media"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="200sp"
+                android:layout_height="200sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15sp"
+                android:src="@drawable/photos_media" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center"
+                android:padding="12sp"
+                android:text="Enable Camera"
+                android:textColor="@color/off_white"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:padding="12sp"
+                android:text="@string/enable_camera"
+                android:textColor="@color/text_off"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/skipCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skip"
+            android:fontFamily="@font/poppins"
+            android:padding="10sp"
+            android:textSize="18sp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/icon"
+            android:layout_margin="10sp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/allow_camera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -182,6 +288,19 @@
                 android:textSize="16sp" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/skipStory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skip"
+            android:fontFamily="@font/poppins"
+            android:padding="10sp"
+            android:textSize="18sp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/icon"
+            android:layout_margin="10sp" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/allow_story"

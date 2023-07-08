@@ -31,9 +31,9 @@ public class ShowSplitVideoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Constants.adjustFontScale(ShowSplitVideoActivity.this);
         binding = ActivityShowSplitVideoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         binding.backbtn.setOnClickListener(v -> {
             onBackPressed();

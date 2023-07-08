@@ -80,7 +80,7 @@ public class StickerPackDetailsActivity extends AddStickerPackkkActivity {
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView((int) R.layout.sticker_pack_details);
-        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
+        Constants.adjustFontScale(StickerPackDetailsActivity.this);
         iv_back = (ImageView)findViewById(R.id.iv_back);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override

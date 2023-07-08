@@ -25,9 +25,9 @@ public class DirectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Constants.adjustFontScale(DirectActivity.this);
         binding = ActivityDirectBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         ArrayList<SearchModel> recents = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
         SearchModel model = new SearchModel(R.drawable.chat, "Open\nWA Profile");

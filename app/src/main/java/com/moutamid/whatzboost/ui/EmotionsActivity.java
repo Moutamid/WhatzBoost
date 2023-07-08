@@ -26,9 +26,9 @@ public class EmotionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Constants.adjustFontScale(EmotionsActivity.this);
         binding = ActivityEmotionsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, new AngryFragment()).commit();
 

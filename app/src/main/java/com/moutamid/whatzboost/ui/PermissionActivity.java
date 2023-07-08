@@ -1,5 +1,7 @@
 package com.moutamid.whatzboost.ui;
 
+import static android.os.Build.VERSION.SDK_INT;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -7,9 +9,11 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -43,16 +47,32 @@ public class PermissionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Constants.adjustFontScale(PermissionActivity.this);
         binding = ActivityPermissionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         Stash.put("PERMS", 1);
 
         if (Constants.isPermissionGranted(PermissionActivity.this)) {
             binding.mediaLayout.setVisibility(View.GONE);
-            binding.storyLayout.setVisibility(View.VISIBLE);
-        }  if (Constants.checkIfGotAccess(this, treeUriWA)) {
+            binding.cameraLayout.setVisibility(View.VISIBLE);
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_VIDEO) == PackageManager.PERMISSION_GRANTED){
+            if (SDK_INT >= Build.VERSION_CODES.Q) {
+                binding.storyLayout.setVisibility(View.VISIBLE);
+            } else {
+                binding.notificationLayout.setVisibility(View.VISIBLE);
+            }
+        }
+
+        if (SDK_INT >= Build.VERSION_CODES.Q) {
+            if (Constants.checkIfGotAccess(this, treeUriWA)) {
+                binding.mediaLayout.setVisibility(View.GONE);
+                binding.storyLayout.setVisibility(View.GONE);
+                binding.notificationLayout.setVisibility(View.VISIBLE);
+            }
+        } else {
             binding.mediaLayout.setVisibility(View.GONE);
             binding.storyLayout.setVisibility(View.GONE);
             binding.notificationLayout.setVisibility(View.VISIBLE);
@@ -70,6 +90,70 @@ public class PermissionActivity extends AppCompatActivity {
             );
         }
 
+        binding.skipMedia.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Do you really want to skip??")
+                    .setMessage("If you skip this permission you cant use the status saver tools or save any QR")
+                    .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                    .setPositiveButton("Yes", ((dialog, which) -> {
+                        dialog.dismiss();
+                        binding.mediaLayout.setVisibility(View.GONE);
+                        binding.cameraLayout.setVisibility(View.VISIBLE);
+                    }))
+                    .show();
+        });
+        binding.skipCamera.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Do you really want to skip??")
+                    .setMessage("If you skip this permission you cant use QR Scanning Tool")
+                    .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                    .setPositiveButton("Yes", ((dialog, which) -> {
+                        dialog.dismiss();
+                        binding.mediaLayout.setVisibility(View.GONE);
+                        binding.cameraLayout.setVisibility(View.GONE);
+                        if (SDK_INT >= Build.VERSION_CODES.Q) {
+                            binding.storyLayout.setVisibility(View.VISIBLE);
+                        } else {
+                            binding.notificationLayout.setVisibility(View.VISIBLE);
+                        }
+                    }))
+                    .show();
+        });
+        binding.skipStory.setOnClickListener(v -> {
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Do you really want to skip??")
+                    .setMessage("If you skip this permission you cant be able to see you friends status to save or share")
+                    .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                    .setPositiveButton("Yes", ((dialog, which) -> {
+                        dialog.dismiss();
+                        binding.mediaLayout.setVisibility(View.GONE);
+                        binding.cameraLayout.setVisibility(View.GONE);
+                        binding.storyLayout.setVisibility(View.GONE);
+                        binding.notificationLayout.setVisibility(View.VISIBLE);
+                    }))
+                    .show();
+        });
+
+        binding.skipNotiifcation.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Do you really want to skip??")
+                    .setMessage("If you skip this permission you cant be able to see you friends deleted Chats")
+                    .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                    .setPositiveButton("Yes", ((dialog, which) -> {
+                        dialog.dismiss();
+                        startActivity(new Intent(PermissionActivity.this, MainActivity.class));
+                        finish();
+                    }))
+                    .show();
+
+        });
+
+        binding.allowCamera.setOnClickListener(v -> {
+            shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA);
+            ActivityCompat.requestPermissions(PermissionActivity.this, new String[]{android.Manifest.permission.CAMERA}, 2);
+        });
+
         binding.allowMedia.setOnClickListener(v -> {
             if (!Constants.isPermissionGranted(PermissionActivity.this)) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -78,12 +162,10 @@ public class PermissionActivity extends AppCompatActivity {
                     shouldShowRequestPermissionRationale(android.Manifest.permission.READ_MEDIA_AUDIO);
                     shouldShowRequestPermissionRationale(android.Manifest.permission.READ_MEDIA_VIDEO);
                     shouldShowRequestPermissionRationale(android.Manifest.permission.READ_MEDIA_IMAGES);
-                    shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA);
                     ActivityCompat.requestPermissions(PermissionActivity.this, Constants.permissions13, 1);
                 } else {
                     shouldShowRequestPermissionRationale(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
                     shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE);
-                    shouldShowRequestPermissionRationale(Manifest.permission.CAMERA);
                     ActivityCompat.requestPermissions(PermissionActivity.this, Constants.permissions, 1);
                 }
             }
@@ -165,6 +247,7 @@ public class PermissionActivity extends AppCompatActivity {
 
                         Stash.put(Constants.WaSavedRoute, directoryUri.toString());
                         binding.mediaLayout.setVisibility(View.GONE);
+                        binding.cameraLayout.setVisibility(View.GONE);
                         binding.storyLayout.setVisibility(View.GONE);
                         binding.notificationLayout.setVisibility(View.VISIBLE);
                         initFolders();
@@ -215,8 +298,15 @@ public class PermissionActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1) {
             binding.mediaLayout.setVisibility(View.GONE);
-            binding.storyLayout.setVisibility(View.VISIBLE);
+            binding.cameraLayout.setVisibility(View.VISIBLE);
             Stash.put("PERMS", 2);
+        } else if (requestCode == 2){
+            if (SDK_INT >= Build.VERSION_CODES.Q) {
+                binding.cameraLayout.setVisibility(View.GONE);
+                binding.storyLayout.setVisibility(View.VISIBLE);
+            } else {
+                binding.notificationLayout.setVisibility(View.VISIBLE);
+            }
         } else if (requestCode == 3) {
             if (!Constants.isNotificationServiceEnabled(this)) {
                 Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");

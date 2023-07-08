@@ -19,9 +19,9 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Constants.adjustFontScale(SettingActivity.this);
         binding = ActivitySettingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         binding.backbtn.setOnClickListener(v -> {
             onBackPressed();

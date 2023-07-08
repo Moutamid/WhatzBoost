@@ -51,8 +51,8 @@ public class StickerPackListActivity extends AddStickerPackkkActivity {
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+        Constants.adjustFontScale(StickerPackListActivity.this);
         setContentView((int) R.layout.activity_sticker_pack_list);
-        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
 
         MaterialCardView backBtn = findViewById(R.id.backbtn);

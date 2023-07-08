@@ -2183,7 +2183,8 @@
     <!--    <string name="enable_stories">Unlock WhatsApp stories with ease! Enable the Stories folder to enjoy captivating moments shared by your contacts. Your privacy is important to us, and this permission is solely for enhancing your storytelling experience.</string>-->
 
     <string name="enable_notifications">Enable notification permissions to receive real-time push notifications, including important updates, and even access to view deleted messages.</string>
-    <string name="enable_media">Grant access to your camera for seamless QR code scanning. Additionally, enable file and media permissions to effortlessly save QR codes, save &amp; view images and videos.</string>
+    <string name="enable_media">Grant access to your file and media permissions to effortlessly save QR codes, save &amp; view images and videos.</string>
+    <string name="enable_camera">Grant access to your camera for seamless QR code scanning. </string>
     <string name="enable_stories">Unlock WhatsApp stories with ease! Enable the Stories folder to enjoy captivating moments shared by your contacts.</string>
     <string name="advertise_guide">When you see the dot above any tool it mean you have to watch an AD to unlock the tool</string>
     <string name="new_version">Exciting news! The new version of our app is now available. Don\'t miss out, go ahead and update the app today!</string>

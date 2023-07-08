@@ -84,9 +84,9 @@ public class ChatDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Constants.adjustFontScale(ChatDetailActivity.this);
         binding = ActivityChatDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         binding.backbtn.setOnClickListener(v -> {
             onBackPressed();

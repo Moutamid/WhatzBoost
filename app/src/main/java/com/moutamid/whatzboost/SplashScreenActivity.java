@@ -2,10 +2,12 @@ package com.moutamid.whatzboost;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,12 +25,12 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Constants.adjustFontScale(SplashScreenActivity.this);
         setContentView(R.layout.activity_splash_screen);
-        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 //        startActivity(new Intent(this, TestActivity.class));
 //        finish();
         new Handler().postDelayed(() -> {
-            if (!Constants.isPermissionGranted(SplashScreenActivity.this) && !Constants.isNotificationServiceEnabled(SplashScreenActivity.this)) {
+            if (!Constants.isPermissionGranted(SplashScreenActivity.this) && !Constants.isNotificationServiceEnabled(SplashScreenActivity.this) && ContextCompat.checkSelfPermission(SplashScreenActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 Dialog dialog = new Dialog(SplashScreenActivity.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.permission_dialg);

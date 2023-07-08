@@ -26,8 +26,8 @@ public class StickerPackInfoActivity extends BaseeActivity {
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+        Constants.adjustFontScale(StickerPackInfoActivity.this);
         setContentView((int) R.layout.activity_sticker_pack_info);
-        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
         String stringExtra = getIntent().getStringExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_TRAY_ICON);
         final String stringExtra2 = getIntent().getStringExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_WEBSITE);
         final String stringExtra3 = getIntent().getStringExtra(StickerPackDetailsActivity.EXTRA_STICKER_PACK_EMAIL);

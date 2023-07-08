@@ -20,9 +20,9 @@ public class CaptionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Constants.adjustFontScale(CaptionsActivity.this);
         binding = ActivityCaptionsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Constants.adjustFontScale(getBaseContext(), getResources().getConfiguration());
 
         binding.backbtn.setOnClickListener(v -> {
             onBackPressed();
