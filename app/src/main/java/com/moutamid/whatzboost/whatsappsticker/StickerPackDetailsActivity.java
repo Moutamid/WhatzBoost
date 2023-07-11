@@ -217,7 +217,7 @@ public class StickerPackDetailsActivity extends AddStickerPackkkActivity {
         public void onPostExecute(Boolean bool) {
             StickerPackDetailsActivity stickerPackDetailsActivity = (StickerPackDetailsActivity) this.stickerPackDetailsActivityWeakReference.get();
             if (stickerPackDetailsActivity != null) {
-                stickerPackDetailsActivity.updateAddUI(bool);
+// TODO: COMMENTED               stickerPackDetailsActivity.updateAddUI(bool);
             }
         }
     }

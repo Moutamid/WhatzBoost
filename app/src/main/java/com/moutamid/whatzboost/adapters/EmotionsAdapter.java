@@ -34,7 +34,7 @@ public class EmotionsAdapter extends RecyclerView.Adapter<EmotionsAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.TextFaces.setText(this.ascii[holder.getAbsoluteAdapterPosition()]);
 
-        holder.WhatsApp.setOnClickListener(new View.OnClickListener() {
+        /*holder.WhatsApp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String FACE = ascii[holder.getAbsoluteAdapterPosition()];
                 Intent whatsappIntent = new Intent("android.intent.action.SEND");
@@ -47,7 +47,7 @@ public class EmotionsAdapter extends RecyclerView.Adapter<EmotionsAdapter.MyView
                     Toast.makeText(context, "Whatsapp have not been installed.", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
 
 
         //Share button clicked event
@@ -74,12 +74,12 @@ public class EmotionsAdapter extends RecyclerView.Adapter<EmotionsAdapter.MyView
     class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView Share;
         TextView TextFaces;
-        ImageView WhatsApp;
+//        ImageView WhatsApp;
 
         MyViewHolder(View itemView) {
             super(itemView);
             this.TextFaces = itemView.findViewById(R.id.txt);
-            this.WhatsApp = itemView.findViewById(R.id.whats);
+//            this.WhatsApp = itemView.findViewById(R.id.whats);
             this.Share = itemView.findViewById(R.id.share);
         }
     }

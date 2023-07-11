@@ -455,7 +455,7 @@ public class Constants {
         for (int i = 0; i < views.length; i++) {
            try {
                int randomIndex = random.nextInt(views.length - i);
-               int s = Stash.getInt(Ads.DOTS_FREQUENCY, 4);
+               int s = Stash.getInt(Ads.DOTS_FREQUENCY, 100);
                int freq = random.nextInt(s);
                if (freq == 1 || freq == 0) {
                    ViewAdIndicatorBinding pickedView = views[randomIndex];

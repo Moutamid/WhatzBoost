@@ -60,7 +60,7 @@
         android:layout_marginStart="12sp"
         android:layout_marginEnd="12sp"
         android:gravity="end"
-        android:text="Enojy According to your mood"
+        android:text="Enjoy according to your mood"
         android:textColor="@color/text_off"
         android:textSize="18sp" />
 

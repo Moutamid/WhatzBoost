@@ -143,7 +143,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
         Set<Integer> indices = new HashSet<>();
         Random random = new Random();
 //        Toast.makeText(context, "s " + s, Toast.LENGTH_SHORT).show();
-        int s = Stash.getInt(Ads.DOTS_FREQUENCY, 4);
+        int s = Stash.getInt(Ads.DOTS_FREQUENCY, 100);
         boolean showRandomOnly = (s == 1 || s == 0);
         if (!showRandomOnly) {
             for (int i = 0; i < dataSize; i++) {
