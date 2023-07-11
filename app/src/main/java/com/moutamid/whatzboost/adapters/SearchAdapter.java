@@ -13,6 +13,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +23,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.moutamid.whatzboost.R;
 import com.moutamid.whatzboost.adsense.Ads;
 import com.moutamid.whatzboost.constants.Constants;
+import com.moutamid.whatzboost.databinding.ViewAdIndicatorBinding;
 import com.moutamid.whatzboost.listners.SearchLister;
 import com.moutamid.whatzboost.models.SearchModel;
 import com.moutamid.whatzboost.ui.TextToEmojiActivity;
@@ -83,7 +85,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
 
                     scaleDownn.start();
 
-                    new Handler().postDelayed(()-> {
+                    new Handler().postDelayed(() -> {
                         ObjectAnimator scaleDownX3 = ObjectAnimator.ofFloat(v,
                                 "scaleX", 1f);
                         ObjectAnimator scaleDownY3 = ObjectAnimator.ofFloat(v,
@@ -140,26 +142,38 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
     private Set<Integer> generateRandomIndices(int dataSize) {
         Set<Integer> indices = new HashSet<>();
         Random random = new Random();
+//        Toast.makeText(context, "s " + s, Toast.LENGTH_SHORT).show();
         int s = Stash.getInt(Ads.DOTS_FREQUENCY, 4);
-        int freq = random.nextInt(s);
-        boolean showRandomOnly = ( freq == 1 || freq==0 );
+        boolean showRandomOnly = (s == 1 || s == 0);
         if (!showRandomOnly) {
-            while ((indices.size() < Math.min(5, dataSize))) {
-                indices.add(random.nextInt(dataSize));
+            for (int i = 0; i < dataSize; i++) {
+                int randomIndex = random.nextInt(dataSize - i);
+                int freq = random.nextInt(s);
+                if (freq == 1 || freq == 0) {
+                    indices.add(random.nextInt(dataSize));
+                }
             }
         } else {
             for (int i = 0; i < dataSize; i++) {
                 indices.add(i);
             }
         }
-
+//            if (!showRandomOnly) {
+//                while ((indices.size() < Math.min(freq, dataSize))) {
+//                    indices.add(random.nextInt(dataSize));
+//                }
+//            } else {
+//                for (int i = 0; i < dataSize; i++) {
+//                    indices.add(i);
+//                }
+//            }
         return indices;
     }
 
     @Override
     public int getItemCount() {
-        if (Stash.getBoolean(Constants.RECENTS, false)){
-            return list.size()>6 ? 6 : list.size();
+        if (Stash.getBoolean(Constants.RECENTS, false)) {
+            return list.size() > 6 ? 6 : list.size();
         }
         return list.size();
     }
@@ -175,11 +189,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             ArrayList<SearchModel> filterList = new ArrayList<>();
-            if (charSequence.toString().isEmpty()){
+            if (charSequence.toString().isEmpty()) {
                 filterList.addAll(listAll);
             } else {
-                for (SearchModel listModel : listAll){
-                    if (listModel.getName().toLowerCase().contains(charSequence.toString().toLowerCase())){
+                for (SearchModel listModel : listAll) {
+                    if (listModel.getName().toLowerCase().contains(charSequence.toString().toLowerCase())) {
                         filterList.add(listModel);
                     }
                 }
