@@ -62,6 +62,7 @@ import com.moutamid.whatzboost.whatsappsticker.StickerPackValidator;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -96,7 +97,7 @@ public class RecentsFragment extends Fragment {
     private void getData() {
         ArrayList<SearchModel> list = new ArrayList<>();
         ArrayList<SearchModel> temp = Stash.getArrayList(Constants.RECENTS_LIST, SearchModel.class);
-       // Collections.reverse(temp);
+        Collections.reverse(temp);
         if (temp.size() > 6){
             for (int i =0; i<6; i++) {
                 list.add(temp.get(i));
@@ -124,7 +125,7 @@ public class RecentsFragment extends Fragment {
                     } else startActivity(new Intent(requireContext(), VideoSplitterActivity.class));
                     // finish();
                     break;
-                case "Whatsapp\nWeb":
+                case "WA\nWeb":
                     if (showAd){
                         startCounter(view_counter, WhatsWebActivity.class, dot);
                     } else startActivity(new Intent(requireContext(), WhatsWebActivity.class));

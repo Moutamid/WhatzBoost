@@ -97,7 +97,7 @@ public class SearchActivity extends AppCompatActivity {
         list.clear();
         list.add(new SearchModel( R.drawable.bin, "Deleted\nMessages"));
         list.add(new SearchModel( R.drawable.split, "Video\nSplitter"));
-        list.add(new SearchModel( R.drawable.whatsweb, "Whatsapp\nWeb"));
+        list.add(new SearchModel( R.drawable.whatsweb, "WA\nWeb"));
         list.add(new SearchModel( R.drawable.chat, "Open\nWA Profile"));
         list.add(new SearchModel( R.drawable.download, "Status\nSaver"));
         list.add(new SearchModel( R.drawable.repeat, "Text\nRepeater"));
@@ -149,7 +149,7 @@ public class SearchActivity extends AppCompatActivity {
                     } else startActivity(new Intent(SearchActivity.this, VideoSplitterActivity.class));
                    // finish();
                     break;
-                case "Whatsapp\nWeb":
+                case "WA\nWeb":
                     if (showAd){
                         startCounter(view_counter, WhatsWebActivity.class, dot);
                     } else startActivity(new Intent(SearchActivity.this, WhatsWebActivity.class));

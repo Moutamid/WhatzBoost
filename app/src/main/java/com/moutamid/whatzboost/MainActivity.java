@@ -61,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
         Constants.checkApp(this);
         getApi();
 
+        if (Stash.getBoolean("assosiate", true)){
+            show();
+        }
+
         new Thread(() -> {
 
             ArrayList<NotiModel> linesList = new ArrayList<>();
@@ -230,6 +234,23 @@ public class MainActivity extends AppCompatActivity {
 
         binding.searchBadge.setOnTouchListener(Constants.customOnTouchListner(SearchActivity.class, this, this, false, null, null));
 
+    }
+
+    private void show() {
+        Dialog dialog = new Dialog(MainActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.assosiation_dialg);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCancelable(false);
+
+        Button cancel = dialog.findViewById(R.id.ok);
+
+        cancel.setOnClickListener(v -> {
+            Stash.put("assosiate", false);
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 
     @Override

@@ -22,7 +22,7 @@
     <string name="reply">REPLY</string>
     <string name="mark_as_read">Mark as Read</string>
 
-    <string name="split_msg"><b>Have longer video and unable to upload the whole video to Whatsapp status?</b><br /> <br /> No Issues!!!!! Use our <b>video splitter</b> to split and upload the whole video in one go.</string>
+    <string name="split_msg"><b>Have longer video and unable to upload the whole video to WA status?</b><br /> <br /> No Issues!!!!! Use our <b>video splitter</b> to split and upload the whole video in one go.</string>
 
     <!--  Captions  -->
 
@@ -1765,7 +1765,7 @@
         <item>Forgive, yes. Forget, never.</item>
         <item>There’s a hole in my heart where you use to be.</item>
         <item>I don’t need any part-time people in my life.</item>
-        <item>Your WhatsApp status says online, if you’re online then why aren’t you texting me</item>
+        <item>Your WA status says online, if you’re online then why aren’t you texting me</item>
         <item>Help me please, I’m bored</item>
         <item>Deal with it</item>
         <item>Not all girls are made of sugar and spice, and everything nice. Some are made of sarcasm, wine and everything</item>
@@ -2159,9 +2159,9 @@
     </string-array>
 
     <string name="dot">•</string>
-    <string name="add_button_content_description">Add sticker pack to WhatsApp</string>
-    <string name="add_to_whatsapp">Add to WhatsApp</string>
-    <string name="details_pack_already_added">Sticker pack added to WhatsApp</string>
+    <string name="add_button_content_description">Add sticker pack to WA</string>
+    <string name="add_to_WA">Add to WA</string>
+    <string name="details_pack_already_added">Sticker pack added to WA</string>
     <string name="tray_image_content_description">Sticker Pack Tray Image</string>
     <string name="info_screen_tray_icon">Tray icon</string>
     <string name="view_webpage">View webpage</string>
@@ -2171,7 +2171,7 @@
 
     <string name="title_activity_sticker_pack_details_multiple_pack">Sticker Details</string>
     <string name="title_activity_sticker_pack_details_single_pack">Sticker Pack</string>
-    <string name="title_activity_sticker_packs_list">My WhatsApp Sticker App</string>
+    <string name="title_activity_sticker_packs_list">My WA Sticker App</string>
     <string name="title_activity_sticker_pack_info">Info</string>
     <string name="info_send_email_to_prompt">Send email with</string>
     <string name="lorem15">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi magni optio ullam, veritatis!</string>
@@ -2180,16 +2180,17 @@
 
     <!--    <string name="enable_notifications">Never miss a beat and stay up-to-date with our app! Enable notification permissions to receive real-time push notifications, including important updates, new messages, and even access to <u>view deleted messages</u>. Rest assured, we respect your privacy and will only send notifications that are relevant and valuable to enhance your app experience.</string>-->
     <!--    <string name="enable_media">Unleash the full potential of our app! Grant access to your camera for seamless QR code scanning, unlocking exciting features and convenient interactions. Additionally, enable file and media permissions to effortlessly save and view images and videos, enhancing your media sharing and viewing experience. We prioritize your privacy and assure you that these permissions will solely be used for their intended purposes within the app.</string>-->
-    <!--    <string name="enable_stories">Unlock WhatsApp stories with ease! Enable the Stories folder to enjoy captivating moments shared by your contacts. Your privacy is important to us, and this permission is solely for enhancing your storytelling experience.</string>-->
+    <!--    <string name="enable_stories">Unlock WA stories with ease! Enable the Stories folder to enjoy captivating moments shared by your contacts. Your privacy is important to us, and this permission is solely for enhancing your storytelling experience.</string>-->
 
     <string name="enable_notifications">Enable notification permissions to receive real-time push notifications, including important updates, and even access to view deleted messages.</string>
     <string name="enable_media">Grant access to your file and media permissions to effortlessly save QR codes, save &amp; view images and videos.</string>
     <string name="enable_camera">Grant access to your camera for seamless QR code scanning. </string>
-    <string name="enable_stories">Unlock WhatsApp stories with ease! Enable the Stories folder to enjoy captivating moments shared by your contacts.</string>
+    <string name="enable_stories">Unlock WA stories with ease! Enable the Stories folder to enjoy captivating moments shared by your contacts.</string>
     <string name="advertise_guide">When you see the dot above any tool it mean you have to watch an AD to unlock the tool</string>
     <string name="new_version">Exciting news! The new version of our app is now available. Don\'t miss out, go ahead and update the app today!</string>
-    <string name="delete_guide">Introducing "Deleted Messages": a powerful WhatsApp tool that stores every received message, image, audio, or video, even if deleted by the sender. Never miss out on important conversations again and retrieve vanished content effortlessly.</string>
-    <string name="favrt_status">Save your favrouite status from whatsapp</string>
-    <string name="note_to_save_status">Note: To save status, first open whatsapp and see status then open this app and save the status you want to save</string>
+    <string name="delete_guide">Introducing "Deleted Messages": a powerful WA tool that stores every received message, image, audio, or video, even if deleted by the sender. Never miss out on important conversations again and retrieve vanished content effortlessly.</string>
+    <string name="favrt_status">Save your favrouite status from WA</string>
+    <string name="affiliate_text">Discover a refreshing app experience that is not affiliated or associated with WA in any way, providing you with a distinct and independent messaging experience.</string>
+    <string name="note_to_save_status">Note: To save status, first open WA and see status then open this app and save the status you want to save</string>
 
 </resources>

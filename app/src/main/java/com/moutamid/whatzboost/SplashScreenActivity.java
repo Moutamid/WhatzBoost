@@ -16,6 +16,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.fxn.stash.Stash;
 import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.ui.DeletedMessageActivity;
 import com.moutamid.whatzboost.ui.PermissionActivity;
@@ -30,7 +31,10 @@ public class SplashScreenActivity extends AppCompatActivity {
 //        startActivity(new Intent(this, TestActivity.class));
 //        finish();
         new Handler().postDelayed(() -> {
-            if (!Constants.isPermissionGranted(SplashScreenActivity.this) && !Constants.isNotificationServiceEnabled(SplashScreenActivity.this) && ContextCompat.checkSelfPermission(SplashScreenActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            if (!Constants.isPermissionGranted(SplashScreenActivity.this) &&
+                    !Constants.isNotificationServiceEnabled(SplashScreenActivity.this) &&
+                    ContextCompat.checkSelfPermission(SplashScreenActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED &&
+                    Stash.getBoolean("PERMISSION_REQ", true)) {
                 Dialog dialog = new Dialog(SplashScreenActivity.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.permission_dialg);
@@ -46,6 +50,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
                 Button grant = dialog.findViewById(R.id.grant);
                 grant.setOnClickListener(v -> {
+                    Stash.put("PERMISSION_REQ", false);
                     startActivity(new Intent(SplashScreenActivity.this, PermissionActivity.class));
                     finish();
                 });

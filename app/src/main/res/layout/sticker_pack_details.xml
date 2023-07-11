@@ -160,7 +160,7 @@
                     android:drawablePadding="8dp"
                     android:focusable="false"
                     android:foreground="@android:color/transparent"
-                    android:text="@string/add_to_whatsapp" />
+                    android:text="@string/add_to_WA" />
             </FrameLayout>
         </FrameLayout>
     </LinearLayout>

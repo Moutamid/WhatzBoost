@@ -41,6 +41,8 @@ android {
 
 dependencies {
 
+    implementation 'com.github.delight-im:Android-AdvancedWebView:v3.2.1'
+
     implementation 'com.facebook.android:audience-network-sdk:6.+'
     implementation 'com.google.android.gms:play-services-ads:22.1.0'
 
