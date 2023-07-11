@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fxn.stash.Stash;
 import com.google.android.material.card.MaterialCardView;
 import com.moutamid.whatzboost.R;
+import com.moutamid.whatzboost.adsense.Ads;
 import com.moutamid.whatzboost.constants.Constants;
 import com.moutamid.whatzboost.listners.SearchLister;
 import com.moutamid.whatzboost.models.SearchModel;
@@ -124,7 +125,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
 
                     scaleDown2.start();
                     new Handler().postDelayed(() -> {
-                        boolean showAd = holder.tool_view.getVisibility() == View.VISIBLE ? true : false;
+                        boolean showAd = holder.tool_view.getVisibility() == View.VISIBLE;
                         searchLister.click(list.get(holder.getAbsoluteAdapterPosition()).getName(), showAd, holder.dot, holder.view_counter);
                     }, 300);
 
@@ -139,10 +140,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
     private Set<Integer> generateRandomIndices(int dataSize) {
         Set<Integer> indices = new HashSet<>();
         Random random = new Random();
-
-        // Generate random indices between 0 and dataSize-1
-        while (indices.size() < Math.min(5, dataSize)) {
-            indices.add(random.nextInt(dataSize));
+        int s = Stash.getInt(Ads.DOTS_FREQUENCY, 4);
+        int freq = random.nextInt(s);
+        boolean showRandomOnly = ( freq == 1 || freq==0 );
+        if (!showRandomOnly) {
+            while ((indices.size() < Math.min(5, dataSize))) {
+                indices.add(random.nextInt(dataSize));
+            }
+        } else {
+            for (int i = 0; i < dataSize; i++) {
+                indices.add(i);
+            }
         }
 
         return indices;

@@ -108,7 +108,7 @@ public class SearchActivity extends AppCompatActivity {
         list.add(new SearchModel( R.drawable.poem,  "Poetry\n "));
         list.add(new SearchModel( R.drawable.emotions, "Emotions\n "));
         list.add(new SearchModel( R.drawable.magic_hat, "Text-to-Emoji"));
-        list.add(new SearchModel( R.drawable.fonticons,  "Font Fun"));
+        list.add(new SearchModel( R.drawable.fonticons,  "Font\nFun"));
         list.add(new SearchModel( R.drawable.barcode_scanner, "Qr\nScanner"));
         list.add(new SearchModel( R.drawable.qr_code, "Qr\nGenerator"));
         list.add(new SearchModel( R.drawable.comment, "Blank\nMessage"));

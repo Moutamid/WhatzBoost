@@ -2190,7 +2190,8 @@
     <string name="new_version">Exciting news! The new version of our app is now available. Don\'t miss out, go ahead and update the app today!</string>
     <string name="delete_guide">Introducing "Deleted Messages": a powerful WA tool that stores every received message, image, audio, or video, even if deleted by the sender. Never miss out on important conversations again and retrieve vanished content effortlessly.</string>
     <string name="favrt_status">Save your favrouite status from WA</string>
-    <string name="affiliate_text">Discover a refreshing app experience that is not affiliated or associated with WA in any way, providing you with a distinct and independent messaging experience.</string>
+<!--    <string name="affiliate_text">Discover a refreshing app experience that is not affiliated or associated with WA in any way, providing you with a distinct and independent experience.</string>-->
+    <string name="affiliate_text">We provide more than 16+ WA tools which can enhance your WA experience. We are not affiliated or associated with WA in any way. We are a distinct and independent tools app.</string>
     <string name="note_to_save_status">Note: To save status, first open WA and see status then open this app and save the status you want to save</string>
 
 </resources>
