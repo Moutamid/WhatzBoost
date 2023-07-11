@@ -57,10 +57,10 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/progress"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="210sp"
         android:layout_centerInParent="true"
         app:cardCornerRadius="12sp"
-        android:layout_margin="25sp"
+        android:layout_margin="20sp"
         app:cardBackgroundColor="@color/background"
         app:cardElevation="0sp">
 
@@ -80,12 +80,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Page is Loading..."
+                android:text="Please Wait"
                 android:gravity="center"
-                android:textColor="@color/text_off"
+                android:textColor="@color/off_white"
                 android:layout_margin="10sp"
-                android:fontFamily="@font/poppins"
-                android:textSize="16sp" />
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
